@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Group16 Submission Application</h1>
+	<hr>
+    <h2>Login</h2>
+    <form action="#" th:action="@{/loginPage}" th:object="${userObj}" method="post">
+    	<p>UserName: <input type="text" th:field="*{userName}" /></p>          <!-- text bar inputs -->
+        <p>Password:  <input type="text" th:field="*{password}" /></p>
+        <p><input type="submit" value="Submit" /> </p>                         <!-- buttons -->
+        <a href="/greeting">Sign Up</a>
+    </form>
+    
+</body>
+</html>
