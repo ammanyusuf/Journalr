@@ -1,0 +1,37 @@
+html, body {
+  background-color: #f8f8f8;
+}
+
+nav {
+  background-color: white;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+}
+
+.nav-link,
+.nav-link:hover,
+nav > a,
+nav > a:hover {
+  color: black;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* Login Page  */
+
+.login-box,
+.register-box {
+  background-color: white;
+  text-align: center;
+  width: 360px;
+  margin: 5% auto;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+  border-radius: 3%;
+  text-shadow: none;
+  padding: 20px 40px;
+}
+
+.form-group {
+  text-align: left;
+}

@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class GreetingController {
 
 	
-	@GetMapping("/loginPage")
+	@GetMapping("/login")
 	public String greetingForm1(Model model) {
 		model.addAttribute("userObj", new User());
-	    return "loginPage";                                            // greeting.html, returns html file page
+	    return "login";                                            // greeting.html, returns html file page
 	}	
 	
-	@PostMapping("/loginPage")                                             // after submit is clicked
+	@PostMapping("/login")                                             // after submit is clicked
 	public String loginSubmit(@ModelAttribute User user) {
 		//verify login
 		return "afterLogin";
