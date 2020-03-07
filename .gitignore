@@ -85,7 +85,10 @@ local.properties
 .mtj.tmp/
 
 # Package Files #
+<<<<<<< HEAD
 !maven-wrapper.jar
+=======
+>>>>>>> d8142fb2d988b1fa2d3ecd1432283c2dbbc5549a
 *.jar
 *.war
 *.nar
@@ -140,4 +143,10 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
+<<<<<<< HEAD
+=======
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
+
+>>>>>>> d8142fb2d988b1fa2d3ecd1432283c2dbbc5549a
 # End of https://www.gitignore.io/api/java,gradle,eclipse,visualstudiocode,maven
