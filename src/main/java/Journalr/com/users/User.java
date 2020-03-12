@@ -1,4 +1,4 @@
-package users;
+package Journalr.com.users;
 
 public abstract class User {
 
