@@ -1,13 +1,13 @@
-package Journalr.com.handlingsubmissionform;
+package Journalr.com;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HandlingFormSubmissionApplication {
+public class JournalrApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(HandlingFormSubmissionApplication.class, args);
+    SpringApplication.run(JournalrApplication.class, args);
   }
 
 }

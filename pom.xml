@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>Journalr.com</groupId>
-	<artifactId>handling-form-submission</artifactId>
+	<artifactId>Journalr-Application</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>handling-form-submission</name>
+	<name>Journalr-Application</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

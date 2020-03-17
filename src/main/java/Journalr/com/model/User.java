@@ -1,4 +1,4 @@
-package Journalr.com.handlingsubmissionform;
+package Journalr.com.model;
 
 public class User {
 

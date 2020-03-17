@@ -1,4 +1,4 @@
-package Journalr.com.users;
+package Journalr.com.model;
 
 public class Author extends User{
 
