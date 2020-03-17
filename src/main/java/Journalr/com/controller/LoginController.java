@@ -1,70 +1,35 @@
 package Journalr.com.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
-
-import Journalr.com.service.*;
-
+import Journalr.com.model.LoginForm;
 
 @Controller
-@SessionAttributes("name")
 public class LoginController {
-	
-    @Autowired 
-    LoginService service;
 
-	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public String showLoginPage(ModelMap model){
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public String getLoginForm() {
 		return "login";
 	}
 	
-	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String showWelcomePage(ModelMap model, @RequestParam String name, @RequestParam String password){
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String login(@ModelAttribute(name="loginForm") LoginForm loginForm, Model model) {
 		
-		boolean isValidUser = service.validateUser(name, password);
-
-		// Converts isValidUser to a string
-		//String strValidUser = String.valueOf(isValidUser);
-
-		if (!isValidUser) {
-			model.put("errorMessage", "Invalid Credentials");
-			return "login";
-		}
-		// 
-		else {
-			if (name.equalsIgnoreCase("author")) {
-				model.put("name", name);
-				model.put("password", password);     // model = user
-				return "authorMain";
-			}
-			if (name.equalsIgnoreCase("reviewer")) {
-				model.put("name", name);
-				model.put("password", password); 
-				return "reviewerMain";
-			}
-
-			if (name.equalsIgnoreCase("editor")) {
-				model.put("name", name);
-				model.put("password", password); 
-				return "editorMain";
-			}
+		String username = loginForm.getUsername();                     
+		String password = loginForm.getPassword();
+		
+		if ("admin".equals(username) && "adminPassword".equals(password)) {
+			return "home";                                              // this is where the validation is done
 		}
 		
-		return "something";
+		model.addAttribute("invalidCredentials", true);
+		return "login";
 		
-		/* if (isAuthor)
-		 * 		return "authorMain"
-		 * if (isReviewer)
-		 * 		return "reviewerMain"
-		 * if (isEditor) 
-		 * 		return "editorMain"
-		 */
 	}
-
 }
