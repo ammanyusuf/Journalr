@@ -45,15 +45,15 @@
     </nav>
 
     <div class="container-fluid">
-      <form
+      <!--<form
         class="login-box"
         action="#"
         th:action="@{/login}"
         th:object="${userObj}"
         method="post"
-      >
+      >-->
         <h3>Please Sign In</h3>
-        <div class="form-group">
+        <!--<div class="form-group">
           <label for="exampleInputEmail1">Username</label>
           <input
             type="text"
@@ -62,20 +62,41 @@
             placeholder="Username"
             required
           />
-        </div>
-        <div class="form-group">
-          <label for="inputPassword">Password</label>
+        </div>-->
+        <!--<div class="form-group">-->
+          <form method="POST">
+            <label for="username">Name</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              required
+            />
+            
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="Password"
+              required
+            />
+
+            <br/>
+		        <input type="submit" value="Log In" />
+          </form>
+          
+          <!--<label for="inputPassword">Password</label>
           <input
             type="password"
             class="form-control"
             th:field="*{password}"
             placeholder="Password"
             required
-          />
-        </div>
+          />-->
+        <!--</div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
         <p><a href="/greeting">Sign Up</a></p>
-      </form>
+      </form>-->
     </div>
 
     <script
