@@ -1,4 +1,4 @@
-package com.example.handlingformsubmission;
+package Journalr.com.model;
 
 public class Greeting {
 

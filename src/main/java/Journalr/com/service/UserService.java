@@ -1,6 +1,7 @@
-package com.example.handlingformsubmission;
+package Journalr.com.service;
 
 import java.util.List;
+import Journalr.com.model.*;
 
 public class UserService {
 
