@@ -53,7 +53,7 @@
         method="post"
       >
         <h3>Please Sign In</h3>
-        <div class="form-group">
+        <!--<div class="form-group">
           <label for="exampleInputEmail1">Username</label>
           <input
             type="text"
@@ -62,16 +62,34 @@
             placeholder="Username"
             required
           />
-        </div>
+        </div>-->
         <div class="form-group">
-          <label for="inputPassword">Password</label>
+          <form method="POST">
+            Name : <input
+              type="text"
+              class="form-control"
+              th:field="*{userName}"
+              placeholder="Username"
+              required
+            />
+            
+            Password : <input
+              type="password"
+              class="form-control"
+              th:field="*{password}"
+              placeholder="Password"
+              required
+            />
+          </form>
+          
+          <!--<label for="inputPassword">Password</label>
           <input
             type="password"
             class="form-control"
             th:field="*{password}"
             placeholder="Password"
             required
-          />
+          />-->
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
         <p><a href="/greeting">Sign Up</a></p>
