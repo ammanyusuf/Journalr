@@ -21,7 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import Journalr.com.storage.*;
+import Journalr.com.storage.StorageFileNotFoundException;
+import Journalr.com.storage.StorageService;
 
 @Controller
 public class FileUploadController {

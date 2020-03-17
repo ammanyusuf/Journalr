@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import Journalr.com.storage.*;
+import Journalr.com.storage.StorageService;
+import Journalr.com.storage.StorageProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
