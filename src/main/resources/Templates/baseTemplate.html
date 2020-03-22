@@ -16,7 +16,7 @@
 	</head>
 	
 	<body>
-		<nav th:fragment="topNav" class="navbar navbar-expand-lg">
+		<nav th:fragment="topNavWLogin" class="navbar navbar-expand-lg">
 	      <a class="navbar-brand" href="#">
 	        <span>Journalr</span>
 	      </a>
@@ -36,6 +36,21 @@
 	          </li>
 	        </ul>
 	      </div>
+	    </nav>
+	    
+	    <!-- Nav without login -->
+	    <nav th:fragment="topNav" class="navbar navbar-expand-lg">
+	      <a class="navbar-brand" href="#">
+	        <span>Journalr</span>
+	      </a>
+	      <button
+	        class="navbar-toggler navbar-light"
+	        type="button"
+	        data-toggle="collapse"
+	        data-target="#navbarTogglerDemo01"
+	      >
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
 	    </nav>
 	</body>
 

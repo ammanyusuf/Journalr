@@ -41,7 +41,8 @@ public class LoginController {
 	
 	// Kevin's temporary reviewer route
 		@RequestMapping(value="/reviewer", method=RequestMethod.GET)
-		public String reviewerHome() {
+		public String reviewerHome(Model model) {
+			model.addAttribute("pageTitle", "Reviewer");
 			return "reviewer";
 		}
 }
