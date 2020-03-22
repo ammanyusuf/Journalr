@@ -32,4 +32,10 @@ public class LoginController {
 		return "login";
 		
 	}
+
+	// Harry's temporary author route
+	@RequestMapping(value="/authorHarry", method=RequestMethod.GET)
+	public String getAuthorHarry() {
+		return "authorHarry";
+	}
 }
