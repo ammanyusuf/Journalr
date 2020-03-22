@@ -38,4 +38,10 @@ public class LoginController {
 	public String getAuthorHarry() {
 		return "authorHarry";
 	}
+	
+	// Kevin's temporary reviewer route
+		@RequestMapping(value="/reviewer", method=RequestMethod.GET)
+		public String reviewerHome() {
+			return "reviewer";
+		}
 }

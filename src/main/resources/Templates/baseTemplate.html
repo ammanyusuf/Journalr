@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head th:fragment="header">
+		<title th:text="${pageTitle}">Title</title>
+		
+		<link th:href="@{/css/styles.css}" rel="stylesheet"/>
+		
+		<!-- Bootstrap Stylesheet -->
+	    <link
+	      rel="stylesheet"
+	      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	      crossorigin="anonymous"
+	    />
+	</head>
+	
+	<body>
+		<nav th:fragment="topNav" class="navbar navbar-expand-lg">
+	      <a class="navbar-brand" href="#">
+	        <span>Journalr</span>
+	      </a>
+	      <button
+	        class="navbar-toggler navbar-light"
+	        type="button"
+	        data-toggle="collapse"
+	        data-target="#navbarTogglerDemo01"
+	      >
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
+	      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+	        <ul class="navbar-nav ml-auto">
+	          <li></li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="/login">Login</a>
+	          </li>
+	        </ul>
+	      </div>
+	    </nav>
+	</body>
+
+</html>
