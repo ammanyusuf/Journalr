@@ -78,9 +78,15 @@ html, body {
 #scroller {
 	height:100%;
     overflow-y: scroll;
+    background-color:#4287f5;
 }
 
 .journal-item {
+	padding-left:5%;
 	padding-top:3%;
 	padding-bottom:3%;
+}
+
+.card {
+	width: 95%;
 }
