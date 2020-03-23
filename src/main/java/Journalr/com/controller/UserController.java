@@ -25,7 +25,14 @@ public class UserController {
             aUser.setLastName(lastName);
             userRepository.save(aUser);
             return "Saved";
-        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path="/delete")
+    public @ResponseBody String deleteUser(@RequestParam String id) {
+        int UID = Integer.parseInt(id);
+        userRepository.deleteById(UID);
+        return "Deleted User";
+    }
 
     @RequestMapping(path="/all")
     public @ResponseBody Iterable<User> getAllUsers() {
