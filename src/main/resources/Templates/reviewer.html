@@ -9,23 +9,73 @@
 	     
 	     <div class="container-fluid full-height">
 	     	<div class="row full-height">
-	     		<div class="col-3" id="userTabCol">
-	     			<div class="row-5 d-flex align-items-center" id="reviewerInfo">
+	     		<div class="col-sm-3" id="userTabCol">
+	     			<div class="row-3 d-flex align-items-center" id="reviewerInfo">
 	     				<h4>Welcome, Reviewer</h4>
 	     			</div>
-	     			<div class="row-10" id="reviewerNav">
+	     			<div class="row-6" id="reviewerNav" style="height: 100%;">
 	     				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-						  <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-						  <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Journals</a>
-						  <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Authors</a>
+						  <a class="nav-link active" id="home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+						  <a class="nav-link" id="journals-tab" data-toggle="pill" href="#v-pills-journals" role="tab" aria-controls="v-pills-journals" aria-selected="false">Journals</a>
+						  <a class="nav-link" id="authors-tab" data-toggle="pill" href="#v-pills-authors" role="tab" aria-controls="v-pills-authors" aria-selected="false">Authors</a>
 						  <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
 						</div>
 	     			</div>
 	     			
 	     		</div>
 	     		
-	     		<div class="col-9">
-	     			Page Related
+	     		<div class="col-sm-9" id="scroller">
+	     			<div class="row align-items-center journal-item">
+     					<div class="card" style="width: 18rem;">
+						  <div class="card-header">
+						    Submission Updates
+						  </div>
+						  <ul class="list-group list-group-flush">
+						    <li class="list-group-item">Bob Jones submitted a revision of a CompSciTrack journal. <a href="#">View</a></li>
+						    <li class="list-group-item">Linda Wyoming sumbitted a revision of a PavanWeekly journal. <a href="#">View</a> </li>
+						    <li class="list-group-item">Anna Belle submitted a revision of a SENG time journal. <a href="#">View</a></li>
+						  </ul>
+						</div>
+     				</div>
+     		
+     				<div class="row align-items-center journal-item" >
+     					<div class="card" style="width: 18rem;">
+						  <div class="card-header">
+						    Authors Assigned
+						  </div>
+						  <ul class="list-group list-group-flush">
+						    <li class="list-group-item">Jacob Scott <a href="#">View</a></li>
+						    <li class="list-group-item">Marge Robinson <a href="#">View</a></li>
+						    <li class="list-group-item">Morty Briggs <a href="#">View</a></li>
+						  </ul>
+						</div>
+     				</div>
+     				
+     				<div class="row align-items-center journal-item">
+     					<div class="card" style="width: 18rem;">
+						  <div class="card-header">
+						    Featured
+						  </div>
+						  <ul class="list-group list-group-flush journal-item">
+						    <li class="list-group-item">Cras justo odio</li>
+						    <li class="list-group-item">Dapibus ac facilisis in</li>
+						    <li class="list-group-item">Vestibulum at eros</li>
+						  </ul>
+						</div>
+     				</div>
+     				
+     				<div class="row align-items-center journal-item">
+     					<div class="card" style="width: 18rem;">
+						  <div class="card-header">
+						    Featured
+						  </div>
+						  <ul class="list-group list-group-flush">
+						    <li class="list-group-item">Cras justo odio</li>
+						    <li class="list-group-item">Dapibus ac facilisis in</li>
+						    <li class="list-group-item">Vestibulum at eros</li>
+						  </ul>
+						</div>
+     				</div>	
 	     		</div>
 	     	</div>
 	     </div>

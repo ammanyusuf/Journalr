@@ -57,7 +57,9 @@ nav > a:hover {
 
 /* Reviewer Main page divisions */
 html, body {
+	margin: 0;
     height:100%;
+    overflow: hidden;
 }
 
 .full-height {
@@ -71,4 +73,14 @@ html, body {
 
 #reviewerInfo {
 	height:20%;
+}
+
+#scroller {
+	height:100%;
+    overflow-y: scroll;
+}
+
+.journal-item {
+	padding-top:3%;
+	padding-bottom:3%;
 }
