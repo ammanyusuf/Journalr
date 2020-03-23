@@ -6,23 +6,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import Journalr.com.model.*;
+
 @Entity
-@Inheritance
+//@Inheritance
 public class Reviewer extends User{
 
-    @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private int reviewerID; 
-    
-    private Paper aPaper;
+    //private Paper aPaper;                 this part is giving some issues because it could not find a Paper type in sql, may have to join with preimary keys
+
+    public Reviewer() {}
 
 	public Reviewer(String userName, String firstName, String lastName, String email, String password) {
 		super(userName, firstName, lastName, email, password);
     }
 
-    public Reviewer (Paper aPaper) {
-        this.aPaper = aPaper;
-    }
+    /*public Reviewer (Paper aPaper) {
+        //this.aPaper = aPaper;
+    }*/
     
 	public void reviewPaper () {
         //Search by topic that interests reviewer -> topic 

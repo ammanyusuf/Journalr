@@ -7,13 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Inheritance
+//@Inheritance
 public class Editor extends User{
 
-    @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private int editorID; 
-    
+    public Editor() {}
 
 	public Editor(String userName, String firstName, String lastName, String email, String password) {
 		super(userName, firstName, lastName, email, password);

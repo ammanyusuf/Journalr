@@ -1,22 +1,23 @@
 package Journalr.com.model;
 
-import java.util.ArrayList;
-
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import java.util.ArrayList;
+
+
+//@Inheritance
 @Entity
-@Inheritance
 public class Author extends User{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int authorID; 
-
 	private ArrayList<Paper> papers = new ArrayList<Paper>();
+
+	private Boolean enabled;
+
+	public Author() {}
 
 	public Author(String userName, String firstName, String lastName, String email, String password) {
 		super(userName, firstName, lastName, email, password);
