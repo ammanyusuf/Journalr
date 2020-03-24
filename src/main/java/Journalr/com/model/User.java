@@ -18,13 +18,17 @@ public class User {
 
 	private String userName;
 
+	private String password;
+
+	private boolean active;
+	
+	private String roles;
+
 	private String firstName;
 
 	private String lastName;
 
 	private String email;
-
-	private String password;
 	
 	public User() {
 		
@@ -77,6 +81,22 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
 
 	@Override
 	public String toString() {
