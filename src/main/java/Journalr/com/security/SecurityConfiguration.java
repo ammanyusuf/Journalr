@@ -34,7 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/reviewer").hasAnyRole("REVIEWER", "ADMIN")
 				.antMatchers("/editor").hasAnyRole("EDITOR", "ADMIN")
 				.antMatchers("/user").hasAnyRole("USER", "ADMIN")
-				
+				.antMatchers("/add").permitAll()					// the admin can add users
+				.antMatchers("/all").permitAll()					// the admin can see all users
 				.anyRequest().authenticated()                                 // any url request before login would be redirected to login page, except the permitted ones
 				.and()
 				.csrf().disable()                                             // allows for post and get requests
