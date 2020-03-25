@@ -54,8 +54,8 @@ public class LoginController {
 		userRepository.save(user);
 		return "login";
 	}
-	*/
-	
+  */
+
 	//this method redirects the newly authenticated user to the appropriate page based on their role (ex. admin goes to adminPage , author, etc...)
 	@RequestMapping("/home")
 	public String processLogin() {
@@ -77,4 +77,9 @@ public class LoginController {
 	  return "redirect:/";
 	}
 
+	// Harry's temporary author route
+	@RequestMapping(value="/authorHarry", method=RequestMethod.GET)
+	public String getAuthorHarry() {
+		return "authorHarry";
+	}
 }

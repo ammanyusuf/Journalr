@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   background-color: #f8f8f8;
 }
 
@@ -18,20 +19,38 @@ nav > a:hover {
   text-decoration: underline;
 }
 
+.login-box,
+.dashboard {
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+}
+
 /* Login Page  */
 
-.login-box,
-.register-box {
-  background-color: white;
-  text-align: center;
+.login-box {
   width: 360px;
   margin: 5% auto;
   box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
-  border-radius: 3%;
-  text-shadow: none;
-  padding: 20px 40px;
+  padding: 40px 40px;
 }
 
 .form-group {
   text-align: left;
+}
+
+/* Dashboard */
+
+.dashboard {
+  margin: 50px 80px;
+  padding: 30px 30px;
+}
+
+.dashboard-topbar {
+  text-align: left;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight:bold;
 }
