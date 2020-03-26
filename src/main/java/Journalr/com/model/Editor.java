@@ -1,5 +1,6 @@
 package Journalr.com.model;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.GeneratedValue;
@@ -7,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-//@Inheritance
+@DiscriminatorValue("ROLE_EDITOR")
 public class Editor extends User{
 
     public Editor() {}

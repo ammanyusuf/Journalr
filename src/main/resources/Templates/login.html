@@ -45,33 +45,21 @@
     </nav>
 
     <div class="container-fluid">
-      <form method="POST" class="login-box">
+      <form th:action="@{/login}" th:object="${loginForm}" method="post">
         <h3>Please Sign In</h3>
         <div class="form-group">
+
           <label for="username">Username</label>
-          <input
-            type="text"
-            class="form-control"
-            id="username"
-            name="username"
-            required
-          />
+          <input type="text" id="username" name="username" autofocus="autofocus"/> 
+          
         </div>
         <div class="form-group">
+
           <label for="password">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            name="Password"
-            required
-          />
+          <input type="password" id="password" name="password" />
+
         </div>
-        <input
-          type="submit"
-          value="Log In"
-          class="btn btn-primary btn-lg btn-block"
-        />
+        <input type="submit" value="Log In" />
       </form>
     </div>
 

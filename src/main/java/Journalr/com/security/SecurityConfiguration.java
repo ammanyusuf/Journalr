@@ -30,6 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin").hasRole("ADMIN")
 				.antMatchers("/", "/home", "/signUp").permitAll()             // permitted pages (no need login)
 				.antMatchers("/author").hasAnyRole("AUTHOR", "ADMIN")         // admin can access these other pages
+				.antMatchers("/authorHarry").hasAnyRole("AUTHOR", "ADMIN") 
 				.antMatchers("/uploadForm").hasAnyRole("AUTHOR", "ADMIN")
 				.antMatchers("/reviewer").hasAnyRole("REVIEWER", "ADMIN")
 				.antMatchers("/editor").hasAnyRole("EDITOR", "ADMIN")
@@ -37,13 +38,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/add").permitAll()					// the admin can add users
 				.antMatchers("/all").permitAll()					// the admin can see all users
 				.anyRequest().authenticated()                                 // any url request before login would be redirected to login page, except the permitted ones
-				.and()
+			.and()
 				.csrf().disable()                                             // allows for post and get requests
-			.formLogin()//.defaultSuccessUrl("/home");                        // use default login page and logout,  // if you use your own login page, you need to supply the logout page // default login page does not have sign up
+				.formLogin()//.defaultSuccessUrl("/home");                        // use default login page and logout,  // if you use your own login page, you need to supply the logout page // default login page does not have sign up
 				.loginPage("/login").defaultSuccessUrl("/home")               // after a successful login (user verified) , when the "/home" is called, a method in the login controller is executed to redirect the user to the appropriate page 
 				.permitAll()                                            
-				.and()
-			.logout()
+			.and()
+				.logout()
 				.permitAll();
 				
 	}

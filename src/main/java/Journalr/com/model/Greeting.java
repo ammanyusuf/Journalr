@@ -1,4 +1,4 @@
-package Journalr.com.model;
+/*package Journalr.com.model;
 
 public class Greeting {
 
@@ -21,4 +21,4 @@ public class Greeting {
     this.content = content;
   }
 
-}
+}*/

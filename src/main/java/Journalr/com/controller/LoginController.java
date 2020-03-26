@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import	java.util.Collection;
-import Journalr.com.model.LoginForm;
+//import Journalr.com.model.LoginForm;
 
 @Controller
 public class LoginController {
@@ -67,7 +67,7 @@ public class LoginController {
 	  } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_USER"))) {
 	    return "redirect:/user";
 	  } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_AUTHOR"))) {
-	    return "redirect:/author";
+	    return "redirect:/authorHarry";
 	  } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_REVIEWER"))) {
 		return "redirect:/reviewer";
 	  } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_EDITOR"))) {   // these are the roles in the database

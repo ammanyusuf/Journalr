@@ -1,4 +1,4 @@
-package Journalr.com.model;
+/*package Journalr.com.model;
 
 public class LoginForm {                // loginForm acts like a User
 
@@ -23,4 +23,4 @@ public class LoginForm {                // loginForm acts like a User
 	}
 
 	
-}
+}*/
