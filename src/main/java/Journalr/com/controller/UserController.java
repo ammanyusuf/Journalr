@@ -8,6 +8,7 @@ import Journalr.com.repositories.UserRepository;
 import java.util.*;
 //import java.util.Map;
 
+import Journalr.com.model.Author;
 import Journalr.com.model.User;
 
 @RestController
@@ -20,11 +21,17 @@ public class UserController {
     */
     @RequestMapping(method = RequestMethod.POST, path="/add")
     public @ResponseBody String addNewUser (@RequestParam String userName, 
-        @RequestParam String firstName, @RequestParam String lastName) {
-            User aUser = new User();
+        @RequestParam String firstName, @RequestParam String lastName,
+        @RequestParam String password, @RequestParam String email,
+        @RequestParam Boolean active, @RequestParam String role) {
+            User aUser = new Author();
             aUser.setUserName(userName);
             aUser.setFirstName(firstName);
             aUser.setLastName(lastName);
+            aUser.setPassword(password);
+            aUser.setEmail(email);
+            aUser.setActive(active);
+            aUser.setRoles("ROLE_" + role.toUpperCase());
             userRepository.save(aUser);
             return "Saved";
     }
@@ -44,7 +51,9 @@ public class UserController {
     */
     @RequestMapping(method = RequestMethod.POST, path="/update/{id}")
     public @ResponseBody String updateUser (@PathVariable String id, @RequestParam String userName, 
-        @RequestParam String firstName, @RequestParam String lastName) {
+    @RequestParam String firstName, @RequestParam String lastName,
+    @RequestParam String password, @RequestParam String email, 
+    @RequestParam Boolean active) {
             int UID = Integer.parseInt(id);
             Optional<User> optional = userRepository.findById(UID);                 // Need to since Optional<User> type can possibly be null
             
@@ -54,16 +63,62 @@ public class UserController {
                 aUser.setUserName(userName);
                 aUser.setFirstName(firstName);
                 aUser.setLastName(lastName);
+                aUser.setPassword(password);
+                aUser.setEmail(email);
+                aUser.setActive(active);
                 userRepository.save(aUser);
                 return "User: " + id + " updated";
             } else {
                 // user does not exist, so we create one
+                // User defaults to AUTHOR
                 User aUser = new User();
                 aUser.setUserName(userName);
                 aUser.setFirstName(firstName);
                 aUser.setLastName(lastName);
+                aUser.setPassword(password);
+                aUser.setEmail(email);
+                aUser.setActive(active);
+                aUser.setRoles("ROLE_AUTHOR");
                 userRepository.save(aUser);
                 return "User Created";
+            }	
+    }
+
+    /*
+    Method that can update an existing user's password
+    */
+    @RequestMapping(method = RequestMethod.POST, path="/update/password/{id}")
+    public @ResponseBody String updateUserPassword (@PathVariable String id, @RequestParam String password) {
+            int UID = Integer.parseInt(id);
+            Optional<User> optional = userRepository.findById(UID);                 // Need to since Optional<User> type can possibly be null
+            
+            if(optional.isPresent()) {
+                // value is present inside Optional
+                User aUser = optional.get();
+                aUser.setPassword(password);
+                userRepository.save(aUser);
+                return "User: " + id + " password updated";
+            } else {
+                return "User does not exist";
+            }	
+    }
+
+    /*
+    Method that can update an existing user's username
+    */
+    @RequestMapping(method = RequestMethod.POST, path="/update/username/{id}")
+    public @ResponseBody String updateUserName (@PathVariable String id, @RequestParam String userName) {
+            int UID = Integer.parseInt(id);
+            Optional<User> optional = userRepository.findById(UID);                 // Need to since Optional<User> type can possibly be null
+            
+            if(optional.isPresent()) {
+                // value is present inside Optional
+                User aUser = optional.get();
+                aUser.setUserName(userName);
+                userRepository.save(aUser);
+                return "User: " + id + " username updated to " + userName;
+            } else {
+                return "User does not exist";
             }	
     }
 
@@ -79,9 +134,18 @@ public class UserController {
     /*
     Method to show a given user by their first name
     */
-    @RequestMapping(path="/user/{firstName}", method = RequestMethod.GET) 
-    public @ResponseBody List<User> getUser(@PathVariable("firstName") String firstName) {
+    @RequestMapping(path="/user/firstname/{firstName}", method = RequestMethod.GET) 
+    public @ResponseBody List<User> getUserByFirstName(@PathVariable("firstName") String firstName) {
         return userRepository.findByFirstNameContaining(firstName);
+
+    }
+
+    /*
+    Method to show a given user by their last name
+    */
+    @RequestMapping(path="/user/lastname/{lastName}", method = RequestMethod.GET) 
+    public @ResponseBody List<User> getUserByLastName(@PathVariable("lastName") String lastName) {
+        return userRepository.findByLastNameContaining(lastName);
 
     }
 
