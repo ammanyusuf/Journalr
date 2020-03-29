@@ -29,7 +29,7 @@ public class User {
 	@Column(name = "is_active")
 	private boolean active;
 	
-	@Column(name = "role_type")
+	@Column(name = "role_type")			// Might need to change this to roles instead
 	private String roles;
 
 	@Column(name = "first_name")
