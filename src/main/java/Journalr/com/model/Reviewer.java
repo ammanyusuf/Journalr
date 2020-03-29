@@ -1,5 +1,5 @@
 package Journalr.com.model;
-
+/*
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -7,27 +7,66 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import Journalr.com.model.*;
+import Journalr.com.model.*;*/
 
+import java.util.*;
+import javax.persistence.*;
+
+//@Inheritance
 @Entity
-@DiscriminatorValue("ROLE_REVIEWER")
+@PrimaryKeyJoinColumn(name = "reviewer_ID")
 public class Reviewer extends User{
 
-    //private Paper aPaper;                 this part is giving some issues because it could not find a Paper type in sql, may have to join with preimary keys
+    @Column(name = "affiliation")
+    private String affiliation;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "review_paper", 
+        joinColumns = { @JoinColumn(name = "reviewer_ID") }, 
+        inverseJoinColumns = { @JoinColumn(name = "paper_id") }
+    )
+    Set<Paper> papers = new HashSet<>();
+
+    @OneToMany(mappedBy = "reviewer")
+	private Set<Comment> comments = new HashSet<>();
 
     public Reviewer() {}
 
 	public Reviewer(String userName, String firstName, String lastName, String email, String password) {
 		super(userName, firstName, lastName, email, password);
     }
-    /*
-    public Reviewer (Paper aPaper) {
-        //this.aPaper = aPaper;
-    }
     
-	public void reviewPaper () {
-        //Search by topic that interests reviewer -> topic 
-        //Paper aPaper.getTopic();
-    }*/
+    public String getAffiliation() {
+        return affiliation;
+    }
+
+    public void setAffiliation(String affiliation) {
+        this.affiliation = affiliation;
+    }
+
+    public Set<Paper> getPapers() {
+        return papers;                  // Not an encapsulating method for now
+    }
+
+    public void setPapers(Set<Paper> papers) {
+        this.papers = papers;
+    }
+
+    public void addPapers(Paper paper) {
+        this.papers.add(paper);
+    }
+
+    public Set<Comment> getComments() {
+        return comments;                  // Not an encapsulating method for now
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
 
 }

@@ -1,14 +1,17 @@
 package Journalr.com.model;
 
-import javax.persistence.DiscriminatorValue;
+/*import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Id;*/
 
+import javax.persistence.*;
+
+//@Inheritance
 @Entity
-@DiscriminatorValue("ROLE_EDITOR")
+@PrimaryKeyJoinColumn(name = "editor_ID")
 public class Editor extends User{
 
     public Editor() {}
@@ -17,6 +20,7 @@ public class Editor extends User{
 		super(userName, firstName, lastName, email, password);
 	}
 
+    /*
     public void addJournals() {
 
     }
@@ -31,5 +35,5 @@ public class Editor extends User{
 
     public void assignReviewers() {
 
-    }
+    }*/
 }
