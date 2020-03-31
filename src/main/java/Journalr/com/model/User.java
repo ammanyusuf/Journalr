@@ -50,6 +50,14 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
+
+	public int getUserId() {
+		return userId;
+	}
+	
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	
 	public String getUserName() {
 		return userName;

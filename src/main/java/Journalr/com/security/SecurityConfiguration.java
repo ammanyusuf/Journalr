@@ -28,6 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/admin").hasRole("ADMIN")
+				.antMatchers("/adduser").hasRole("ADMIN")					// the admin can add users
 				.antMatchers("/", "/home", "/signUp").permitAll()             // permitted pages (no need login)
 				.antMatchers("/author").hasAnyRole("AUTHOR", "ADMIN")         // admin can access these other pages
 				.antMatchers("/authorHarry").hasAnyRole("AUTHOR", "ADMIN") 
