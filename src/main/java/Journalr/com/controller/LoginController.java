@@ -40,9 +40,31 @@ public class LoginController {
 	}
 	
 	// Kevin's temporary reviewer route
-		@RequestMapping(value="/reviewer", method=RequestMethod.GET)
-		public String reviewerHome(Model model) {
-			model.addAttribute("pageTitle", "Reviewer");
-			return "reviewer";
-		}
+	@RequestMapping(value="/reviewer", method=RequestMethod.GET)
+	public String reviewerHome(Model model) {
+		model.addAttribute("pageTitle", "Reviewer");
+		model.addAttribute("firstName", "Reviewer");
+		return "reviewer";
+	}
+		
+	// Kevin's temporary reviewer papers route
+	@RequestMapping(value="/reviewer/papers", method=RequestMethod.GET)
+	public String reviewerPapers(Model model) {
+		model.addAttribute("firstName", "Reviewer");
+		return "reviewerPapers";
+	}
+	
+	// Kevin's temporary reviewer papers route
+	@RequestMapping(value="/reviewer/authors", method=RequestMethod.GET)
+	public String reviewerAuthors(Model model) {
+		model.addAttribute("firstName", "Reviewer");
+		return "reviewerAuthors";
+	}
+	
+	// Kevin's temporary reviewer papers route
+	@RequestMapping(value="/reviewer/settings", method=RequestMethod.GET)
+	public String reviewerSettings(Model model) {
+		model.addAttribute("firstName", "Reviewer");
+		return "reviewerSettings";
+	}
 }
