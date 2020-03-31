@@ -1,30 +1,20 @@
 UserController
-The following is how to test the endpoints of the UserController class.  All of these commands
-should be run while the application is running.  So open up a seperate terminal window and do the
-following commands:
-		
-		Add User:
-		
-		curl localhost:8080/add -d userName=user1 -d firstName=John -d lastName=Smith
-		
-		Delete User:
-		
-		curl localhost:8080/delete -d id=1
-		
-		Update User:
-		
-		curl localhost:8080/update/{id}
-		
-		"where {id} = 3 or some other number.  It is the id of the user that we wish to update.
-		If that user does not exist, it will just create a new user."
-		
-		Show All Users:
-		
-		curl localhost:8080/all
-		
-		Search Users By First Name:
-		
-		curl localhost:8080/user/{firstName}
-		
-		"Where {firstName} = John or something other name.  It will return all users whose first name is John"
-		
+The following is to show how to get the recently added admin functionalitites to work.  Follow in order:
+1)  Remove rows.  If you have any rows added from last time, remove them for now, as they might give you an
+    SQL error citing duplicate rows.  This may be because of the auto-key generation will start at 1 if you
+    set the "spring.jpa.hibernate.ddl-auto" to "create."  Basically, you can run the sql script file
+    that we have in the Discord and then set "spring.jpa.hibernate.ddl-auto" to update.
+
+2)  Add an Admin:
+	
+	INSERT INTO db_journalr.user VALUES (0,1,'john@gmail.com','John','Smith','password','ROLE_ADMIN','admin');
+
+3) Login using the user name "admin" and password "password."
+
+4) Add User: On the admin page, click on the hyperlink "Add New User"
+	a) Fill out the table as you please, and click "save" when satisifed.
+	
+5) Edit User: On the admin page, click on the "edit" button of the user you wish you edit.  Similar configuration
+   the add user method.
+
+6) Delete User: On the admin page, click on the "delete" button of the user you wish to delete.
