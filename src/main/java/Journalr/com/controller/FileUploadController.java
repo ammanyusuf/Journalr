@@ -131,6 +131,44 @@ public class FileUploadController {
 		return "redirect:/editpaper";
 	}
 
+	@RequestMapping("/reuploadForm/{paperID}")
+	public ModelAndView showReuploadPage(@PathVariable("paperID") String paperID) {
+		ModelAndView modelAndView = new ModelAndView("reuploadForm");
+		int pid = Integer.parseInt(paperID);
+        Optional<Paper> optional= paperRepository.findById(pid);
+        if (optional.isPresent()) {
+            return modelAndView.addObject("paper", optional.get());
+		} else {
+            return new ModelAndView("error");
+        }   
+	}
+
+	@PostMapping("/reuploadForm")
+	public String handleFileReUpload(@ModelAttribute("file") MultipartFile file,
+									 @ModelAttribute("paper") Paper paper,
+									 RedirectAttributes redirectAttributes) {
+
+		// Get the paper that was passed through to get reuploaded
+		//int pid = Integer.parseInt(paperID);
+		Paper aPaper = paperRepository.findById(paper.getPaperID()).get();
+
+		// Update the file name
+		aPaper.setFileName(file.getOriginalFilename());
+		
+		// Set up the new submission date
+		aPaper.setSubmissionDate(new Date());
+
+		storageService.store(file);
+
+		// Update the paper
+		paperRepository.save(aPaper);
+
+		redirectAttributes.addFlashAttribute("paper", aPaper);
+
+
+		return "redirect:/editpaper";
+	}
+
 	@RequestMapping(path="/savePaperTitleAndTopic", method = RequestMethod.POST)
 	public String savePaper (@ModelAttribute Paper paper) {
 

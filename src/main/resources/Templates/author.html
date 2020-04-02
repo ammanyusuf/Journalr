@@ -48,7 +48,6 @@
       <div class="dashboard">
         <div class="dashboard-topbar">
           <span class="dashboard-title">Author Dashboard</span>
-		  
 		  <form action="/uploadForm">
 		  <button class="btn btn-primary btn-lg float-right">
             📃 New Paper
@@ -76,6 +75,7 @@
               <td th:text="${paper.fileName}">File Name</td>
               <td>
                   <a th:href="@{'/download/' + ${paper.paperID}}">Download</a>
+                  <a th:href="@{'/reuploadForm/' + ${paper.paperID}}">Re-upload</a>
               </td>
           </tbody>
         </table>
