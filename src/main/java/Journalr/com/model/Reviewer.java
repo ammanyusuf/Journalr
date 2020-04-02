@@ -20,6 +20,9 @@ public class Reviewer extends User{
     @Column(name = "affiliation")
     private String affiliation;
 
+    @Column(name = "favorite_topic")
+    private String favoriteTopic;
+
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
         name = "review_paper", 
@@ -67,6 +70,14 @@ public class Reviewer extends User{
 
     public void addComment(Comment comment) {
         this.comments.add(comment);
+    }
+
+    public String getFavoriteTopic() {
+        return favoriteTopic;
+    }
+
+    public void setFavoriteTopic(String topic) {
+        this.favoriteTopic = topic;
     }
 
 }

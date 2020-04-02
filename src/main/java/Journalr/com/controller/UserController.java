@@ -20,7 +20,6 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-
     // The methods below are really for the admin
     /**
      * This method takes in the current displaying model as input.  It responds to the mapping 
