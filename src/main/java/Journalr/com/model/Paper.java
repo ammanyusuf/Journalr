@@ -58,7 +58,15 @@ public class Paper {
         this.submissionDeadline = submissionDeadline;
 		
     }
+
+    public int getPaperID() {
+        return paperID;
+    }
     
+    public void setPaperID(int paperID) {
+        this.paperID = paperID;
+    }
+
     public String getTitle() {
         return title;
     }

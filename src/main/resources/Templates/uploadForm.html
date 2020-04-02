@@ -1,15 +1,45 @@
-<html xmlns:th="https://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <meta
+      http-equiv="Content-Type"
+      xmlns:th="https://www.thymeleaf.org"
+      content="text/html; charset=UTF-8"
+    />
+
+    <!-- Bootstrap Stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <!-- Custom Stylesheet -->
+	<link rel="stylesheet" href="css/styles.css" />
+</head>
 <body>
 
 	<div th:if="${message}">
 		<h2 th:text="${message}"/>
 	</div>
 
-	<div>
+	<div align="center">
+
+		<h1>File to Upload</h1>
+
 		<form method="POST" enctype="multipart/form-data" action="/uploadForm">
-			<table>
-				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+			<table cellpadding="10">
+				<tr>
+					<td>File</td>
+					<td><input type="file" name="file" /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="Upload"/> </td>
+				</tr>
 			</table>
 		</form>
 	</div>
