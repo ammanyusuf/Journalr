@@ -85,6 +85,17 @@ public class AuthorController {
 
         return "author";
     }
+    
+    @RequestMapping(path="/download/{paperId}")
+    public ModelAndView showDownloadPaperPage (@PathVariable(name = "paperId") int paperId) {
+        ModelAndView modelAndView = new ModelAndView("downloadpaper");
+        Optional<Paper> optional= paperRepository.findById(paperId);
+        if (optional.isPresent()) {
+            return modelAndView.addObject("paper", optional.get());
+        } else {
+            return new ModelAndView("error");
+        }   
+    }
 
     /**
      * This method parses the unique user id that was passed through the url.  It then retrieves

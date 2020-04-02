@@ -64,6 +64,7 @@
               <th scope="col">Submission Date</th>
               <th scope="col">Submission Deadline</th>
               <th scope="col">File Name</th>
+              <th scope="col">Download</th>
             </tr>
           </thead>
           <tbody>
@@ -73,48 +74,9 @@
               <td th:text="${paper.submissionDate}">Submission Date</td>
               <td th:text="${paper.submissionDeadline}">Submission Deadline</td>
               <td th:text="${paper.fileName}">File Name</td>
-              <!--<td>
-                  <a th:href="@{'/edit/' + ${user.userId}}">Edit</a>
-                  <a th:href="@{'/delete/' + ${user.userId}}">Delete</a>
-              </td>
-          </tr>
-
-            <tr>
-              <th scope="row">Machine Learning</th>
-              <td>Sept. 5, 2020</td>
-              <td>Under Review</td>
-              <td>John Doe</td>
               <td>
-                <button type="button" class="btn btn-link">Download</button>
+                  <a th:href="@{'/download/' + ${paper.paperID}}">Download</a>
               </td>
-            </tr>
-            <tr>
-              <th scope="row">Machine Learning</th>
-              <td>Sept. 5, 2020</td>
-              <td>Under Review</td>
-              <td>John Doe</td>
-              <td>
-                <button type="button" class="btn btn-link">Download</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">Machine Learning</th>
-              <td>Sept. 5, 2020</td>
-              <td>Under Review</td>
-              <td>John Doe</td>
-              <td>
-                <button type="button" class="btn btn-link">Download</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">Machine Learning</th>
-              <td>Sept. 5, 2020</td>
-              <td>Under Review</td>
-              <td>John Doe</td>
-              <td>
-                <button type="button" class="btn btn-link">Download</button>
-              </td>
-            </tr>-->
           </tbody>
         </table>
       </div>
