@@ -59,14 +59,26 @@
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <th scope="col">Paper Name</th>
-              <th scope="col">Last Updated</th>
-              <th scope="col">Status</th>
-              <th scope="col">Reviewer</th>
-              <th scope="col">File</th>
+              <th scope="col">Title</th>
+              <th scope="col">Topic</th>
+              <th scope="col">Submission Date</th>
+              <th scope="col">Submission Deadline</th>
+              <th scope="col">File Name</th>
             </tr>
           </thead>
           <tbody>
+            <tr th:each="paper : ${listPapers}">
+              <td th:text="${paper.title}">Title</td>
+              <td th:text="${paper.topic}">Topic</td>
+              <td th:text="${paper.submissionDate}">Submission Date</td>
+              <td th:text="${paper.submissionDeadline}">Submission Deadline</td>
+              <td th:text="${paper.fileName}">File Name</td>
+              <!--<td>
+                  <a th:href="@{'/edit/' + ${user.userId}}">Edit</a>
+                  <a th:href="@{'/delete/' + ${user.userId}}">Delete</a>
+              </td>
+          </tr>
+
             <tr>
               <th scope="row">Machine Learning</th>
               <td>Sept. 5, 2020</td>
@@ -102,7 +114,7 @@
               <td>
                 <button type="button" class="btn btn-link">Download</button>
               </td>
-            </tr>
+            </tr>-->
           </tbody>
         </table>
       </div>
