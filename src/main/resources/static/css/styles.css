@@ -78,7 +78,10 @@ html, body {
 #scroller {
 	height:100%;
     overflow-y: scroll;
-    background-color:#4287f5;
+}
+
+.blue-back {
+	background-color:#4287f5;
 }
 
 .journal-item {
