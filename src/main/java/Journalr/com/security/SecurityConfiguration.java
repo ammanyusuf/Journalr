@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin").hasRole("ADMIN")
 				.antMatchers("/adduser").hasRole("ADMIN")					// the admin can add users
 				.antMatchers("/editUser").hasRole("ADMIN")
-				.antMatchers("/", "/home", "/signUp").permitAll()             // permitted pages (no need login)
+				.antMatchers("/", "/css/**", "/home", "/signUp").permitAll()             // permitted pages (no need login)
 				.antMatchers("/author").hasAnyRole("AUTHOR", "ADMIN")         // admin can access these other pages
 				.antMatchers("/authorHarry").hasAnyRole("AUTHOR", "ADMIN") 
 				.antMatchers("/editpaper").hasAnyRole("AUTHOR", "ADMIN")
