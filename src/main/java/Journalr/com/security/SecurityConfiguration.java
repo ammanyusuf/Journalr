@@ -38,6 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/uploadForm").hasAnyRole("AUTHOR", "ADMIN")
 				.antMatchers("/reviewer").hasAnyRole("REVIEWER", "ADMIN")
 				.antMatchers("/editor").hasAnyRole("EDITOR", "ADMIN")
+				.antMatchers("/reviewersperpaper").hasAnyRole("EDITOR", "ADMIN")
 				.antMatchers("/user").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/add").permitAll()					// the admin can add users
 				.antMatchers("/all").permitAll()					// the admin can see all users

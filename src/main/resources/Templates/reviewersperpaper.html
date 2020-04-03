@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Editor</title>
+    <title>Paper</title>
     <meta
       http-equiv="Content-Type"
       xmlns:th="https://www.thymeleaf.org"
@@ -47,33 +47,29 @@
     <div class="container-fluid">
       <div class="dashboard">
         <div class="dashboard-topbar">
-          <span class="dashboard-title">Editor Dashboard</span>  
+          <span class="dashboard-title" th:text="${paper.title}">Paper</span>
+          <span class="dashboard-title">Reviewers</span> 
+            <form action="/editor">
+            <button class="btn btn-primary btn-lg float-right">
+                  Back
+            </button>
+            </form>
         </div>
         <br/>
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Submission Date</th>
-              <th scope="col">Submission Deadline</th>
-              <th scope="col">Download</th>
-              <th scope="col">Reviewers</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
               <th scope="col">Add</th>
             </tr>
           </thead>
           <tbody>
-            <tr th:each="paper : ${allPapers}">
-              <td th:text="${paper.title}">Title</td>
-              <td th:text="${paper.submissionDate}">Submission Date</td>
-              <td th:text="${paper.submissionDeadline}">Submission Deadline</td>
+            <tr th:each="user : ${listReviewers}">
+              <td th:text="${user.firstName}">Firt Name</td>
+              <td th:text="${user.lastName}">Last Name</td>
               <td>
-                  <a th:href="@{'/download/' + ${paper.paperID}}">Download</a>
-              </td>
-              <td>
-                <a th:href="@{'/reviewersperpaper/' + ${paper.paperID}}">Reviewers</a>
-              </td>
-              <td>
-                <a th:href="@{'/addjournal/' + ${paper.paperID}}">Add</a>
+                <a th:href="@{'/addreviewer/' + ${user.userId} + '/' + ${paper.paperID}}">Add</a>
               </td>
             </tr>
           </tbody>

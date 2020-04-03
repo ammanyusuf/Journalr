@@ -56,7 +56,7 @@ public class AuthorController {
      * @return
      */
     @RequestMapping("/author")
-    public String showAllPapers(Model model) {
+    public String showAllPapersPerAuthor(Model model) {
         
         // Get the credentials of the currently logged on user
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -96,36 +96,4 @@ public class AuthorController {
             return new ModelAndView("error");
         }   
     }
-
-    /**
-     * This method parses the unique user id that was passed through the url.  It then retrieves
-     * the user with that id and sets up the edituser template for the model to go to.  This is all
-     * done with the ModelAndView object provided by Spring.  Model and View pretty much sets up the
-     * model and also sets the view that will be displaying after the action.
-     * @param userId This is the userId that we will be updating the data.
-     * @return This method will return a new model and view ready for editing.
-     */
-    /*
-    @RequestMapping(path="/edit/{userId}")
-    public ModelAndView showEditUserPage (@PathVariable(name = "userId") int userId) {
-        ModelAndView modelAndView = new ModelAndView("editUser");
-        Optional<User> optional= userRepository.findById(userId);
-        if (optional.isPresent()) {
-            return modelAndView.addObject("user", optional.get());
-        } else {
-            return new ModelAndView("error");
-        }   
-    }*/
-    /**
-     * This method parses the unique user id that was passed through the url.  It then deletes
-     * the user with that id from the database
-     * @param userId This is the userId that we will be deleted.
-     * @return This method will redirect to the admin page
-    */
-    /*
-    @RequestMapping( path="/delete/{userId}")
-    public String deleteUser(@PathVariable(name = "userId") int userId){
-        userRepository.deleteById(userId);
-        return "redirect:/admin";
-    }*/
 }

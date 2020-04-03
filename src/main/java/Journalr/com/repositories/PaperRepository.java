@@ -12,5 +12,8 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
     @Query(value = "SELECT * FROM paper WHERE paper.author_id = ?1", 
             nativeQuery = true)
     List<Paper> findPapersByAuthorId(int author_id);
-    
+
+    @Query(value = "SELECT reviewer_id FROM review_paper,paper WHERE review_paper.paper_id = ?1 AND review_paper.paper_id=paper.paperid",
+            nativeQuery = true)
+    List<Integer> findReviewersPerPaper(int paper_id);
 }

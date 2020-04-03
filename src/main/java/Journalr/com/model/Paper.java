@@ -43,7 +43,10 @@ public class Paper {
     private Author author;
 
     @OneToMany(mappedBy = "paper")
-	private Set<Comment> comments = new HashSet<>();
+    private Set<Comment> comments = new HashSet<>();
+    
+    @Column(name = "approved")
+    private Boolean approved;
 
     public Paper() {
 		
@@ -137,5 +140,13 @@ public class Paper {
 
     public void addComment(Comment comment) {
         this.comments.add(comment);
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
     }
 }
