@@ -39,6 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/reviewer").hasAnyRole("REVIEWER", "ADMIN")
 				.antMatchers("/editor").hasAnyRole("EDITOR", "ADMIN")
 				.antMatchers("/reviewersperpaper").hasAnyRole("EDITOR", "ADMIN")
+				.antMatchers("/paperTopics").permitAll()
 				.antMatchers("/user").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/add").permitAll()					// the admin can add users
 				.antMatchers("/all").permitAll()					// the admin can see all users
