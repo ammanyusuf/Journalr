@@ -28,12 +28,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="paper : ${listPapers}">
-              <td th:text="${paper.title}">Title</td>
-              <td th:text="${paper.topic}">Topic</td>
-              <td th:text="${paper.submissionDate}">Submission Date</td>
-              <td th:text="${paper.submissionDeadline}">Submission Deadline</td>
-              <td th:text="${paper.fileName}">File Name</td>
+            <tr th:each="paperByTopic : ${listPapersByTopic}">
+              <td th:text="${paperByTopic.title}">Title</td>
+              <td th:text="${paperByTopic.topic}">Topic</td>
+              <td th:text="${paperByTopic.submissionDate}">Submission Date</td>
+              <td th:text="${paperByTopic.submissionDeadline}">Submission Deadline</td>
+              <td th:text="${paperByTopic.fileName}">File Name</td>
             </tr>
           </tbody>
         </table>
