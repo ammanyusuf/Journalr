@@ -72,4 +72,24 @@ public class LoginController {
 		return "reviewerSettings";
 	}
 	
+	//Kevin's temporary editor route
+	@RequestMapping(value="/editor", method=RequestMethod.GET)
+	public String editor(Model model) {
+		model.addAttribute("pageTitle", "Editor | Home");
+		return "editor";
+	}
+	
+	//Kevin's temporary editor assignReviewer route
+	@RequestMapping(value="/editor/assignReviewer", method=RequestMethod.GET)
+	public String assignRev(Model model) {
+		model.addAttribute("pageTitle", "Editor | Assign Reviewer");
+		return "editorAssignReviewer";
+	}
+	
+	//Kevin's temporary editor paper management route
+		@RequestMapping(value="/editor/managePapers", method=RequestMethod.GET)
+		public String managePapers(Model model) {
+			model.addAttribute("pageTitle", "Editor | Paper Management");
+			return "editorManagePapers";
+		}
 }

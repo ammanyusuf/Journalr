@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="baseTemplate :: header">
+    </head>
+    
+    <body>
+    	<nav th:replace="baseTemplate :: topNav">
+	     </nav>
+    	<div class="container-fluid full-height">
+    		<div class="row">
+    			<h1>=====================</h1>
+    		</div>
+   			<div class="row">
+   				<h1>Editor Home Page</h1>
+   			</div>	
+			<div class="row">
+				<h1>=====================</h1>
+    		</div>
+    		<div class="row">
+    			
+    		</div>
+    		<div class="row">
+    			<a th:href="@{~/editor/assignReviewer}" class="btn btn-primary">Assing Reviewer to Paper</a>
+    			<a th:href="@{~/editor/managePapers}" class="btn btn-primary">Add/Verify Paper</a>
+    		</div>
+    	</div>
+	     
+     </body>
+</html>
