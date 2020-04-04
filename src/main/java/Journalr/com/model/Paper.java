@@ -15,8 +15,9 @@ import java.util.*;
 public class Paper {
 
     @Id
- 	@GeneratedValue(strategy=GenerationType.AUTO)
-    private int paperID;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "paper_ID")
+    private int paperID; //has to change
     
     @Column(name = "title")
     private String title;
