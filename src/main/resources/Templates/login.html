@@ -1,78 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <meta
-      http-equiv="Content-Type"
-      xmlns:th="https://www.thymeleaf.org"
-      content="text/html; charset=UTF-8"
-    />
-
-    <!-- Bootstrap Stylesheet -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
-
-    <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="css/styles.css" />
+  <head th:replace="baseTemplate :: header">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg">
-      <a class="navbar-brand" href="#">
-        <span>Journalr</span>
-      </a>
-      <button
-        class="navbar-toggler navbar-light"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarTogglerDemo01"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <ul class="navbar-nav ml-auto">
-          <li></li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-        </ul>
-      </div>
+    <nav th:replace="baseTemplate :: topNav">
     </nav>
-
-    <div class="container-fluid">
-      <form method="POST" class="login-box">
-        <h3>Please Sign In</h3>
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            class="form-control"
-            id="username"
-            name="username"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            name="Password"
-            required
-          />
-        </div>
-        <input
-          type="submit"
-          value="Log In"
-          class="btn btn-primary btn-lg btn-block"
-        />
-      </form>
+    <div class="container-fluid blue-gradient full-height">
+    	<div class="row">
+    		<form method="POST" class="login-box">
+	        <h3>Login</h3>
+	        <div class="form-group">
+	          <label for="username">Username</label>
+	          <input
+	            type="text"
+	            class="form-control"
+	            id="username"
+	            name="username"
+	            required
+	          />
+	        </div>
+	        <div class="form-group">
+	          <label for="password">Password</label>
+	          <input
+	            type="password"
+	            class="form-control"
+	            id="password"
+	            name="Password"
+	            required
+	          />
+	        </div>
+	        <input
+	          type="submit"
+	          value="Log In"
+	          class="btn btn-primary btn-lg btn-block"
+	        />
+	      </form>
+    	</div>    
     </div>
 
     <script

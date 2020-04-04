@@ -14,7 +14,8 @@ import Journalr.com.model.LoginForm;
 public class LoginController {
 
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String getLoginForm() {
+	public String getLoginForm(Model model) {
+		model.addAttribute("pageTitle", "Journalr | Login");
 		return "login";
 	}
 	
@@ -70,4 +71,5 @@ public class LoginController {
 		model.addAttribute("firstName", "Reviewer");
 		return "reviewerSettings";
 	}
+	
 }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 	<head th:fragment="header">
-		<title th:text="${pageTitle}">Title</title>
+		<title th:text="${pageTitle}?${pageTitle}:Journalr">Title</title>
 		
 		<link th:href="@{/css/styles.css}" rel="stylesheet"/>
 		
@@ -16,8 +16,9 @@
 	</head>
 	
 	<body>
+		<!-- Title bar with login -->
 		<nav th:fragment="topNavWLogin" class="navbar navbar-expand-lg">
-	      <a class="navbar-brand" href="#">
+	      <a class="navbar-brand" th:href="@{~/}">
 	        <span>Journalr</span>
 	      </a>
 	      <button
@@ -38,9 +39,9 @@
 	      </div>
 	    </nav>
 	    
-	    <!-- Nav without login -->
+	    <!-- Title bar without login -->
 	    <nav th:fragment="topNav" class="navbar navbar-expand-lg">
-	      <a class="navbar-brand" href="#">
+	      <a class="navbar-brand" th:href="@{~/}">
 	        <span>Journalr</span>
 	      </a>
 	      <button
