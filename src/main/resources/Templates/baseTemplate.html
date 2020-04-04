@@ -33,7 +33,7 @@
 	        <ul class="navbar-nav ml-auto">
 	          <li></li>
 	          <li class="nav-item">
-	            <a class="nav-link" href="/login">Login</a>
+	            <a class="nav-link" th:href="@{~/login}">Login</a>
 	          </li>
 	        </ul>
 	      </div>
@@ -41,7 +41,7 @@
 	    
 	    <!-- Title bar without login -->
 	    <nav th:fragment="topNav" class="navbar navbar-expand-lg">
-	      <a class="navbar-brand" href="#">
+	      <a class="navbar-brand" th:href="@{~/}">
 	        <span>Journalr</span>
 	      </a>
 	      <button
