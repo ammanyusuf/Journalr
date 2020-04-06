@@ -1,57 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-  <head th:replace="baseTemplate :: header">
+  <head th:replace="baseTemplate :: header(title=~{::title/text()})">
+    <title>Login</title>
   </head>
-  <body>
-    <nav th:replace="baseTemplate :: topNav">
-    </nav>
-    <div class="container-fluid blue-gradient full-height">
-    	<div class="row">
-    		<form method="POST" class="login-box">
-	        <h3>Login</h3>
-	        <div class="form-group">
-	          <label for="username">Username</label>
-	          <input
-	            type="text"
-	            class="form-control"
-	            id="username"
-	            name="username"
-	            required
-	          />
-	        </div>
-	        <div class="form-group">
-	          <label for="password">Password</label>
-	          <input
-	            type="password"
-	            class="form-control"
-	            id="password"
-	            name="Password"
-	            required
-	          />
-	        </div>
-	        <input
-	          type="submit"
-	          value="Log In"
-	          class="btn btn-primary btn-lg btn-block"
-	        />
-	      </form>
-    	</div>    
-    </div>
 
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-      crossorigin="anonymous"
-    ></script>
+  <body>
+    <nav th:replace="baseTemplate :: topNav"></nav>
+
+    <div class="container-fluid">
+      <form
+        th:action="@{/login}"
+        th:object="${loginForm}"
+        method="POST"
+        class="login-box"
+      >
+        <h3>Please Sign In</h3>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            autofocus="autofocus"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            required
+          />
+        </div>
+        <input
+          type="submit"
+          value="Log In"
+          class="btn btn-primary btn-lg btn-block"
+        />
+      </form>
+    </div>
   </body>
+  <footer>
+    <div th:insert="baseTemplate :: bootstrap-scripts"></div>
+  </footer>
 </html>

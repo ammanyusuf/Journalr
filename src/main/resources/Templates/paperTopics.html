@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="baseTemplate :: header(title=~{::title/text()})">
+    <title>Reviewer</title>
+  </head>
+  <body>
+    <nav th:replace="baseTemplate :: topNav"></nav>
+
+    <div class="container-fluid">
+      <div class="dashboard">
+        <div class="dashboard-topbar">
+          <span class="dashboard-title">Reviewer Papers Dashboard</span>
+        </div>
+        <br />
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Topic</th>
+              <th scope="col">Submission Date</th>
+              <th scope="col">Submission Deadline</th>
+              <th scope="col">File Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="paperByTopic : ${listPapersByTopic}">
+              <td th:text="${paperByTopic.title}">Title</td>
+              <td th:text="${paperByTopic.topic}">Topic</td>
+              <td th:text="${paperByTopic.submissionDate}">Submission Date</td>
+              <td th:text="${paperByTopic.submissionDeadline}">Submission Deadline</td>
+              <td th:text="${paperByTopic.fileName}">File Name</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+
+  <footer>
+    <div th:insert="baseTemplate :: bootstrap-scripts"></div>
+  </footer>
+</html>

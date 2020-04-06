@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="baseTemplate :: header(title=~{::title/text()})">
+    <title>Admin</title>
+  </head>
+
+  <body>
+    <nav th:replace="baseTemplate :: topNav"></nav>
+
+    <div class="container-fluid">
+      <div class="dashboard">
+        <div class="dashboard-topbar">
+          <span class="dashboard-title">Author Dashboard</span>
+          <form action="/newuser">
+            <button class="btn btn-primary btn-lg float-right">
+              ✨New User
+            </button>
+          </form>
+        </div>
+        <br />
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>User Id</th>
+              <th>Username</th>
+              <th>Password</th>
+              <th>Email</th>
+              <th>Active</th>
+              <th>Role</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr th:each="user : ${listUsers}">
+              <td th:text="${user.userId}">User Id</td>
+              <td th:text="${user.userName}">Username</td>
+              <td th:text="${user.password}">Password</td>
+              <td th:text="${user.email}">Email</td>
+              <td th:text="${user.active}">Active</td>
+              <td th:text="${user.roles}">Role</td>
+              <td th:text="${user.firstName}">First Name</td>
+              <td th:text="${user.lastName}">Last Name</td>
+              <td>
+                <a th:href="@{'/edit/' + ${user.userId}}">Edit</a>
+                <a th:href="@{'/delete/' + ${user.userId}}">Delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <footer>
+    <div th:insert="baseTemplate :: bootstrap-scripts"></div>
+  </footer>
+</html>

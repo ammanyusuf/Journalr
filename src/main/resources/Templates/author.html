@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
-    <title>Editor</title>
+    <title>Author</title>
   </head>
-
   <body>
     <nav th:replace="baseTemplate :: topNav"></nav>
 
     <div class="container-fluid">
       <div class="dashboard">
         <div class="dashboard-topbar">
-          <span class="dashboard-title">Editor Dashboard</span>
+          <span class="dashboard-title">Author Dashboard</span>
+          <form action="/uploadForm">
+            <button class="btn btn-primary btn-lg float-right">
+              📃 New Paper
+            </button>
+          </form>
         </div>
         <br />
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
               <th scope="col">Title</th>
+              <th scope="col">Topic</th>
               <th scope="col">Submission Date</th>
               <th scope="col">Submission Deadline</th>
+              <th scope="col">File Name</th>
               <th scope="col">Download</th>
-              <th scope="col">Reviewers</th>
-              <th scope="col">Add</th>
             </tr>
           </thead>
           <tbody>
-            <tr th:each="paper : ${allPapers}">
+            <tr th:each="paper : ${listPapers}">
               <td th:text="${paper.title}">Title</td>
+              <td th:text="${paper.topic}">Topic</td>
               <td th:text="${paper.submissionDate}">Submission Date</td>
               <td th:text="${paper.submissionDeadline}">Submission Deadline</td>
+              <td th:text="${paper.fileName}">File Name</td>
               <td>
                 <a th:href="@{'/download/' + ${paper.paperID}}">Download</a>
-              </td>
-              <td>
-                <a th:href="@{'/reviewersperpaper/' + ${paper.paperID}}"
-                  >Reviewers</a
+                <a th:href="@{'/reuploadForm/' + ${paper.paperID}}"
+                  >Re-upload</a
                 >
-              </td>
-              <td>
-                <a th:href="@{'/addjournal/' + ${paper.paperID}}">Add</a>
               </td>
             </tr>
           </tbody>
