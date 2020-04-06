@@ -1,34 +1,13 @@
-<!DOCTYPE HTML>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-	<head th:replace="baseTemplate :: header">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Home Page</title>
 	</head>
-	
 	<body>
-	    <!-- Navigation Bar-->
-	    <nav th:replace="baseTemplate :: topNavWLogin"> 
-	    </nav>
-	    
-	    <div class="container-fluid full-height blue-gradient"  id="homeContainer">
-	    	<div class="row align-items-center justify-content-center" style="height:80%;">
-	    		<div class="row justify-content-center">
-	    			<h1 class="display-3" style="color:white;"><kbd>Journalr</kbd></h1>
-	    		</div>
-	    		<div class="row justify-content-center">
-	    			<p style="width:50%; color:white;">This is the Journalr Web Application. It's purpose is to create a platform to manage to the
-	    			interaction between Authors, Editors and Reviewers of a larger Journal collection. Authors write and submit their
-	    			Journals, get responses and updates from the Editors and Reviewers and more! Login with your account to get started!</p>
-	    		</div>
-	    		<div class="row justify-content-center">
-	    			<p style="width:30%; color:white;">
-	    			<kbd>
-	    			Developed by:
-	    			Amman Yusuf,
-	    			Isabella Guimet Pedraz,
-	    			Harry Chen,
-	    			David Macababayao and
-	    			Kevin Sunkwa-Mills</kbd></p>
-	    		</div>	
-	    	</div>
-	    </div>	    
+		<h1>=====================</h1>
+		<h1>This is the home page</h1>
+		<h1>=====================</h1>
+		<a th:href="@{/uploadForm}">Upload Files</a>
 	</body>
 </html>

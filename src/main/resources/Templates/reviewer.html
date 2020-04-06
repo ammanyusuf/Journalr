@@ -1,87 +1,75 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="baseTemplate :: header(title=~{::title/text()})">
+  <head th:replace="baseTemplate :: header(${pageTitle})">
     <title>Reviewer</title>
   </head>
 
   <body>
-    <nav th:replace="baseTemplate :: topNav"></nav>
-
-    <div class="container-fluid full-height">
-      <div class="row full-height">
-        <div th:replace="reviewerTemplate :: userNav"></div>
-
-        <div class="col-sm-9" id="scroller">
-          <div class="row align-items-center journal-item">
-            <div class="card">
-              <div class="card-header">
-                Submission Updates
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  Bob Jones submitted a revision of a CompSciTrack journal.
-                  <a href="#">View</a>
-                </li>
-                <li class="list-group-item">
-                  Linda Wyoming sumbitted a revision of a PavanWeekly journal.
-                  <a href="#">View</a>
-                </li>
-                <li class="list-group-item">
-                  Anna Belle submitted a revision of a SENG time journal.
-                  <a href="#">View</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="row align-items-center journal-item">
-            <div class="card">
-              <div class="card-header">
-                Authors Assigned
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  Jacob Scott <a href="#">View</a>
-                </li>
-                <li class="list-group-item">
-                  Marge Robinson <a href="#">View</a>
-                </li>
-                <li class="list-group-item">
-                  Morty Briggs <a href="#">View</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="row align-items-center journal-item">
-            <div class="card">
-              <div class="card-header">
-                Featured
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="row align-items-center journal-item">
-            <div class="card">
-              <div class="card-header">
-                Featured
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>
+   	<nav th:replace="baseTemplate :: topNav">
+     </nav>
+     
+     <div class="container-fluid full-height">
+     	<div class="row full-height">
+     		<div th:replace="reviewerTemplate :: userNav">
+     		</div>
+     		
+     		<div class="col-sm-9 blue-gradient" id="scroller">
+     			<div class="row align-items-center journal-item">
+    					<div class="card">
+					  <div class="card-header">
+					    Submission Updates
+					  </div>
+					  <ul class="list-group list-group-flush">
+					    <li class="list-group-item">Bob Jones submitted a revision of a CompSciTrack journal. <a href="#">View</a></li>
+					    <li class="list-group-item">Linda Wyoming sumbitted a revision of a PavanWeekly journal. <a href="#">View</a> </li>
+					    <li class="list-group-item">Anna Belle submitted a revision of a SENG time journal. <a href="#">View</a></li>
+					  </ul>
+					</div>
+    				</div>
+    		
+    				<div class="row align-items-center journal-item" >
+    					<div class="card">
+					  <div class="card-header">
+					    Authors Assigned
+					  </div>
+					  <ul class="list-group list-group-flush">
+					    <li class="list-group-item">Jacob Scott <a href="#">View</a></li>
+					    <li class="list-group-item">Marge Robinson <a href="#">View</a></li>
+					    <li class="list-group-item">Morty Briggs <a href="#">View</a></li>
+					  </ul>
+					</div>
+    				</div>
+    				
+    				
+    				<div class="row align-items-center journal-item">
+    					<div class="card">
+					  <div class="card-header">
+					    Featured
+					  </div>
+					  <ul class="list-group list-group-flush">
+					    <li class="list-group-item">Cras justo odio</li>
+					    <li class="list-group-item">Dapibus ac facilisis in</li>
+					    <li class="list-group-item">Vestibulum at eros</li>
+					  </ul>
+					</div>
+    				</div>
+    				
+    				<div class="row align-items-center journal-item">
+    					<div class="card">
+					  <div class="card-header">
+					    Featured
+					  </div>
+					  <ul class="list-group list-group-flush">
+					    <li class="list-group-item">Cras justo odio</li>
+					    <li class="list-group-item">Dapibus ac facilisis in</li>
+					    <li class="list-group-item">Vestibulum at eros</li>
+					  </ul>
+					</div>
+    				</div>	
+     		</div>
+     	</div>
+     </div>
+   </body>
 
   <footer>
     <div th:insert="baseTemplate :: bootstrap-scripts"></div>
