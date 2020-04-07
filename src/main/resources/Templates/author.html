@@ -36,7 +36,7 @@
               <td th:text="${paper.submissionDeadline}">Submission Deadline</td>
               <td th:text="${paper.fileName}">File Name</td>
               <td>
-                <a th:href="@{'/download/' + ${paper.paperId}}">Download</a>
+                <a th:href="@{'/downloadFile/' + ${paper.paperId}}">Download</a>
                 <a th:href="@{'/reuploadForm/' + ${paper.paperId}}"
                   >Re-upload</a
                 >

@@ -229,9 +229,11 @@ public class PaperController {
     }
 
     @GetMapping("/downloadFile/{fileId}")    //url to download
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {  // response from clicking download link
+    public ResponseEntity<Resource> downloadFile(@PathVariable int fileId) {  // response from clicking download link
         // Load file from database
-        Paper paper = PaperStorageService.getFile(fileId);
+        //Paper paper = PaperStorageService.getFile(fileId);
+
+        Paper paper = paperRepository.findById(fileId).get();
 
         return ResponseEntity.ok()             // initializes download
                 .contentType(MediaType.parseMediaType(paper.getFileType()))
