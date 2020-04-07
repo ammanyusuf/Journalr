@@ -61,7 +61,7 @@ public class CommentController {
 	    commentObj.setCommentDate(date);        // this should get the current date
 	    commentRepository.save(commentObj);
 	            
-	    return "reviewer";
+	    return "paperTopics";
 	}
 
 }
