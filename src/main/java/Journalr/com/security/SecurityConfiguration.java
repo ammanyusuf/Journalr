@@ -38,6 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/downloadpaper").permitAll()
 				.antMatchers("/uploadForm").hasAnyRole("AUTHOR", "ADMIN")
 				.antMatchers("/reviewer").hasAnyRole("REVIEWER", "ADMIN")
+				.antMatchers("/paperTopics").hasAnyRole("REVIEWER", "ADMIN")			
 				.antMatchers("/editor").hasAnyRole("EDITOR", "ADMIN")
 				.antMatchers("/reviewersperpaper").hasAnyRole("EDITOR", "ADMIN")
 				.antMatchers("/user").hasAnyRole("USER", "ADMIN")
