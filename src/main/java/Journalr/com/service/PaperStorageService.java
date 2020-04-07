@@ -37,7 +37,7 @@ public class PaperStorageService {
     }
 
     public Paper getFile(String paperId) {
-        return paperRepository.findById(paperId)
+        return paperRepository.findById(Integer.parseInt(paperId))
                 .orElseThrow(() -> new MyFileNotFoundException("Paper not found with id " + paperId));
     }
 }

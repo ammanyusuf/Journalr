@@ -16,37 +16,35 @@ import java.util.*;
 @Entity
 public class Paper {
 
-    //@Id
-    // @GeneratedValue(strategy=GenerationType.AUTO)
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "paper_id")
-    private String paperId;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "paper_ID")
+    private int paperId;
     
-    @Column(name = "title", nullable=true)
+    @Column(name = "title")
     private String title;
 
     @Column(name = "file_name")
     private String fileName;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "submission_date", nullable=true)
+    @Column(name = "submission_date")
     private Date submissionDate;
 
-    @Column(name = "topic", nullable=true)
+    @Column(name = "topic")
     private String topic;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "submission_deadline", nullable=true)
+    @Column(name = "submission_deadline")
     private Date submissionDeadline;
     
+    @Column(name = "file_type")
     private String fileType;     // eg. pdf, txt
     
     @Lob
+    @Column(name = "data")
     private byte[] data;   // this is the actual data of the file to be stored in the database
     
-	@Column(nullable=true) // nullable = can be null in the database
     @ManyToMany(mappedBy = "papers")
     private Set<Reviewer> reviewers= new HashSet<>();
 
@@ -54,7 +52,6 @@ public class Paper {
     @JoinColumn(name = "author_ID")
     private Author author;
 
-	@Column(nullable=true)
     @OneToMany(mappedBy = "paper")
     private Set<Comment> comments = new HashSet<>();
     
@@ -77,11 +74,13 @@ public class Paper {
 		
     }
 
-    public String getPaperId() {
+
+    // The id of the paper is a int, not a string
+    public int getPaperId() {
         return paperId;
     }
     
-    public void setPaperId(String paperId) {
+    public void setPaperId(int paperId) {
         this.paperId = paperId;
     }
 

@@ -87,7 +87,7 @@ public class AuthorController {
     }
     
     @RequestMapping(path="/download/{paperId}")
-    public ModelAndView showDownloadPaperPage (@PathVariable(name = "paperId") String paperId) {
+    public ModelAndView showDownloadPaperPage (@PathVariable(name = "paperId") int paperId) {
         ModelAndView modelAndView = new ModelAndView("downloadpaper");
         Optional<Paper> optional= paperRepository.findById(paperId);
         if (optional.isPresent()) {

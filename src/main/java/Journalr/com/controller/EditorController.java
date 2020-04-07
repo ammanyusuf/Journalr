@@ -54,7 +54,7 @@ public class EditorController {
      * @return this method will redirect back to the editor page
      */
     @RequestMapping(path="/addjournal/{paperID}")
-    public String addJournal(@PathVariable(name = "paperID") String paperID) {
+    public String addJournal(@PathVariable(name = "paperID") int paperID) {
         
         Paper paper = paperRepository.findById(paperID).get();
         paper.setApproved(true);
@@ -69,7 +69,7 @@ public class EditorController {
      * @return this method will redirect to the reviewersperpaper page
      */
     @RequestMapping(path="/reviewersperpaper/{paperID}")
-    public String showReviewersPerPaper(@PathVariable(name = "paperID") String paperID,
+    public String showReviewersPerPaper(@PathVariable(name = "paperID") int paperID,
                                         Model model) {
         
         Paper paper = paperRepository.findById(paperID).get();
@@ -111,7 +111,7 @@ public class EditorController {
      */
     @RequestMapping(path="/addreviewer/{userId}/{paperID}")
     public String addReviewerToPaper(@PathVariable(name = "userId") int userId,
-                                     @PathVariable(name = "paperID") String paperID) {
+                                     @PathVariable(name = "paperID") int paperID) {
         //asasa
         paperRepository.setAbleToReview(paperID, userId);  
         return "redirect:/reviewersperpaper/" + paperID;
@@ -125,7 +125,7 @@ public class EditorController {
      */
     @RequestMapping(path="/removereviewer/{userId}/{paperID}")
     public String removeReviewerFromPaper(@PathVariable(name = "userId") int userId,
-                                     @PathVariable(name = "paperID") String paperID) {
+                                     @PathVariable(name = "paperID") int paperID) {
         //asasa
         paperRepository.setNotAbleToReview(paperID, userId);  
         return "redirect:/reviewersperpaper/" + paperID;

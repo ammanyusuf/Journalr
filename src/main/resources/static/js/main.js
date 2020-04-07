@@ -1,5 +1,5 @@
 // this file is the response file when the paper upload button is clicked, this shows the url for the link to download
-
+/*
 'use strict';
 
 var singleUploadForm = document.querySelector('#singleUploadForm');
@@ -39,3 +39,4 @@ singleUploadForm.addEventListener('submit', function(event){
     uploadSingleFile(files[0]);
     event.preventDefault();
 }, true);
+*/

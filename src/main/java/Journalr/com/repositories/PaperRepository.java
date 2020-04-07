@@ -12,7 +12,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 @Repository
-public interface PaperRepository extends JpaRepository<Paper, String> {
+public interface PaperRepository extends JpaRepository<Paper, Integer> {
     @Query(value = "SELECT * FROM paper WHERE paper.author_id = ?1", 
             nativeQuery = true)
     List<Paper> findPapersByAuthorId(int author_id);
@@ -23,27 +23,27 @@ public interface PaperRepository extends JpaRepository<Paper, String> {
 
     @Query(value = "SELECT reviewer_id FROM review_paper,paper WHERE review_paper.paper_id = ?1 AND review_paper.paper_id=paper.paperid",
             nativeQuery = true)
-    List<Integer> findReviewersPerPaper(String paper_id);
+    List<Integer> findReviewersPerPaper(int paper_id);
 
     @Query(value = "SELECT DISTINCT reviewer_id FROM review_paper,paper WHERE review_paper.paper_id = ?1 AND review_paper.able_to_review=1",
             nativeQuery = true)
-    List<Integer> findReviewersAbleToReview(String paper_id);
+    List<Integer> findReviewersAbleToReview(int paper_id);
 
     @Query(value = "SELECT DISTINCT reviewer_id FROM review_paper,paper WHERE review_paper.paper_id = ?1 AND review_paper.able_to_review=0",
             nativeQuery = true)
-    List<Integer> findReviewersNotAbleToReview(String paper_id);
+    List<Integer> findReviewersNotAbleToReview(int paper_id);
 
     @Transactional
     @Modifying
     @Query(value = "UPDATE review_paper SET able_to_review=1 WHERE paper_id = ?1 AND reviewer_id = ?2",
             nativeQuery = true)
-    void setAbleToReview(String paper_id, int reviewer_id);
+    void setAbleToReview(int paper_id, int reviewer_id);
 
     @Transactional
     @Modifying
     @Query(value = "UPDATE review_paper SET able_to_review=0 WHERE paper_id = ?1 AND reviewer_id = ?2",
             nativeQuery = true)
-    void setNotAbleToReview(String paper_id, int reviewer_id);
+    void setNotAbleToReview(int paper_id, int reviewer_id);
     
     @Query(value = "SELECT * FROM paper WHERE paper.topic = ?1",
             nativeQuery = true)
