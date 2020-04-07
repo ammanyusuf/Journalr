@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ReUpload</title>
+    <title>Upload</title>
     <meta
       http-equiv="Content-Type"
       xmlns:th="https://www.thymeleaf.org"
@@ -23,25 +23,33 @@
 </head>
 <body>
 
+	<div th:if="${message}">
+		<h2 th:text="${message}"/>
+	</div>
+
 	<div align="center">
 
-		<h1>File to Re-Upload</h1>
+		<h1>File to Upload</h1>
 
-		<form method="POST" enctype="multipart/form-data" th:object="${paper}" action="/reuploadForm">
+		<form method="POST" enctype="multipart/form-data" action="/uploadForm">
 			<table cellpadding="10">
 				<tr>
 					<td>File</td>
 					<td><input type="file" name="file" /></td>
-                </tr>
-                <tr>
-					<td>Paper ID</td>
-					<td><input type="text" th:field="*{paperId}" readonly="readonly"/></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="submit" value="Upload"/> </td>
 				</tr>
 			</table>
 		</form>
+	</div>
+
+	<div>
+		<ul>
+			<li th:each="file : ${files}">
+				<a th:href="${file}" th:text="${file}" />
+			</li>
+		</ul>
 	</div>
 
 </body>

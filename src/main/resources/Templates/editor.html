@@ -30,13 +30,13 @@
               <td th:text="${paper.submissionDate}">Submission Date</td>
               <td th:text="${paper.submissionDeadline}">Submission Deadline</td>
               <td>
-                <a th:href="@{'/download/' + ${paper.paperID}}">Download</a>
+                <a th:href="@{'/download/' + ${paper.paperId}}">Download</a>
               </td>
               <td>
-                <a th:href="@{'/reviewersperpaper/' + ${paper.paperID}}">Reviewers</a>
+                <a th:href="@{'/reviewersperpaper/' + ${paper.paperId}}">Reviewers</a>
               </td>
               <td>
-                <a th:href="@{'/addjournal/' + ${paper.paperID}}">Add</a>
+                <a th:href="@{'/addjournal/' + ${paper.paperId}}">Add</a>
               </td>
             </tr>
           </tbody>
