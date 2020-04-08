@@ -20,8 +20,8 @@ public class Reviewer extends User{
     @Column(name = "affiliation")
     private String affiliation;
 
-    @Column(name = "favorite_topic")
-    private String favoriteTopic;
+    @Column(name = "favourite_topic")
+    private String favouriteTopic;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
@@ -76,12 +76,12 @@ public class Reviewer extends User{
         this.comments.add(comment);
     }
 
-    public String getFavoriteTopic() {
-        return favoriteTopic;
+    public String getFavouriteTopic() {
+        return favouriteTopic;
     }
 
-    public void setFavoriteTopic(String topic) {
-        this.favoriteTopic = topic;
+    public void setFavouriteTopic(String topic) {
+        this.favouriteTopic = topic;
     }
 
 }

@@ -63,7 +63,7 @@ public class ReviewerController {
 		Reviewer reviewer = reviewerRepository.findById(id).get();
         
         //Find all the papers based on the reviewer's topic of interest
-        List<Paper> listPapers = paperRepository.findPapersByTopic(reviewer.getFavoriteTopic());
+        List<Paper> listPapers = paperRepository.findPapersByTopic(reviewer.getFavouriteTopic());
 
         //List<Paper> listPapers = paperRepository.findAll();
         model.addAttribute("listPapersByTopic", listPapers);
