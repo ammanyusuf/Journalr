@@ -1,17 +1,18 @@
 <!--  this page is a basic add a comment page that would store the comment into the database -->
 
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8" />
 <title>Comment page</title>
 </head>
 <body>
-      <form th:action="@{/comment}" th:object="${comment}" method="post">
-        <h3>enter comment</h3>
+      <form action="#" th:action="@{'/addComment/' + ${paperId}}" method="post"> 
+        <h3>Enter comment</h3>
 
-          <label for="username">Comment:</label>
-          <input type="text" id="comment" name="comment" autofocus="autofocus"/> 
+          <label>Comment:</label>
+          <input type="text" name="comment"/> 
 
         <input type="submit" value="enter" />
       </form>

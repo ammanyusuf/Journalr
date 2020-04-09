@@ -35,7 +35,7 @@
                 <a th:href="@{downloadFile/{id}(id=${paperByTopic.paperId})}">Download</a>
               </td>
               <td>
-                <a th:href="comment">add comment</a>
+                <a th:href="@{'/addComment/' + ${paperByTopic.paperId}}">add comment</a>
               </td>
             </tr>
           </tbody>
