@@ -244,7 +244,7 @@ public class PaperController {
     }
     
     @RequestMapping(path="/editDeadline/{paperId}")
-    public String showEditUserPage (Model model, @PathVariable(name = "paperId") int paperId) {
+    public String showEditDeadlinePage (Model model, @PathVariable(name = "paperId") int paperId) {
     		
     	model.addAttribute("paperId", paperId);
 		
