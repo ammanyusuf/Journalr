@@ -113,7 +113,7 @@ public class EditorController {
     public String addReviewerToPaper(@PathVariable(name = "userId") int userId,
                                      @PathVariable(name = "paperID") int paperID) {
         //asasa
-        paperRepository.setAbleToReview(paperID, userId);  
+        paperRepository.updateAbleToReview(1, paperID, userId);  
         return "redirect:/reviewersperpaper/" + paperID;
     }
 
@@ -127,7 +127,7 @@ public class EditorController {
     public String removeReviewerFromPaper(@PathVariable(name = "userId") int userId,
                                      @PathVariable(name = "paperID") int paperID) {
         //asasa
-        paperRepository.setNotAbleToReview(paperID, userId);  
+        paperRepository.updateAbleToReview(0, paperID, userId);  
         return "redirect:/reviewersperpaper/" + paperID;
     }
 

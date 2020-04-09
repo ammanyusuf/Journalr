@@ -38,16 +38,10 @@
               <td th:text="${paper.fileName}">File Name</td>
               <td>
                 <a th:href="@{'/downloadFile/' + ${paper.paperId}}">Download</a>
-                <a th:href="@{'/reuploadForm/' + ${paper.paperId}}"
-                  >Re-upload</a
-                >
+                <a th:href="@{'/reuploadForm/' + ${paper.paperId}}">Re-upload</a >
               </td>
               <td>
-                <select th:field="*{listPotentialReviewers}">
-                  <option th:each="potentialReviewer : ${listPotentialReviewers}"  
-                          th:value="${potentialReviewer}" 
-                          th:text="${potentialReviewer.firstName} + ${potentialReviewer.lastName}"></option>
-                </select>
+                <a  th:href="@{'/authorAddReviewer/' + ${paper.paperId}}">Add Reviewer</a>
               </td>
             </tr>
           </tbody>
