@@ -26,6 +26,7 @@
               <th scope="col">Submission Deadline</th>
               <th scope="col">File Name</th>
               <th scope="col">Download</th>
+              <th scope="col">Add Reviewer</th>
             </tr>
           </thead>
           <tbody>
@@ -40,6 +41,13 @@
                 <a th:href="@{'/reuploadForm/' + ${paper.paperId}}"
                   >Re-upload</a
                 >
+              </td>
+              <td>
+                <select th:field="*{listPotentialReviewers}">
+                  <option th:each="potentialReviewer : ${listPotentialReviewers}"  
+                          th:value="${potentialReviewer}" 
+                          th:text="${potentialReviewer.firstName} + ${potentialReviewer.lastName}"></option>
+                </select>
               </td>
             </tr>
           </tbody>

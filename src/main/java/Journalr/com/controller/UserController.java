@@ -7,19 +7,34 @@ import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.stereotype.Controller;
 
+import Journalr.com.repositories.AuthorRepository;
+import Journalr.com.repositories.EditorRepository;
+import Journalr.com.repositories.ReviewerRepository;
 import Journalr.com.repositories.UserRepository;
 
 import java.util.*;
 //import java.util.Map;
 
+import Journalr.com.model.Author;
+import Journalr.com.model.Editor;
+import Journalr.com.model.Reviewer;
 import Journalr.com.model.User;
 
 //@RestController
 @Controller
 public class UserController {
-    @Autowired
-    UserRepository userRepository;
 
+    @Autowired
+    private ReviewerRepository reviewerRepository;
+
+    @Autowired
+    private EditorRepository editorRepository;
+
+    @Autowired
+	private AuthorRepository authorRepository;
+
+	@Autowired
+	private UserRepository userRepository;
     // The methods below are really for the admin
     /**
      * This method takes in the current displaying model as input.  It responds to the mapping 
@@ -61,9 +76,29 @@ public class UserController {
      */
     @RequestMapping(path="/save", method = RequestMethod.POST)
     public String saveUser (@ModelAttribute("user") User user) {
-            userRepository.save(user);
 
-            return "redirect:/admin";
+        //userRepository.save(user);
+
+        if (user.getRoles().contains("AUTHOR")) {
+            
+            Author author = new Author(user);
+            authorRepository.save(author);
+
+        } else if (user.getRoles().contains("REVIEWER")) {
+            
+            Reviewer reviewer = new Reviewer(user);
+            reviewerRepository.save(reviewer);
+
+        } else if (user.getRoles().contains("EDITOR")) {
+
+            Editor editor = new Editor(user);
+            editorRepository.save(editor);
+
+        }
+
+        //userRepository.save(user);
+
+        return "redirect:/admin";
     }
 
     /**

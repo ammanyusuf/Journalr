@@ -39,6 +39,10 @@ public class Reviewer extends User{
 	public Reviewer(String userName, String firstName, String lastName, String email, String password) {
 		super(userName, firstName, lastName, email, password);
     }
+
+    public Reviewer(User user) {
+        super(user);
+    }
     
     public void setReviewerId(int Id) {
     	super.setUserId(Id);

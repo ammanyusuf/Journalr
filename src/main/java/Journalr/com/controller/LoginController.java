@@ -67,7 +67,7 @@ public class LoginController {
 	  } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_USER"))) {
 	    return "redirect:/user";
 	  } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_AUTHOR"))) {
-	    return "redirect:/authorHarry";
+	    return "redirect:/author";
 	  } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_REVIEWER"))) {
 		return "redirect:/reviewer";
 	  } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_EDITOR"))) {   // these are the roles in the database

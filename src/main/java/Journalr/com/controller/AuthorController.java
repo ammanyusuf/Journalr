@@ -10,12 +10,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import Journalr.com.repositories.AuthorRepository;
 import Journalr.com.repositories.PaperRepository;
+import Journalr.com.repositories.ReviewerRepository;
 import Journalr.com.repositories.UserRepository;
 
 import java.util.*;
 //import java.util.Map;
 
 import Journalr.com.model.Paper;
+import Journalr.com.model.Reviewer;
 import Journalr.com.model.User;
 import Journalr.com.model.UserDetailsClass;
 import Journalr.com.model.Author;
@@ -33,6 +35,9 @@ public class AuthorController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ReviewerRepository reviewerRepository;
 
     // The methods below are really for the admin
     /**
@@ -83,6 +88,10 @@ public class AuthorController {
         //List<Paper> listPapers = paperRepository.findAll();
         model.addAttribute("listPapers", listPapers);
 
+
+        List<User> listPotentialReviewers = userRepository.findByRolesContaining("ROLE_REVIEWER");
+        model.addAttribute("listPotentialReviewers", listPotentialReviewers);
+        
         return "author";
     }
     

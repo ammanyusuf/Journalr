@@ -5,8 +5,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import Journalr.com.model.Reviewer;
+import Journalr.com.model.User;
+
 import java.util.List;
 
 @Repository
 public interface ReviewerRepository extends JpaRepository<Reviewer, Integer> {
+
 }

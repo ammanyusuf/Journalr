@@ -2,6 +2,10 @@ package Journalr.com.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.Query;
+
+import org.springframework.stereotype.Repository;
 
 import Journalr.com.model.User;
 import java.util.List;
@@ -14,5 +18,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findByLastNameContaining(String lastName);
 
     Optional<User> findByUserName(String userName);                     // checks the database for the user given the username
+
+    List<User> findByRolesContaining(String roleType);
 
 }

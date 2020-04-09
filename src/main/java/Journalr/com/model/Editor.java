@@ -20,6 +20,10 @@ public class Editor extends User{
 		super(userName, firstName, lastName, email, password);
 	}
 
+    public Editor(User user) {
+        super(user);
+    }
+
     /*
     public void addJournals() {
 
