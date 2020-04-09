@@ -18,6 +18,8 @@ import Journalr.com.exception.MyFileNotFoundException;
 
 import java.util.List;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.stream.Collectors;
 import java.util.Optional;
 import java.util.Date; 
@@ -240,5 +242,27 @@ public class PaperController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + paper.getFileName() + "\"")  // name of the downloaded file
                 .body(new ByteArrayResource(paper.getData()));  // the file in the database
     }
+    
+    @RequestMapping(path="/editDeadline/{paperId}")
+    public String showEditUserPage (Model model, @PathVariable(name = "paperId") int paperId) {
+    		
+    	model.addAttribute("paperId", paperId);
+		
+    	return "editDeadline";
+    }
+    
+    @RequestMapping(path="/editDeadline/{paperId}", method = RequestMethod.POST)
+    public String saveDeadline (@PathVariable(name = "paperId") int paperId, @ModelAttribute(name="date") String date) throws ParseException {
+
+    		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");          // html takes dates as strings
+			Date deadline = format.parse(date);                                    // so convert the Date to a String
+			
+    		Paper paper = paperRepository.findById(paperId).get(); 
+	    	paper.setSubmissionDeadline(deadline);
+	    	
+			paperRepository.save(paper);
+
+	        return "redirect:/editor";
+    }	      
 
 }

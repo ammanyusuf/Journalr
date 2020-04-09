@@ -22,6 +22,7 @@
               <th scope="col">Download</th>
               <th scope="col">Reviewers</th>
               <th scope="col">Add</th>
+              <th scope="col">Edit Deadline</th>
             </tr>
           </thead>
           <tbody>
@@ -37,6 +38,9 @@
               </td>
               <td>
                 <a th:href="@{'/addjournal/' + ${paper.paperId}}">Add</a>
+              </td>
+              <td>
+                <a th:href="@{'/editDeadline/' + ${paper.paperId}}">Edit</a>
               </td>
             </tr>
           </tbody>
