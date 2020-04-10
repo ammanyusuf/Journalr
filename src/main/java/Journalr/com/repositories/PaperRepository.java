@@ -35,15 +35,28 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE review_paper SET able_to_review=1 WHERE paper_id = ?1 AND reviewer_id = ?2",
+    @Query(value = "UPDATE review_paper SET able_to_review=?1 where paper_ID = ?2 AND reviewer_ID = ?3",
             nativeQuery = true)
-    void setAbleToReview(int paper_id, int reviewer_id);
+    void updateAbleToReview(int true_or_false, int paper_id, int reviewer_id);
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE review_paper SET able_to_review=0 WHERE paper_id = ?1 AND reviewer_id = ?2",
+    @Query(value = "UPDATE review_paper SET major_rev=?1 where paper_ID = ?2 AND reviewer_ID = ?3",
             nativeQuery = true)
-    void setNotAbleToReview(int paper_id, int reviewer_id);
+    void updateMajorRev(int true_or_false, int paper_id, int reviewer_id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE review_paper SET minor_rev=?1 where paper_ID = ?2 AND reviewer_ID = ?3",
+            nativeQuery = true)
+    void updateMinorRev(int true_or_false, int paper_id, int reviewer_id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE review_paper SET accept=?1 where paper_ID = ?2 AND reviewer_ID = ?3",
+            nativeQuery = true)
+    void updateAccept(int true_or_false, int paper_id, int reviewer_id);
+
     
     @Query(value = "SELECT * FROM paper WHERE paper.topic = ?1",
             nativeQuery = true)

@@ -10,12 +10,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import Journalr.com.repositories.AuthorRepository;
 import Journalr.com.repositories.PaperRepository;
+import Journalr.com.repositories.ReviewerRepository;
 import Journalr.com.repositories.UserRepository;
 
 import java.util.*;
 //import java.util.Map;
 
 import Journalr.com.model.Paper;
+import Journalr.com.model.Reviewer;
 import Journalr.com.model.User;
 import Journalr.com.model.UserDetailsClass;
 import Journalr.com.model.Author;
@@ -33,6 +35,9 @@ public class AuthorController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ReviewerRepository reviewerRepository;
 
     // The methods below are really for the admin
     /**
@@ -82,7 +87,7 @@ public class AuthorController {
 
         //List<Paper> listPapers = paperRepository.findAll();
         model.addAttribute("listPapers", listPapers);
-
+        
         return "author";
     }
     
@@ -96,4 +101,86 @@ public class AuthorController {
             return new ModelAndView("error");
         }   
     }
+
+
+    @RequestMapping(path="/authorAddReviewer/{paperId}")
+    public String populateAuthorAddReviewer(@PathVariable(name = "paperId") int paperId, Model model) {
+
+        Paper paper = paperRepository.findById(paperId).get();
+        model.addAttribute("paper1", paper);
+
+        List<User> listPotentialReviewers = userRepository.findByRolesContaining("ROLE_REVIEWER");
+        model.addAttribute("listPotentialReviewers", listPotentialReviewers);
+        
+        return "authorAddReviewer";
+    }
+
+    @RequestMapping(path="/authorAddReviewer/{paperId}", method = RequestMethod.POST)
+    public String authorAddReviewer (@PathVariable("paperId") int paperId, Model model,
+                                    @RequestParam("revId1") int reviewerId1,
+                                    @RequestParam("revId2") int reviewerId2,
+                                    @RequestParam("revId3") int reviewerId3) {
+        //
+        //
+        //
+        Paper paper = paperRepository.findById(paperId).get();
+        if (reviewerId1 != -1) {
+            
+            Reviewer reviewer = reviewerRepository.findById(reviewerId1).get();
+
+            // Assign the papers to the reviewers, and vice versa
+            reviewer.getPapers().add(paper);
+            paper.getReviewers().add(reviewer);
+
+            // Update database
+            paperRepository.save(paper);
+            reviewerRepository.save(reviewer);
+
+            //Update major,minor,accept,able to review attributes
+            paperRepository.updateMajorRev(0, paperId, reviewerId1);
+            paperRepository.updateMinorRev(0, paperId, reviewerId1);
+            paperRepository.updateAccept(0, paperId, reviewerId1);
+            paperRepository.updateAbleToReview(0, paperId, reviewerId1);
+        }
+
+        if (reviewerId2 != -1) {
+            Reviewer reviewer = reviewerRepository.findById(reviewerId2).get();
+
+            // Assign the papers to the reviewers, and vice versa
+            reviewer.getPapers().add(paper);
+            paper.getReviewers().add(reviewer);
+
+            // Update database
+            paperRepository.save(paper);
+            reviewerRepository.save(reviewer);
+
+            //Update major,minor,accept,able to review attributes
+            paperRepository.updateMajorRev(0, paperId, reviewerId2);
+            paperRepository.updateMinorRev(0, paperId, reviewerId2);
+            paperRepository.updateAccept(0, paperId, reviewerId2);
+            paperRepository.updateAbleToReview(0, paperId, reviewerId2);
+        }
+
+        if (reviewerId3 != -1) {
+            Reviewer reviewer = reviewerRepository.findById(reviewerId3).get();
+
+            // Assign the papers to the reviewers, and vice versa
+            reviewer.getPapers().add(paper);
+            paper.getReviewers().add(reviewer);
+
+            // Update database
+            paperRepository.save(paper);
+            reviewerRepository.save(reviewer);
+
+            //Update major,minor,accept,able to review attributes
+            paperRepository.updateMajorRev(0, paperId, reviewerId3);
+            paperRepository.updateMinorRev(0, paperId, reviewerId3);
+            paperRepository.updateAccept(0, paperId, reviewerId3);
+            paperRepository.updateAbleToReview(0, paperId, reviewerId3);
+        }
+        
+        return "redirect:/author";   
+    
+    }
+
 }

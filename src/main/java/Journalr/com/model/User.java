@@ -51,6 +51,18 @@ public class User {
 		this.password = password;
 	}
 
+	public User(User aUser) {
+		this.userId = aUser.getUserId();
+		this.userName = aUser.getUserName();
+		this.password = aUser.getPassword();
+		this.email = aUser.getEmail();
+		this.active = aUser.isActive();
+		this.roles = aUser.getRoles();
+		this.firstName = aUser.getFirstName();
+		this.lastName = aUser.getLastName();
+	}
+
+
 	public int getUserId() {
 		return userId;
 	}
@@ -119,5 +131,15 @@ public class User {
 	public String toString() {
 		return "User{" + "id= " + userId + ", " + "Name= " + firstName + " " + lastName + ", " + "Email= " + email + "}";
 	}
+
+
+	public void copyValues(User user) {
+        this.setUserName(user.getUserName());
+        this.setPassword(user.getPassword());
+        this.setEmail(user.getEmail());
+        this.setActive(user.isActive());
+        this.setFirstName(user.getFirstName());
+        this.setLastName(user.getLastName());
+    }
 
 }

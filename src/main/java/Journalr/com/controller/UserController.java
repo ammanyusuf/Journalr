@@ -7,19 +7,34 @@ import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.stereotype.Controller;
 
+import Journalr.com.repositories.AuthorRepository;
+import Journalr.com.repositories.EditorRepository;
+import Journalr.com.repositories.ReviewerRepository;
 import Journalr.com.repositories.UserRepository;
 
 import java.util.*;
 //import java.util.Map;
 
+import Journalr.com.model.Author;
+import Journalr.com.model.Editor;
+import Journalr.com.model.Reviewer;
 import Journalr.com.model.User;
 
 //@RestController
 @Controller
 public class UserController {
-    @Autowired
-    UserRepository userRepository;
 
+    @Autowired
+    private ReviewerRepository reviewerRepository;
+
+    @Autowired
+    private EditorRepository editorRepository;
+
+    @Autowired
+	private AuthorRepository authorRepository;
+
+	@Autowired
+	private UserRepository userRepository;
     // The methods below are really for the admin
     /**
      * This method takes in the current displaying model as input.  It responds to the mapping 
@@ -61,9 +76,54 @@ public class UserController {
      */
     @RequestMapping(path="/save", method = RequestMethod.POST)
     public String saveUser (@ModelAttribute("user") User user) {
-            userRepository.save(user);
 
-            return "redirect:/admin";
+        //userRepository.save(user);
+
+        if (user.getRoles().contains("AUTHOR")) {
+            
+            // Check wether or not he author already exists in database
+            Author author;
+            if (authorRepository.findById(user.getUserId()).isPresent()) {
+                author = authorRepository.findById(user.getUserId()).get();
+                author.copyValues(user);
+            } else {
+                author = new Author(user);
+            }
+
+            authorRepository.save(author);
+
+        } else if (user.getRoles().contains("REVIEWER")) {
+            
+            // Check wether or not he reviewer already exists in database
+            Reviewer reviewer;
+            if (reviewerRepository.findById(user.getUserId()).isPresent()) {
+                reviewer = reviewerRepository.findById(user.getUserId()).get();
+                reviewer.copyValues(user);
+                
+            } else {
+                reviewer = new Reviewer(user);
+            }
+
+            reviewerRepository.save(reviewer);
+
+        } else if (user.getRoles().contains("EDITOR")) {
+
+            // Check wether or not he editor already exists in database
+            Editor editor;
+            if (editorRepository.findById(user.getUserId()).isPresent()) {
+                editor = editorRepository.findById(user.getUserId()).get();
+                editor.copyValues(user);
+            } else {
+                editor = new Editor(user);
+            }
+            
+            editorRepository.save(editor);
+
+        }
+
+        //userRepository.save(user);
+
+        return "redirect:/admin";
     }
 
     /**

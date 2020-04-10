@@ -25,6 +25,10 @@ public class Author extends User{
 	public Author(String userName, String firstName, String lastName, String email, String password) {
 		super(userName, firstName, lastName, email, password);
 	}
+
+	public Author(User user) {
+		super(user);
+	}	
 	/*
 	public void setPaper(ArrayList<Paper> aPaper) {
 	}
