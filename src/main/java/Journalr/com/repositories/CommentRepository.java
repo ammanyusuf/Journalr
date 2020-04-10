@@ -12,6 +12,4 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
     
     List<Comment> findByCommentId(int commentId);
 
-                  // checks the database for the user given the username
-
 }

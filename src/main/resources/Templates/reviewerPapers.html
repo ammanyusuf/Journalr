@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="baseTemplate :: header(${pageTitle})">
+    </head>
+    
+    <body>
+    	<nav th:replace="baseTemplate :: topNav">
+	     </nav>
+	     
+	     <div class="container-fluid full-height">
+	     	<div class="row full-height">
+	     		<div th:replace="reviewerTemplate :: userNav">
+	     		</div>
+	     		<div class="col-sm-9 blue-gradient" id="scroller">
+	     			<div class="full-height table-responsive" style="background-color:white;">
+	     			<!-- Table with all papers related to the Reviewer user -->
+	     				<table class="table table-striped">
+						  <thead>
+						    <tr>
+						    <!-- Table headers -->
+                                <th scope="col">Title</th>
+                                <th scope="col">Topic</th>
+                                <th scope="col">Submission Date</th>
+                                <th scope="col">Submission Deadline</th>
+                                <th scope="col">File Name</th>         
+                                <th scope="col">Download Link</th>
+                                <th scope="col">Select Paper</th>  
+						    </tr>
+						  </thead>
+						  <tbody>
+						  <!-- Table rows with injected data, each title has a link to download the corresponding papers -->
+                          <tr th:each="paperByAll : ${listAllPapers}">
+                            <td th:text="${paperByAll.title}">Title</td>
+                            <td th:text="${paperByAll.topic}">Topic</td>
+                            <td th:text="${paperByAll.submissionDate}">Submission Date</td>
+                            <td th:text="${paperByAll.submissionDeadline}">Submission Deadline</td>
+                            <td th:text="${paperByAll.fileName}">File Name</td>
+                            <td>
+                              <a th:href="@{downloadFile/{id}(id=${paperByAll.paperId})}">Download</a>
+                            </td>
+                            <td>
+                              <a th:href="@{'/selectPaperToReview/' + ${paperByAll.paperId}}">Select Paper To Review</a>
+                            </td>
+                          </tr>
+						    
+						  </tbody>
+						</table>
+	     			</div>	
+	     		</div>
+	     	</div>
+	     </div>
+    </body>
+
+</html>

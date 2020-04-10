@@ -75,7 +75,7 @@ public class CommentController {
 	    commentObj.setCommentDate(date);
 	    commentRepository.save(commentObj);
 	            
-	    return "paperTopics";
+	    return "redirect:/paperTopics";
 	}
 
 }

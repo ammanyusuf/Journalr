@@ -61,4 +61,9 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
     @Query(value = "SELECT * FROM paper WHERE paper.topic = ?1",
             nativeQuery = true)
         List<Paper> findPapersByTopic(String topic);
+
+
+    @Query(value = "SELECT * FROM paper AS p1 WHERE p1.paper_ID NOT IN (SELECT pr.paper_ID FROM review_paper AS pr WHERE pr.reviewer_ID = ?1)",
+           nativeQuery = true)
+        List<Paper> findPapersNotSelectedByReviewerId(int reviewer_id);
 }

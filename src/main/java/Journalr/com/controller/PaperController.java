@@ -230,7 +230,7 @@ public class PaperController {
         return "redirect:/author";
     }
 
-    @GetMapping("/downloadFile/{fileId}")    //url to download
+    @GetMapping("**/downloadFile/{fileId}")    //url to download
     public ResponseEntity<Resource> downloadFile(@PathVariable int fileId) {  // response from clicking download link
         // Load file from database
         //Paper paper = PaperStorageService.getFile(fileId);
