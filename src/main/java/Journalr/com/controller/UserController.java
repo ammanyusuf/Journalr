@@ -81,17 +81,42 @@ public class UserController {
 
         if (user.getRoles().contains("AUTHOR")) {
             
-            Author author = new Author(user);
+            // Check wether or not he author already exists in database
+            Author author;
+            if (authorRepository.findById(user.getUserId()).isPresent()) {
+                author = authorRepository.findById(user.getUserId()).get();
+                author.copyValues(user);
+            } else {
+                author = new Author(user);
+            }
+
             authorRepository.save(author);
 
         } else if (user.getRoles().contains("REVIEWER")) {
             
-            Reviewer reviewer = new Reviewer(user);
+            // Check wether or not he reviewer already exists in database
+            Reviewer reviewer;
+            if (reviewerRepository.findById(user.getUserId()).isPresent()) {
+                reviewer = reviewerRepository.findById(user.getUserId()).get();
+                reviewer.copyValues(user);
+                
+            } else {
+                reviewer = new Reviewer(user);
+            }
+
             reviewerRepository.save(reviewer);
 
         } else if (user.getRoles().contains("EDITOR")) {
 
-            Editor editor = new Editor(user);
+            // Check wether or not he editor already exists in database
+            Editor editor;
+            if (editorRepository.findById(user.getUserId()).isPresent()) {
+                editor = editorRepository.findById(user.getUserId()).get();
+                editor.copyValues(user);
+            } else {
+                editor = new Editor(user);
+            }
+            
             editorRepository.save(editor);
 
         }

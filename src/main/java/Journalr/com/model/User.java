@@ -132,4 +132,14 @@ public class User {
 		return "User{" + "id= " + userId + ", " + "Name= " + firstName + " " + lastName + ", " + "Email= " + email + "}";
 	}
 
+
+	public void copyValues(User user) {
+        this.setUserName(user.getUserName());
+        this.setPassword(user.getPassword());
+        this.setEmail(user.getEmail());
+        this.setActive(user.isActive());
+        this.setFirstName(user.getFirstName());
+        this.setLastName(user.getLastName());
+    }
+
 }
