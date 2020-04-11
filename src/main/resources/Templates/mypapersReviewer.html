@@ -72,6 +72,9 @@
                             <td>
                               <a th:href="@{downloadFile/{id}(id=${pendingPaperReviewer.paperId})}">Download</a>
                             </td>
+                            <td>
+                                <a th:href="@{'/deselectPaperToReview/' + ${pendingPaperReviewer.paperId}}">De-Select Paper To Review</a>
+                              </td>
                           </tr>
 						    
 						  </tbody>

@@ -130,6 +130,48 @@ public class ReviewerController {
 
     }
 
+
+    /**
+     * This method will deselct the paper from the reviewer in the review_paper table
+     * in mysql
+     * @param paperId the paperId that the reviewer wishes to -deselect
+     * @return this method returns to the /reviewer/papers page
+     */
+    @RequestMapping("**/deselectPaperToReview/{paperId}")
+    public String deselectPaperToReview(@PathVariable int paperId) {
+
+        // Get the credentials of the currently logged in user
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String userName;
+
+		// Get the instance of that user
+		if (principal instanceof UserDetailsClass) {
+			userName = ((UserDetailsClass)principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+
+		// Find the user in the user table by their username
+		User user = userRepository.findByUserName(userName).get();
+		int id = user.getUserId();
+
+		// Find the reviewer in the reviewer table by id as well as the paper
+        Reviewer reviewer = reviewerRepository.findById(id).get();
+        Paper paper = paperRepository.findById(paperId).get();
+
+        // Assign the papers to the reviewers, and vice versa
+        reviewer.getPapers().remove(paper);
+        paper.getReviewers().remove(reviewer);
+
+        // Update database
+        paperRepository.save(paper);
+        reviewerRepository.save(reviewer);
+        
+        return "redirect:/reviewer/papers";
+
+    }
+
     /**
      * Description: This function will retrieve all papers based on reviewer's topic
      *              of interest.
