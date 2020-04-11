@@ -269,12 +269,22 @@ public class ReviewerController {
         List<Paper> listPotentialAcceptedPapers = paperRepository.findPotentialAcceptedPapers(id);
         model.addAttribute("listPotentialAcceptedPapers", listPotentialAcceptedPapers);
 
+        List<Paper> listAcceptedPapersByReviewer = paperRepository.findAcceptedPapersByReviewer(id);
+        model.addAttribute("listAcceptedPapersByReviewer", listAcceptedPapersByReviewer);
+
+        List<Paper> listRejectedPapersByReviewer = paperRepository.findRejectedPapersByReviewer(id);
+        model.addAttribute("listRejectedPapersByReviewer", listRejectedPapersByReviewer);
+
         return "paperAccept";
     }
 
-
+    /**
+     * this method will have the reviewer accept the paper passed through the url
+     * @param paperId the paper id that we wish to accept
+     * @return return to the paperAccept page
+     */
     @RequestMapping(value="**/acceptPaper/{paperId}", method=RequestMethod.GET)
-    public String requestMethodName(@PathVariable int paperId) {
+    public String acceptPaper(@PathVariable int paperId) {
         
         // Get the credentials of the currently logged in user
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -293,6 +303,35 @@ public class ReviewerController {
         int id = user.getUserId();
 
         paperRepository.updateAccept(1, paperId, id);
+        
+        return "paperAccept";
+    }
+
+    /**
+     * this method will have the reviewer reject a paper by the given paperId
+     * @param paperId the paper Id that we wish to reject
+     * @return this method will return back to the accept paper page
+     */
+    @RequestMapping(value="**/rejectPaper/{paperId}", method=RequestMethod.GET)
+    public String rejectPaper(@PathVariable int paperId) {
+        
+        // Get the credentials of the currently logged in user
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String userName;
+
+		// Get the instance of that user
+		if (principal instanceof UserDetailsClass) {
+			userName = ((UserDetailsClass)principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+
+		// Find the user in the user table by their username
+		User user = userRepository.findByUserName(userName).get();
+        int id = user.getUserId();
+
+        paperRepository.updateReject(1, paperId, id);
         
         return "paperAccept";
     }

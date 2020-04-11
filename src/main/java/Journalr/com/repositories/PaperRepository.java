@@ -57,6 +57,12 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
             nativeQuery = true)
     void updateAccept(int true_or_false, int paper_id, int reviewer_id);
 
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE review_paper SET reject=?1 where paper_ID = ?2 AND reviewer_ID = ?3",
+            nativeQuery = true)
+    void updateReject(int true_or_false, int paper_id, int reviewer_id);
+
     
     @Query(value = "SELECT * FROM paper WHERE paper.topic = ?1",
             nativeQuery = true)
@@ -75,7 +81,14 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
         nativeQuery = true)
         List<Paper> findApprovedPapersOfReviewer(int reviewer_id);
 
-    @Query(value = "SELECT * FROM paper AS p1 WHERE p1.paper_ID IN (SELECT pr.paper_ID FROM review_paper AS pr WHERE pr.reviewer_ID=?1 AND major_rev=1 AND minor_rev=1 AND accept=0)",
+    @Query(value = "SELECT * FROM paper AS p1 WHERE p1.paper_ID IN (SELECT pr.paper_ID FROM review_paper AS pr WHERE pr.reviewer_ID=?1 AND major_rev=1 AND minor_rev=1 AND accept=0 AND reject=0)",
         nativeQuery = true)
         List<Paper> findPotentialAcceptedPapers(int reviewer_id);
+
+    @Query(value = "SELECT * FROM paper AS p1 WHERE p1.paper_ID IN (SELECT pr.paper_ID FROM review_paper AS pr WHERE pr.reviewer_ID=?1 AND accept=1)",
+        nativeQuery = true)
+        List<Paper> findAcceptedPapersByReviewer(int reviewer_id);
+    @Query(value = "SELECT * FROM paper AS p1 WHERE p1.paper_ID IN (SELECT pr.paper_ID FROM review_paper AS pr WHERE pr.reviewer_ID=?1 AND reject=1)",
+        nativeQuery = true)
+        List<Paper> findRejectedPapersByReviewer(int reviewer_id);
 }

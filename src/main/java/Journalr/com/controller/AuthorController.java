@@ -141,6 +141,7 @@ public class AuthorController {
             paperRepository.updateMinorRev(0, paperId, reviewerId1);
             paperRepository.updateAccept(0, paperId, reviewerId1);
             paperRepository.updateAbleToReview(0, paperId, reviewerId1);
+            paperRepository.updateReject(0, paperId, reviewerId1);
         }
 
         if (reviewerId2 != -1) {
@@ -159,6 +160,7 @@ public class AuthorController {
             paperRepository.updateMinorRev(0, paperId, reviewerId2);
             paperRepository.updateAccept(0, paperId, reviewerId2);
             paperRepository.updateAbleToReview(0, paperId, reviewerId2);
+            paperRepository.updateReject(0, paperId, reviewerId2);
         }
 
         if (reviewerId3 != -1) {
@@ -177,6 +179,8 @@ public class AuthorController {
             paperRepository.updateMinorRev(0, paperId, reviewerId3);
             paperRepository.updateAccept(0, paperId, reviewerId3);
             paperRepository.updateAbleToReview(0, paperId, reviewerId3);
+            paperRepository.updateReject(0, paperId, reviewerId3);
+            
         }
         
         return "redirect:/author";   
