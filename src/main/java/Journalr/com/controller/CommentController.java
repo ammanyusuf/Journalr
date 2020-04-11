@@ -51,7 +51,9 @@ public class CommentController {
 
 	// method that adds the comment to the database
     @RequestMapping(path="**/addComment/{paperId}", method = RequestMethod.POST)
-    public String saveDeadline (@PathVariable(name = "paperId") int paperId, @ModelAttribute(name="comment") String comment) throws ParseException {
+	public String saveDeadline (@PathVariable(name = "paperId") int paperId, 
+								@ModelAttribute(name="comment") String comment,
+								@ModelAttribute(name="topic") String topic) throws ParseException {
 		 
 		Comment commentObj = new Comment();
 
@@ -72,8 +74,16 @@ public class CommentController {
 	    commentObj.setComment(comment);
 	    commentObj.setReviewer(reviewer);
 	    commentObj.setPaper(paper);
-	    commentObj.setCommentDate(date);
-	    commentRepository.save(commentObj);
+		commentObj.setCommentDate(date);
+		commentObj.setTopic(topic);
+		commentRepository.save(commentObj);
+		
+		// Set the paper to a major revision or minor revision accoringly
+		if (topic.contains("major")) {
+			paperRepository.updateMajorRev(1, paperId, reviewer.getUserId());
+		} else if (topic.contains("minor")) {
+			paperRepository.updateMinorRev(1, paperId, reviewer.getUserId());
+		}
 	            
 	    return "redirect:/reviewer";
 	}

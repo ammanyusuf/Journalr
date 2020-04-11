@@ -27,6 +27,9 @@ public class Comment {
     @JoinColumn(name = "paper_ID")
     private Paper paper;
 
+    @Column(name = "topic")
+    private String topic;
+
     public Comment() {
 
     }
@@ -67,6 +70,14 @@ public class Comment {
 
     public void setPaper(Paper paper) {
         this.paper = paper;
+    }
+
+    public String getTopic() {
+        return this.topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
 }
