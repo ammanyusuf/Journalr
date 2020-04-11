@@ -246,6 +246,55 @@ public class ReviewerController {
         return "mypapersReviewer";
     }
     
-    
+    @RequestMapping(value = "/reviewer/paperAccept")
+    public String populatePaperAccepts(Model model) {
+        model.addAttribute("pageTitle", "Reviewer | Papers To Accept");
 
+        // Get the credentials of the currently logged in user
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String userName;
+
+		// Get the instance of that user
+		if (principal instanceof UserDetailsClass) {
+			userName = ((UserDetailsClass)principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+
+		// Find the user in the user table by their username
+		User user = userRepository.findByUserName(userName).get();
+        int id = user.getUserId();
+        
+        List<Paper> listPotentialAcceptedPapers = paperRepository.findPotentialAcceptedPapers(id);
+        model.addAttribute("listPotentialAcceptedPapers", listPotentialAcceptedPapers);
+
+        return "paperAccept";
+    }
+
+
+    @RequestMapping(value="**/acceptPaper/{paperId}", method=RequestMethod.GET)
+    public String requestMethodName(@PathVariable int paperId) {
+        
+        // Get the credentials of the currently logged in user
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String userName;
+
+		// Get the instance of that user
+		if (principal instanceof UserDetailsClass) {
+			userName = ((UserDetailsClass)principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+
+		// Find the user in the user table by their username
+		User user = userRepository.findByUserName(userName).get();
+        int id = user.getUserId();
+
+        paperRepository.updateAccept(1, paperId, id);
+        
+        return "paperAccept";
+    }
+    
 }
