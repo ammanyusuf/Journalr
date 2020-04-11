@@ -167,7 +167,7 @@ public class ReviewerController {
         // Update database
         paperRepository.save(paper);
         reviewerRepository.save(reviewer);
-        
+
         return "redirect:/reviewer/papers";
 
     }
@@ -179,8 +179,9 @@ public class ReviewerController {
      * @param model The model is the current displaying template.
      * @return
      */
-    @RequestMapping("/paperTopics")
+    @RequestMapping("/reviewer/paperTopics")
     public String showAllPapersToReview(Model model) {
+        model.addAttribute("pageTitle", "Reviewer | Favorite Topic Papers");
         
         // Get the credentials of the currently logged in user
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

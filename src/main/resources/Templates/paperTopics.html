@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-  <head th:replace="baseTemplate :: header(title=~{::title/text()})">
-    <title>Reviewer</title>
+  <head th:replace="baseTemplate :: header(${pageTitle})">
   </head>
   <body>
     <nav th:replace="baseTemplate :: topNav"></nav>
 
     <div class="container-fluid">
+      <div th:replace="reviewerTemplate :: userNav">
+      </div>
+      <div class="dashboard-topbar">
+        <span class="dashboard-title">Reviewer Papers Topic Dashboard</span>
+      </div>
       <div class="dashboard">
-        <div class="dashboard-topbar">
-          <span class="dashboard-title">Reviewer Papers Dashboard</span>
-        </div>
         <br />
         <table class="table table-bordered table-hover">
           <thead>
