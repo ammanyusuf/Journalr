@@ -41,7 +41,7 @@ public class CommentController {
     @Autowired
     ReviewerRepository reviewerRepository;
 	
-	@RequestMapping(path="/addComment/{paperId}")
+	@RequestMapping(path="**/addComment/{paperId}")
     public String showCommentPage (Model model, @PathVariable(name = "paperId") int paperId) {
 		
     	model.addAttribute("paperId", paperId);
@@ -50,7 +50,7 @@ public class CommentController {
 	}
 
 	// method that adds the comment to the database
-    @RequestMapping(path="/addComment/{paperId}", method = RequestMethod.POST)
+    @RequestMapping(path="**/addComment/{paperId}", method = RequestMethod.POST)
     public String saveDeadline (@PathVariable(name = "paperId") int paperId, @ModelAttribute(name="comment") String comment) throws ParseException {
 		 
 		Comment commentObj = new Comment();

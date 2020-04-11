@@ -19,6 +19,10 @@ import Journalr.com.model.Paper;
 import Journalr.com.model.User;
 import Journalr.com.model.UserDetailsClass;
 import Journalr.com.model.Reviewer;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 //@RestController
 @Controller
@@ -164,7 +168,41 @@ public class ReviewerController {
         return "paperTopics";
     }
 
+    @RequestMapping(value="/reviewer/mypapersReviewer", method=RequestMethod.GET)
+    public String populateMyPapersReviewer(Model model) {
 
+        model.addAttribute("pageTitle", "Reviewer | My Papers");
+
+        // Get the credentials of the currently logged in user
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String userName;
+
+		// Get the instance of that user
+		if (principal instanceof UserDetailsClass) {
+			userName = ((UserDetailsClass)principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+
+		// Find the user in the user table by their username
+		User user = userRepository.findByUserName(userName).get();
+		int id = user.getUserId();
+
+		// Find the reviewer in the reviewer table by id
+        Reviewer reviewer = reviewerRepository.findById(id).get();
+        
+        List<Paper> listMyPendingPapers = paperRepository.findPendingPapersOfReviewer(reviewer.getUserId());
+
+        model.addAttribute("listMyPendingPapers", listMyPendingPapers);
+
+        List<Paper> listMyApprovedPapers = paperRepository.findApprovedPapersOfReviewer(reviewer.getUserId());
+
+        model.addAttribute("listMyApprovedPapers", listMyApprovedPapers);
+
+        return "mypapersReviewer";
+    }
+    
     
 
 }
