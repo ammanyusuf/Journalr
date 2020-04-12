@@ -63,34 +63,28 @@ public class AuthorController {
     @RequestMapping("/author")
     public String showAllPapersPerAuthor(Model model) {
         
-        // Get the credentials of the currently logged on user
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        try {
+            int id = getCurrentlyLoggedInUser();
+            
+            User user = userRepository.findById(id).get();
+            
+            String firstName = user.getFirstName();
+            model.addAttribute("firstName", firstName);
 
-		String userName;
+            // Find the author in the author table by id
+            Author author = authorRepository.findById(id).get();
+            
+            //Find all the papers written by the author
+            List<Paper> listPapers = paperRepository.findPapersByAuthorId(author.getUserId());
 
-		// Get the isntance of that user
-		if (principal instanceof UserDetailsClass) {
-			userName = ((UserDetailsClass)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
+            //List<Paper> listPapers = paperRepository.findAll();
+            model.addAttribute("listPapers", listPapers);
+        } catch(Exception e) {
+            
+            model.addAttribute("goBack", "/author");
 
-		// Find the user in the user table by their username
-		User user = userRepository.findByUserName(userName).get();
-		int id = user.getUserId();
-		
-		String firstName = user.getFirstName();
-		model.addAttribute("firstName", firstName);
-
-		// Find the author in the author table by id
-		Author author = authorRepository.findById(id).get();
-        
-        //Find all the papers written by the author
-        List<Paper> listPapers = paperRepository.findPapersByAuthorId(author.getUserId());
-
-        //List<Paper> listPapers = paperRepository.findAll();
-        model.addAttribute("listPapers", listPapers);
-        
+            return "redirect:/error";
+        }
         return "author";
     }
     
@@ -188,6 +182,29 @@ public class AuthorController {
         
         return "redirect:/author";   
     
+    }
+
+    /**
+     * This method will retireved the currently logged in user's id
+     * @return this method returns the currently logged in user's id
+     */
+    public int getCurrentlyLoggedInUser() {
+        // Get the credentials of the currently logged on user
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String userName;
+
+		// Get the isntance of that user
+		if (principal instanceof UserDetailsClass) {
+			userName = ((UserDetailsClass)principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+
+		// Find the user in the user table by their username
+        User user = userRepository.findByUserName(userName).get();
+        
+        return user.getUserId();
     }
 
 }
