@@ -42,7 +42,25 @@ public class ReviewerController {
 	@RequestMapping(value="/reviewer", method=RequestMethod.GET)
 	public String reviewerHome(Model model) {
 		model.addAttribute("pageTitle", "Reviewer | Home");
-		model.addAttribute("firstName", "Reviewer");
+		
+		// Get the credentials of the currently logged in user
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String userName;
+
+		// Get the instance of that user
+		if (principal instanceof UserDetailsClass) {
+			userName = ((UserDetailsClass)principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+		
+		// Find the user in the user table by their username
+		User user = userRepository.findByUserName(userName).get();
+		
+		String firstName = user.getFirstName();
+		model.addAttribute("firstName", firstName);
+		
 		return "reviewer";
     }
     
@@ -56,7 +74,6 @@ public class ReviewerController {
 	@RequestMapping(value="/reviewer/papers", method=RequestMethod.GET)
 	public String reviewerPapers(Model model) {
 		model.addAttribute("pageTitle", "Reviewer | Papers");
-        model.addAttribute("firstName", "Reviewer");
         
         // Get the credentials of the currently logged in user
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -73,6 +90,9 @@ public class ReviewerController {
 		// Find the user in the user table by their username
 		User user = userRepository.findByUserName(userName).get();
 		int id = user.getUserId();
+		
+		String firstName = user.getFirstName();
+		model.addAttribute("firstName", firstName);
 
         //List<Paper> listAllPapers = paperRepository.findAll();
         List<Paper> listAllPapers = paperRepository.findPapersNotSelectedByReviewerId(id);
@@ -208,6 +228,9 @@ public class ReviewerController {
         //List<Paper> listPapers = paperRepository.findAll();
         model.addAttribute("listPapersByTopic", listPapers);
         
+        String firstName = user.getFirstName();
+		model.addAttribute("firstName", firstName);
+        
         return "paperTopics";
     }
 
@@ -231,6 +254,9 @@ public class ReviewerController {
 		// Find the user in the user table by their username
 		User user = userRepository.findByUserName(userName).get();
 		int id = user.getUserId();
+		
+		String firstName = user.getFirstName();
+		model.addAttribute("firstName", firstName);
 
 		// Find the reviewer in the reviewer table by id
         Reviewer reviewer = reviewerRepository.findById(id).get();
@@ -265,6 +291,9 @@ public class ReviewerController {
 		// Find the user in the user table by their username
 		User user = userRepository.findByUserName(userName).get();
         int id = user.getUserId();
+        
+        String firstName = user.getFirstName();
+		model.addAttribute("firstName", firstName);
         
         List<Paper> listPotentialAcceptedPapers = paperRepository.findPotentialAcceptedPapers(id);
         model.addAttribute("listPotentialAcceptedPapers", listPotentialAcceptedPapers);
