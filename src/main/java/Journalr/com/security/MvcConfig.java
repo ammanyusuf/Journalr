@@ -32,7 +32,7 @@ public class MvcConfig implements WebMvcConfigurer {
 		registry.addViewController("/adduser").setViewName("adduser");
 		registry.addViewController("/editUser").setViewName("editUser");
 		registry.addViewController("/editpaper").setViewName("editpaper");
-		
+		// should we add paperTopics in here?
 		
 	}
 	

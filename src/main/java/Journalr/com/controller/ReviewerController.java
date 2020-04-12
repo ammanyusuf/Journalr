@@ -197,7 +197,7 @@ public class ReviewerController {
      *              of interest.
      * 
      * @param model The model is the current displaying template.
-     * @return
+     * @return this method returns to the page /reviewer/paperTopics
      */
     @RequestMapping("/reviewer/paperTopics")
     public String showAllPapersToReview(Model model) {

@@ -46,9 +46,34 @@
 	              </td>
 	            </tr>
 	          </tbody>
-	        </table>
+			</table>
+			<!-- Table for approved papers -->
+			<a>Approved papers</a>
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+					  <th scope="col">Title</th>
+					  <th scope="col">File Name</th>
+					  <th scope="col">File Type</th>
+					  <th scope="col">Data</th>
+					  <th scope="col">Topic</th>
+					  <th scope="col">Download</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr th:each="approvedPaper : ${approvedPapers}">
+					  <td th:text="${approvedPaper.title}">Title</td>
+					  <td th:text="${approvedPaper.fileName">File Name</td>
+					  <td th:text="${approvedPaper.fileType}">File Type</td>
+					  <td th:text="${approvedPaper.data}">Data</td>
+					  <td th:text="${approvedPaper.topic}">Topic</td>
+					  <td>
+						<a th:href="@{'/downloadFile/' + ${paper.paperId}}">Download</a>
+					  </td>
+					</tr>
+				  </tbody>
+			</table>	
         </div>
-        
       </div>
     </div>
   </body>
