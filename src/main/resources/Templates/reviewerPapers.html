@@ -4,7 +4,7 @@
     </head>
     
     <body>
-    	<nav th:replace="baseTemplate :: topNav">
+    	<nav th:replace="baseTemplate :: topNavWLogout">
 	     </nav>
 	     
 	     <div class="container-fluid full-height">
@@ -15,33 +15,53 @@
 	     			<div class="full-height table-responsive" style="background-color:white;">
 	     			<!-- Table with all papers related to the Reviewer user -->
 	     				<table class="table table-striped">
-						  <thead>
+						  <thead class="">
 						    <tr>
 						    <!-- Table headers -->
-                                <th scope="col">Title</th>
-                                <th scope="col">Topic</th>
-                                <th scope="col">Submission Date</th>
-                                <th scope="col">Submission Deadline</th>
-                                <th scope="col">File Name</th>         
-                                <th scope="col">Download Link</th>
-                                <th scope="col">Select Paper</th>  
+						      <th scope="col">Paper Title</th>
+						      <th scope="col" class="">Author</th>
+						      <th scope="col">Submission Date</th>
+						      <th scope="col">Download Link</th>
 						    </tr>
 						  </thead>
 						  <tbody>
 						  <!-- Table rows with injected data, each title has a link to download the corresponding papers -->
-                          <tr th:each="paperByAll : ${listAllPapers}">
-                            <td th:text="${paperByAll.title}">Title</td>
-                            <td th:text="${paperByAll.topic}">Topic</td>
-                            <td th:text="${paperByAll.submissionDate}">Submission Date</td>
-                            <td th:text="${paperByAll.submissionDeadline}">Submission Deadline</td>
-                            <td th:text="${paperByAll.fileName}">File Name</td>
-                            <td>
-                              <a th:href="@{downloadFile/{id}(id=${paperByAll.paperId})}">Download</a>
-                            </td>
-                            <td>
-                              <a th:href="@{'/selectPaperToReview/' + ${paperByAll.paperId}}">Select Paper To Review</a>
-                            </td>
-                          </tr>
+						    <tr>
+						      <td>The adventure of the Corgi</td>
+						      <td>Aaron Mario</td>
+						      <td>2020-03-28</td>
+						      <td><a href="">Download</a></td>
+						    </tr>
+						    <tr>
+						      <td>Walking Without Training Wheels</td>
+						      <td>Jacob Thornton</td>
+						      <td>2020-07-24</td>
+						      <td><a href="">Download</a></td>
+						    </tr>
+						    <tr>
+						      <td>The Life and Times of Robot Boy</td>
+						      <td>Annie Bird</td>
+						      <td>2020-05-16</td>
+						      <td><a href="">Download</a></td>
+						    </tr>
+						    <tr>
+						      <td>The adventure of the Corgi</td>
+						      <td>Aaron Mario</td>
+						      <td>2020-03-28</td>
+						      <td><a href="">Download</a></td>
+						    </tr>
+						    <tr>
+						      <td>Walking Without Training Wheels</td>
+						      <td>Jacob Thornton</td>
+						      <td>2020-07-24</td>
+						      <td><a href="">Download</a></td>
+						    </tr>
+						    <tr>
+						      <td>The Life and Times of Robot Boy</td>
+						      <td>Annie Bird</td>
+						      <td>2020-05-16</td>
+						      <td><a href="">Download</a></td>
+						    </tr>
 						    
 						  </tbody>
 						</table>
