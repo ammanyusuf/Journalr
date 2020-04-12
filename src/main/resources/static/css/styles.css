@@ -77,7 +77,7 @@ html, body {
 }
 
 #scroller {
-	height:90%;
+	height:95%;
     overflow-y: scroll;
     background-color:#4287f5;
 }
