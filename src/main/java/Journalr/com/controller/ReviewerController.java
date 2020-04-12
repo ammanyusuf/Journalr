@@ -71,9 +71,9 @@ public class ReviewerController {
      * @param model The current model that is passed though
      * @return the reviewerPapers page
      */
-	@RequestMapping(value="/reviewer/papers", method=RequestMethod.GET)
+	@RequestMapping(value="/reviewer/availablePapers", method=RequestMethod.GET)
 	public String reviewerPapers(Model model) {
-		model.addAttribute("pageTitle", "Reviewer | Papers");
+		model.addAttribute("pageTitle", "Reviewer | Available Papers");
         
         // Get the credentials of the currently logged in user
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -78,6 +78,9 @@ public class AuthorController {
 		// Find the user in the user table by their username
 		User user = userRepository.findByUserName(userName).get();
 		int id = user.getUserId();
+		
+		String firstName = user.getFirstName();
+		model.addAttribute("firstName", firstName);
 
 		// Find the author in the author table by id
 		Author author = authorRepository.findById(id).get();
