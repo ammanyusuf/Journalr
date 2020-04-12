@@ -145,8 +145,9 @@ public class ReviewerController {
         paperRepository.updateMinorRev(0, paperId, reviewerId);
         paperRepository.updateAccept(0, paperId, reviewerId);
         paperRepository.updateAbleToReview(0, paperId, reviewerId);
+        paperRepository.updateReject(0, paperId, reviewerId);
 
-        return "redirect:/reviewer/papers";
+        return "redirect:/reviewer/availablePapers";
 
     }
 
@@ -188,7 +189,7 @@ public class ReviewerController {
         paperRepository.save(paper);
         reviewerRepository.save(reviewer);
 
-        return "redirect:/reviewer/papers";
+        return "redirect:/reviewer/mypapersReviewer";
 
     }
 
@@ -333,7 +334,7 @@ public class ReviewerController {
 
         paperRepository.updateAccept(1, paperId, id);
         
-        return "paperAccept";
+        return "redirect:/reviewer/paperAccept";
     }
 
     /**
@@ -362,7 +363,7 @@ public class ReviewerController {
 
         paperRepository.updateReject(1, paperId, id);
         
-        return "paperAccept";
+        return "redirect:/reviewer/paperAccept";
     }
     
 }
