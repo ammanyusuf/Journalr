@@ -14,57 +14,32 @@
 	     		<div class="col-sm-9 blue-gradient" id="scroller">
 	     			<div class="full-height table-responsive" style="background-color:white;">
 	     			<!-- Table with all papers related to the Reviewer user -->
-	     				<table class="table table-striped">
-						  <thead class="">
-						    <tr>
-						    <!-- Table headers -->
-						      <th scope="col">Paper Title</th>
-						      <th scope="col" class="">Author</th>
-						      <th scope="col">Submission Date</th>
-						      <th scope="col">Download Link</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						  <!-- Table rows with injected data, each title has a link to download the corresponding papers -->
-						    <tr>
-						      <td>The adventure of the Corgi</td>
-						      <td>Aaron Mario</td>
-						      <td>2020-03-28</td>
-						      <td><a href="">Download</a></td>
-						    </tr>
-						    <tr>
-						      <td>Walking Without Training Wheels</td>
-						      <td>Jacob Thornton</td>
-						      <td>2020-07-24</td>
-						      <td><a href="">Download</a></td>
-						    </tr>
-						    <tr>
-						      <td>The Life and Times of Robot Boy</td>
-						      <td>Annie Bird</td>
-						      <td>2020-05-16</td>
-						      <td><a href="">Download</a></td>
-						    </tr>
-						    <tr>
-						      <td>The adventure of the Corgi</td>
-						      <td>Aaron Mario</td>
-						      <td>2020-03-28</td>
-						      <td><a href="">Download</a></td>
-						    </tr>
-						    <tr>
-						      <td>Walking Without Training Wheels</td>
-						      <td>Jacob Thornton</td>
-						      <td>2020-07-24</td>
-						      <td><a href="">Download</a></td>
-						    </tr>
-						    <tr>
-						      <td>The Life and Times of Robot Boy</td>
-						      <td>Annie Bird</td>
-						      <td>2020-05-16</td>
-						      <td><a href="">Download</a></td>
-						    </tr>
-						    
-						  </tbody>
-						</table>
+					 <table class="table table-bordered table-hover">
+						<thead>
+						  <tr>
+							<th scope="col">Title</th>
+							<th scope="col">Topic</th>
+							<th scope="col">Download Link</th>
+							<th scope="col">View Comments</th>
+							<th scope="col">Select Paper</th>  
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr th:each="allPapers : ${listAllPapers}">
+							<td th:text="${allPapers.title}">Title</td>
+							<td th:text="${allPapers.topic}">Topic</td>
+							<td>
+							  <a th:href="@{downloadFile/{id}(id=${allPapers.paperId})}">Download</a>
+							</td>
+							<td>
+							  <a th:href="@{'/viewComments/' + ${allPapers.paperId}}">View Comments</a>
+							</td>
+							<td>
+								<a th:href="@{'/selectPaperToReview/' + ${allPapers.paperId}}">Select Paper</a>
+							  </td>
+						  </tr>
+						</tbody>
+					  </table>
 	     			</div>	
 	     		</div>
 	     	</div>

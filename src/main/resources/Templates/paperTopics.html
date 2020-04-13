@@ -20,7 +20,7 @@
 		              <th scope="col">Submission Deadline</th>
 		              <th scope="col">File Name</th>         
 		              <th scope="col">Download Link</th>
-		              <th scope="col">Comments</th>  
+		              <th scope="col">View Comments</th>  
 		            </tr>
 		          </thead>
 		          <tbody>
@@ -34,8 +34,8 @@
 		                <a th:href="@{downloadFile/{id}(id=${paperByTopic.paperId})}">Download</a>
 		              </td>
 		              <td>
-		                <a th:href="@{'/addComment/' + ${paperByTopic.paperId}}">add comment</a>
-		              </td>
+						<a th:href="@{'/viewComments/' + ${paperByTopic.paperId}}">View Comments</a>
+					  </td>
 		            </tr>
 		          </tbody>
 		        </table>
