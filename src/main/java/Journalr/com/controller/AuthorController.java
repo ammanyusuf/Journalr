@@ -80,12 +80,19 @@ public class AuthorController {
 
             //List<Paper> listPapers = paperRepository.findAll();
             model.addAttribute("listPapers", listPapers);
+
+            // Find all the papers that have been approved for that author
+            List<Paper> approvedPapers = paperRepository.findApprovedPapersForAuthors(author.getUserId());
+
+            model.addAttribute("approvedPapers", approvedPapers);
         } catch(Exception e) {
             
             model.addAttribute("message", "");
 
+
             return "redirect:/error";
         }
+
         return "author";
     }
     
