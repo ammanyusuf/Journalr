@@ -99,7 +99,7 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
         List<Paper> findApprovedPapersForAuthors(int author_id);
 
     // User case 4: As an author, I should receive a notification when my work has been reviewed, so I can go find my reviewed file.
-    @Query(value = "SELECT DISTINCT p.title, p.file_name, p.file_type, p.submission_date, p.topic, p.paper_ID FROM paper as p, review_paper as rp WHERE able_to_review = 1 and (rp.major_rev = 1 or rp.minor_rev = 1) and rp.paper_ID = p.paper_ID and p.author_ID = ?1", 
+    @Query(value = "SELECT DISTINCT * FROM paper as p1 WHERE p1.paper_ID IN (SELECT p2.paper_ID FROM paper as p2, review_paper as rp WHERE able_to_review = 1 and (rp.major_rev = 1 or rp.minor_rev = 1) and rp.paper_ID = p2.paper_ID and p2.author_ID = ?1)", 
         nativeQuery = true)
         List<Paper> findReviewedPapersPerAuthors(int author_id);
 }
