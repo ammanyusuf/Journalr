@@ -14,5 +14,9 @@ import javax.transaction.Transactional;
 @Transactional
 @Repository
 public interface ReviewerRepository extends JpaRepository<Reviewer, Integer> {
-
+    /**
+     * This is the reviewer repository
+     * It inherited methods from the JpaRepository for basic query
+     * retrieval in the database
+     */
 }

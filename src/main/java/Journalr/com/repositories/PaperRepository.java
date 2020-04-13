@@ -14,7 +14,13 @@ import javax.transaction.Transactional;
 
 @Repository
 public interface PaperRepository extends JpaRepository<Paper, Integer> {
-   /* @Query(value = "SELECT * FROM paper WHERE paper.author_id = ?1", 
+        /**
+         * This is the paper repository
+         * It inherited methods from the JpaRepository for basic query
+         * retrieval in the database
+         */
+
+        /* @Query(value = "SELECT * FROM paper WHERE paper.author_id = ?1", 
             nativeQuery = true)
     List<Paper> findPapersByAuthorId(int author_id);
     
