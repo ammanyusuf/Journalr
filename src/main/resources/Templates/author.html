@@ -43,20 +43,8 @@
                   </td>
                   <td th:text="${paper.fileName}">File Name</td>
                   <td>
-                    <a th:href="@{'/downloadFile/' + ${paper.paperId}}"
-                      >Download</a
-                    >
-                    <a th:href="@{'/reuploadForm/' + ${paper.paperId}}"
-                      >Re-upload</a
-                    >
-                    <button
-                      type="button"
-                      class="btn"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                    >
-                      Reupload Test
-                    </button>
+                    <a th:href="@{'/downloadFile/' + ${paper.paperId}}">Download</a>
+                    <a th:href="@{'/reuploadForm/' + ${paper.paperId}}">Re-upload</a>
                   </td>
                   <td>
                     <a th:href="@{'/authorAddReviewer/' + ${paper.paperId}}"
