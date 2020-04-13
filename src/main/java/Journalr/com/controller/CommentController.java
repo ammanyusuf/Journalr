@@ -49,6 +49,12 @@ public class CommentController {
 	@Autowired
 	UserRepository userRepository;
 	
+	/**
+	 * This method is a get mapping and will show the comment page with the corresponding paperId
+	 * @param model The model that we are working with
+	 * @param paperId The paperId that we want to add a comment to
+	 * @return Displayes the addComment page
+	 */
 	@RequestMapping(path="**/addComment/{paperId}")
     public String showCommentPage (Model model, @PathVariable(name = "paperId") int paperId) {
 		
@@ -58,6 +64,15 @@ public class CommentController {
 	}
 
 	// method that adds the comment to the database
+	/**
+	 * This method is a post mapping that will add the comment that was passed through
+	 * into the database
+	 * @param paperId The paperId of the paper that we want to add the comment to
+	 * @param comment The comment block that we want the comment to be about
+	 * @param topic The topic of the comment, which can be a major, minor, or general
+	 * @return redirects back to the reviewer home page
+	 * @throws ParseException
+	 */
     @RequestMapping(path="**/addComment/{paperId}", method = RequestMethod.POST)
 	public String saveDeadline (@PathVariable(name = "paperId") int paperId, 
 								@ModelAttribute(name="comment") String comment,
@@ -104,9 +119,17 @@ public class CommentController {
 	    return "redirect:/reviewer";
 	}
 
+	/**
+	 * This method will display all of the comments of a given paper, seperated
+	 * by comment topic
+	 * @param paperId The paperId of the paper that we want to display the comments of
+	 * @param model The model that we are working with
+	 * @return This method displays the viewComments page
+	 */
 	@RequestMapping(path="**/viewComments/{paperId}", method=RequestMethod.GET) 
 	public String viewComments (@PathVariable(name="paperId") int paperId, Model model){
 
+		// Add the paper title to the page
 		Paper paper;
 		try {
 			paper = paperRepository.findById(paperId).get();
@@ -135,6 +158,7 @@ public class CommentController {
 			}
 		}
 
+		// Add the list of comments of reviewer that are majore revisions to the page
 		model.addAttribute("listOfCommentsOfReviewerMajorRev", listOfCommentsOfReviewerMajorRev);
 
 		// Initialize an array fo commentsOfReviewer objects
@@ -153,6 +177,7 @@ public class CommentController {
 			}
 		}
 
+		// Add the list of comments of reviewrs that are minor revisions to the page
 		model.addAttribute("listOfCommentsOfReviewerMinorRev", listOfCommentsOfReviewerMinorRev);
 
 		// Initialize an array fo commentsOfReviewer objects
@@ -171,27 +196,9 @@ public class CommentController {
 			}
 		}
 
+		// Add the list of comments of reviewers that are general comments to the page
 		model.addAttribute("listOfCommentsOfReviewerGeneral", listOfCommentsOfReviewerGeneral);
-
-		/*
-		List<Comment> listComments = commentRepository.findCommentsPerPaper(paperId);
-
-		// This will iterate through every comment in the list of retrieved comments
-		// and every reviewer in the list of users and will join the two.  This is done
-		// so the full name of the reviewer shows up with the comment and the comment date
-		for (Comment comment : listComments) {
-			for (User reviewer : listOfReviewers) {
-				if (comment.getReviewer().getUserId() == reviewer.getUserId()) {
-					CommentOfReviewer commentOfReviewer = new CommentOfReviewer(comment,reviewer);
-					listOfCommentsOfReviewer.add(commentOfReviewer);
-				}
-			}
-		}
-
-		model.addAttribute("listOfCommentsOfReviewer", listOfCommentsOfReviewer);
-		*/
+		
 		return "viewComments";
-
 	}
-
 }
