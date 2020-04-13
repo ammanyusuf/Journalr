@@ -1,28 +1,26 @@
 <!--  this page is a basic add a comment page that would store the comment into the database -->
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8" />
-<title>Comment page</title>
-</head>
-<body>
-      <form action="#" th:action="@{'/addComment/' + ${paperId}}" method="post"> 
-        <h3>Enter comment</h3>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <title>Comment page</title>
+  </head>
+  <body>
+    <form action="#" th:action="@{'/addComment/' + ${paperId}}" method="post">
+      <h3>Enter comment</h3>
 
-          <label>Comment:</label>
-          <input type="text" name="comment"/> 
+      <label>Comment:</label>
+      <input type="text" name="comment" required />
 
-          <label>Topic:</label>
-          <select name="topic">
-            <option value="general">General</option>
-            <option value="major_rev">Major Revision</option>
-            <option value="minor_rev">Minor Revision</option>
-          </select>
+      <label>Topic:</label>
+      <select name="topic">
+        <option value="general">General</option>
+        <option value="major_rev">Major Revision</option>
+        <option value="minor_rev">Minor Revision</option>
+      </select>
 
-        <input type="submit" value="enter" />
-      </form>
-
-</body>
+      <input type="submit" value="enter" />
+    </form>
+  </body>
 </html>

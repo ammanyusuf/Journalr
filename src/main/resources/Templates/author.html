@@ -43,8 +43,12 @@
                   </td>
                   <td th:text="${paper.fileName}">File Name</td>
                   <td>
-                    <a th:href="@{'/downloadFile/' + ${paper.paperId}}">Download</a>
-                    <a th:href="@{'/reuploadForm/' + ${paper.paperId}}">Re-upload</a>
+                    <a th:href="@{'/downloadFile/' + ${paper.paperId}}"
+                      >Download</a
+                    >
+                    <a th:href="@{'/reuploadForm/' + ${paper.paperId}}"
+                      >Re-upload</a
+                    >
                   </td>
                   <td>
                     <a th:href="@{'/authorAddReviewer/' + ${paper.paperId}}"

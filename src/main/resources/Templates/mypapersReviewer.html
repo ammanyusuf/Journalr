@@ -1,90 +1,110 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="baseTemplate :: header(${pageTitle})">
-    </head>
-    
-    <body>
-    	<nav th:replace="baseTemplate :: topNavWLogout">
-	     </nav>
-	     
-	     <div class="container-fluid full-height">
-	     	<div class="row full-height">
-	     		<div th:replace="reviewerTemplate :: userNav">
-	     		</div>
-	     		<div class="col-sm-9 blue-gradient" id="scroller">
-	     			<div class="full-height table-responsive" style="background-color:white;">
+  <head th:replace="baseTemplate :: header(${pageTitle})"> </head>
+
+  <body>
+    <nav th:replace="baseTemplate :: topNavWLogout"></nav>
+
+    <div class="container-fluid full-height">
+      <div class="row full-height">
+        <div th:replace="reviewerTemplate :: userNav"></div>
+        <div class="col-sm-9 blue-gradient" id="scroller">
+          <div
+            class="full-height table-responsive"
+            style="background-color: white;"
+          >
             <!-- Table with all papers related to the Reviewer user -->
-              <a>Approved To Review</a>
-	     				<table class="table table-striped">
-						  <thead>
-						    <tr>
-						    <!-- Table headers -->
-                    <th scope="col">Title</th>
-                    <th scope="col">Topic</th>
-                    <th scope="col">Submission Date</th>
-                    <th scope="col">Submission Deadline</th>
-                    <th scope="col">File Name</th>         
-                    <th scope="col">Download Link</th>
-                    <th scope="col">Comment</th> 
-                    <th scope="col">View My Comments</th>  
-						    </tr>
-						  </thead>
-						  <tbody>
-						  <!-- Table rows with injected data, each title has a link to download the corresponding papers -->
+
+            <a>Approved To Review</a>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <!-- Table headers -->
+                  <th scope="col">Title</th>
+                  <th scope="col">Topic</th>
+                  <th scope="col">Submission Date</th>
+                  <th scope="col">Submission Deadline</th>
+                  <th scope="col">File Name</th>
+                  <th scope="col">Download Link</th>
+                  <th scope="col">Comment</th>
+                  <th scope="col">View My Comments</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Table rows with injected data, each title has a link to download the corresponding papers -->
                 <tr th:each="approvedPaperReviewer : ${listMyApprovedPapers}">
                   <td th:text="${approvedPaperReviewer.title}">Title</td>
                   <td th:text="${approvedPaperReviewer.topic}">Topic</td>
-                  <td th:text="${approvedPaperReviewer.submissionDate}">Submission Date</td>
-                  <td th:text="${approvedPaperReviewer.submissionDeadline}">Submission Deadline</td>
+                  <td th:text="${approvedPaperReviewer.submissionDate}">
+                    Submission Date
+                  </td>
+                  <td th:text="${approvedPaperReviewer.submissionDeadline}">
+                    Submission Deadline
+                  </td>
                   <td th:text="${approvedPaperReviewer.fileName}">File Name</td>
                   <td>
-                    <a th:href="@{downloadFile/{id}(id=${approvedPaperReviewer.paperId})}">Download</a>
+                    <a
+                      th:href="@{downloadFile/{id}(id=${approvedPaperReviewer.paperId})}"
+                      >Download</a
+                    >
                   </td>
                   <td>
-                      <a th:href="@{'/addComment/' + ${approvedPaperReviewer.paperId}}">add comment</a>
+                    <a
+                      th:href="@{'/addComment/' + ${approvedPaperReviewer.paperId}}"
+                      >add comment</a
+                    >
                   </td>
                   <td>
                     <a th:href="@{'/viewMyCommentsReviewer/' + ${approvedPaperReviewer.paperId}}">View My Comments</a>
                 </td>
                 </tr>
-						  </tbody>
-              </table>
-          <!--Table of all pending to be approved papers by for the reveiwer-->
-              <a>Pending For Approval To Review</a>
-	     				<table class="table table-striped">
-						  <thead>
-						    <tr>
-						    <!-- Table headers -->
+              </tbody>
+            </table>
+            <!--Table of all pending to be approved papers by for the reveiwer-->
+            <a>Pending For Approval To Review</a>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <!-- Table headers -->
                   <th scope="col">Title</th>
                   <th scope="col">Topic</th>
                   <th scope="col">Submission Date</th>
                   <th scope="col">Submission Deadline</th>
-                  <th scope="col">File Name</th>         
+                  <th scope="col">File Name</th>
                   <th scope="col">Download Link</th>
-                  <th scope="col">De-Select Paper</th>  
-						    </tr>
-						  </thead>
-						  <tbody>
-						  <!-- Table rows with injected data, each title has a link to download the corresponding papers -->
+                  <th scope="col">De-Select Paper</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Table rows with injected data, each title has a link to download the corresponding papers -->
                 <tr th:each="pendingPaperReviewer : ${listMyPendingPapers}">
                   <td th:text="${pendingPaperReviewer.title}">Title</td>
                   <td th:text="${pendingPaperReviewer.topic}">Topic</td>
-                  <td th:text="${pendingPaperReviewer.submissionDate}">Submission Date</td>
-                  <td th:text="${pendingPaperReviewer.submissionDeadline}">Submission Deadline</td>
+                  <td th:text="${pendingPaperReviewer.submissionDate}">
+                    Submission Date
+                  </td>
+                  <td th:text="${pendingPaperReviewer.submissionDeadline}">
+                    Submission Deadline
+                  </td>
                   <td th:text="${pendingPaperReviewer.fileName}">File Name</td>
                   <td>
-                    <a th:href="@{downloadFile/{id}(id=${pendingPaperReviewer.paperId})}">Download</a>
+                    <a
+                      th:href="@{downloadFile/{id}(id=${pendingPaperReviewer.paperId})}"
+                      >Download</a
+                    >
                   </td>
                   <td>
-                      <a th:href="@{'/deselectPaperToReview/' + ${pendingPaperReviewer.paperId}}">De-Select Paper To Review</a>
-                    </td>
+                    <a
+                      th:href="@{'/deselectPaperToReview/' + ${pendingPaperReviewer.paperId}}"
+                      >De-Select Paper To Review</a
+                    >
+                  </td>
                 </tr>
-						  </tbody>
-						</table>
-	     			</div>	
-	     		</div>
-	     	</div>
-	     </div>
-    </body>
-
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

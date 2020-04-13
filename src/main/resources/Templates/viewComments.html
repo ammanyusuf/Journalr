@@ -3,24 +3,25 @@
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
     <title>Comments</title>
   </head>
-  <body class= "blue-gradient">
+  <body class="blue-gradient">
     <nav th:replace="baseTemplate :: topNavWLogout"></nav>
-    
+
     <div class="container-fluid full-height">
       <div class="full-height">
         <div class="dashboard">
           <div class="dashboard-topbar">
-          <div class="row">
-            <span class="dashboard-title">Comments For <span th:text="${paperTitle}"></span></span>
-          </div>
+            <div class="row">
+              <span class="dashboard-title"
+                >Comments For <span th:text="${paperTitle}"></span
+              ></span>
+            </div>
           </div>
           <br />
           <div class="container-fluid" style="padding-top: 2%;">
-            
             <!-- Table for comments for major revision -->
-            <b> <font size ="6"> Comments For Major Revision</font> </b>
-            <br>
-            <br>
+            <b> <font size="6"> Comments For Major Revision</font> </b>
+            <br />
+            <br />
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
@@ -28,20 +29,24 @@
                   <th scope="col">By</th>
                   <th scope="col">Commented On</th>
                 </tr>
-                </thead>
-                <tbody>
-                <tr th:each="commentsMajorRev : ${listOfCommentsOfReviewerMajorRev}">
+              </thead>
+              <tbody>
+                <tr
+                  th:each="commentsMajorRev : ${listOfCommentsOfReviewerMajorRev}"
+                >
                   <td th:text="${commentsMajorRev.comment}">Comment</td>
                   <td th:text="${commentsMajorRev.reviewerName}">By</td>
-                  <td th:text="${commentsMajorRev.commentDate}">Commented On</td>
+                  <td th:text="${commentsMajorRev.commentDate}">
+                    Commented On
+                  </td>
                 </tr>
-                </tbody>
+              </tbody>
             </table>
 
             <!-- Table for comments for minor revision -->
-            <b> <font size ="6"> Comments For Minor Revision</font> </b>
-            <br>
-            <br>
+            <b> <font size="6"> Comments For Minor Revision</font> </b>
+            <br />
+            <br />
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
@@ -49,20 +54,24 @@
                   <th scope="col">By</th>
                   <th scope="col">Commented On</th>
                 </tr>
-                </thead>
-                <tbody>
-                <tr th:each="commentsMinorRev : ${listOfCommentsOfReviewerMinorRev}">
+              </thead>
+              <tbody>
+                <tr
+                  th:each="commentsMinorRev : ${listOfCommentsOfReviewerMinorRev}"
+                >
                   <td th:text="${commentsMinorRev.comment}">Comment</td>
                   <td th:text="${commentsMinorRev.reviewerName}">By</td>
-                  <td th:text="${commentsMinorRev.commentDate}">Commented On</td>
+                  <td th:text="${commentsMinorRev.commentDate}">
+                    Commented On
+                  </td>
                 </tr>
-                </tbody>
-            </table> 
+              </tbody>
+            </table>
 
             <!-- Table for general-->
-            <b> <font size ="6"> General Comments</font> </b>
-            <br>
-            <br>
+            <b> <font size="6"> General Comments</font> </b>
+            <br />
+            <br />
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
@@ -70,20 +79,20 @@
                   <th scope="col">By</th>
                   <th scope="col">Commented On</th>
                 </tr>
-                </thead>
-                <tbody>
-                <tr th:each="commentsGeneral : ${listOfCommentsOfReviewerGeneral}">
+              </thead>
+              <tbody>
+                <tr
+                  th:each="commentsGeneral : ${listOfCommentsOfReviewerGeneral}"
+                >
                   <td th:text="${commentsGeneral.comment}">Comment</td>
                   <td th:text="${commentsGeneral.reviewerName}">By</td>
                   <td th:text="${commentsGeneral.commentDate}">Commented On</td>
                 </tr>
-                </tbody>
-            </table>	
+              </tbody>
+            </table>
           </div>
         </div>
-         
       </div>
-      
     </div>
   </body>
 
