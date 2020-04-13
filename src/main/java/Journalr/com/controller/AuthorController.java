@@ -303,7 +303,7 @@ public class AuthorController {
         if (reviewerId2 != "None") {
             
         	// Take the userId part of the returned value (firstName lastName (userId)) from html, then convert into int
-        	int revId2 = Integer.parseInt(reviewerId1.substring(reviewerId1.indexOf(":") + 1, reviewerId1.indexOf(")")));
+        	int revId2 = Integer.parseInt(reviewerId2.substring(reviewerId2.indexOf(":") + 1, reviewerId2.indexOf(")")));
         	
             Reviewer reviewer = reviewerRepository.findById(revId2).get();
         
@@ -330,7 +330,7 @@ public class AuthorController {
         if (reviewerId3 != "None") {
             
         	// Take the userId part of the returned value (firstName lastName (userId)) from html, then convert into int
-        	int revId3 = Integer.parseInt(reviewerId1.substring(reviewerId1.indexOf(":") + 1, reviewerId1.indexOf(")")));
+        	int revId3 = Integer.parseInt(reviewerId3.substring(reviewerId3.indexOf(":") + 1, reviewerId3.indexOf(")")));
         	
             Reviewer reviewer = reviewerRepository.findById(revId3).get();
         
