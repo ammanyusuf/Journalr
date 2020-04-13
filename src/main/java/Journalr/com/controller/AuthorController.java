@@ -56,50 +56,54 @@ public class AuthorController {
     }*/
 
     /**
-     * 
+     * This method will display all the papers that the author currently has uploaded
+     * to the system.
      * @param model The model is the current displaying template.
-     * @return
+     * @return 
      */
     @RequestMapping("/author")
     public String showAllPapersPerAuthor(Model model) {
         
-        // Get the credentials of the currently logged on user
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        try {
+            int id = getCurrentlyLoggedInUser();
+            
+            User user = userRepository.findById(id).get();
+            
+            String firstName = user.getFirstName();
+            model.addAttribute("firstName", firstName);
 
-		String userName;
+            // Find the author in the author table by id
+            Author author = authorRepository.findById(id).get();
+            
+            //Find all the papers written by the author
+            List<Paper> listPapers = paperRepository.findPapersByAuthorId(author.getUserId());
 
-		// Get the isntance of that user
-		if (principal instanceof UserDetailsClass) {
-			userName = ((UserDetailsClass)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
+            //List<Paper> listPapers = paperRepository.findAll();
+            model.addAttribute("listPapers", listPapers);
 
-		// Find the user in the user table by their username
-		User user = userRepository.findByUserName(userName).get();
-		int id = user.getUserId();
-		
-		String firstName = user.getFirstName();
-		model.addAttribute("firstName", firstName);
+            // Find all the papers that have been approved for that author
+            List<Paper> approvedPapers = paperRepository.findApprovedPapersForAuthors(author.getUserId());
 
-		// Find the author in the author table by id
-		Author author = authorRepository.findById(id).get();
-        
-        //Find all the papers written by the author
-        List<Paper> listPapers = paperRepository.findPapersByAuthorId(author.getUserId());
+            model.addAttribute("approvedPapers", approvedPapers);
+        } catch(Exception e) {
+            
+            model.addAttribute("message", "");
 
-        //List<Paper> listPapers = paperRepository.findAll();
-        model.addAttribute("listPapers", listPapers);
 
-        // Find all the papers that have been approved for that author
-        List<Paper> approvedPapers = paperRepository.findApprovedPapersForAuthors(author.getUserId());
-        
-        model.addAttribute("approvedPapers", approvedPapers);
+            return "redirect:/error";
+        }
 
         return "author";
     }
     
-    @RequestMapping(path="/download/{paperId}")
+    // This method is useless
+
+    /**
+     * this method will download the given paper with the corresponding paper ID
+     * @param paperId this is the paper id that we wish to download
+     * @return this method will redirect to the downloadpaper page
+     */
+     /*@RequestMapping(path="/download/{paperId}")
     public ModelAndView showDownloadPaperPage (@PathVariable(name = "paperId") int paperId) {
         ModelAndView modelAndView = new ModelAndView("downloadpaper");
         Optional<Paper> optional= paperRepository.findById(paperId);
@@ -108,21 +112,57 @@ public class AuthorController {
         } else {
             return new ModelAndView("error");
         }   
-    }
+    }*/
 
 
+    /**
+     * this method will populate the authorAddReviewer page iwth all the potential reviewers
+     * that the author wishes to add to the paper
+     * @param paperId The paper id of the paper we want to add reviewers to
+     * @param model The current model that is being passed through
+     * @return returns to the authorAddReviewer page
+     */
     @RequestMapping(path="/authorAddReviewer/{paperId}")
     public String populateAuthorAddReviewer(@PathVariable(name = "paperId") int paperId, Model model) {
 
-        Paper paper = paperRepository.findById(paperId).get();
+        // Find the paper in the paper repository
+        Paper paper;
+        try {
+            paper = paperRepository.findById(paperId).get();
+        } catch(NoSuchElementException e) {
+            // If no paper is found, add the message to the model,
+            // and redirect to the error page.
+            model.addAttribute("message", "No paper with id: " + paperId + " exists in the system.");
+            return "error";
+        }
         model.addAttribute("paper1", paper);
 
-        List<User> listPotentialReviewers = userRepository.findByRolesContaining("ROLE_REVIEWER");
+        // List all of the potential reviewers
+        List<User> listPotentialReviewers = null;
+        try{
+            listPotentialReviewers = userRepository.findByRolesContaining("ROLE_REVIEWER");
+        } catch(Exception e) {
+            // If an exception is cause, there are no reviewers in the system
+            model.addAttribute("message", "No reviewers in the system.");
+        }
         model.addAttribute("listPotentialReviewers", listPotentialReviewers);
         
         return "authorAddReviewer";
     }
 
+    /**
+     * This method will add the reviewers that the author selected to the paper passed
+     * through
+     * @param paperId the papers that we want to add the reviewer to
+     * @param model the current working model
+     * @param reviewerId1 the first reviewer that we want to add.  If it is -1 we should not
+     *                    add this reviewer
+     * @param reviewerId2 the second reviewer that we want to add.  If it is -1 we should not
+     *                    add this reviewer
+     * @param reviewerId3 the third reviewer that we want to add.  If it is -1 we should not
+     *                    add this reviewer
+     * @return this method returns back to the author page
+     */
     @RequestMapping(path="/authorAddReviewer/{paperId}", method = RequestMethod.POST)
     public String authorAddReviewer (@PathVariable("paperId") int paperId, Model model,
                                     @RequestParam("revId1") int reviewerId1,
@@ -130,8 +170,9 @@ public class AuthorController {
                                     @RequestParam("revId3") int reviewerId3) {
         //
         //
-        //
+        // Find the paper in our database
         Paper paper = paperRepository.findById(paperId).get();
+        // Check if the reviewer id is not equal to 1
         if (reviewerId1 != -1) {
             
             Reviewer reviewer = reviewerRepository.findById(reviewerId1).get();
@@ -151,7 +192,7 @@ public class AuthorController {
             paperRepository.updateAbleToReview(0, paperId, reviewerId1);
             paperRepository.updateReject(0, paperId, reviewerId1);
         }
-
+        // Check if the reviewer id is not equal to 1
         if (reviewerId2 != -1) {
             Reviewer reviewer = reviewerRepository.findById(reviewerId2).get();
 
@@ -170,7 +211,7 @@ public class AuthorController {
             paperRepository.updateAbleToReview(0, paperId, reviewerId2);
             paperRepository.updateReject(0, paperId, reviewerId2);
         }
-
+        // Check if the reviewer id is not equal to 1
         if (reviewerId3 != -1) {
             Reviewer reviewer = reviewerRepository.findById(reviewerId3).get();
 
@@ -193,6 +234,29 @@ public class AuthorController {
         
         return "redirect:/author";   
     
+    }
+
+    /**
+     * This method will retireved the currently logged in user's id
+     * @return this method returns the currently logged in user's id
+     */
+    public int getCurrentlyLoggedInUser() {
+        // Get the credentials of the currently logged on user
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String userName;
+
+		// Get the isntance of that user
+		if (principal instanceof UserDetailsClass) {
+			userName = ((UserDetailsClass)principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+
+		// Find the user in the user table by their username
+        User user = userRepository.findByUserName(userName).get();
+        
+        return user.getUserId();
     }
 
 }

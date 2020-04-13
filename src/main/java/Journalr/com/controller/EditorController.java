@@ -13,6 +13,7 @@ import Journalr.com.repositories.UserRepository;
 
 import Journalr.com.model.User;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 //import java.util.Map;
 
@@ -56,7 +57,12 @@ public class EditorController {
     @RequestMapping(path="/addjournal/{paperID}")
     public String addJournal(@PathVariable(name = "paperID") int paperID) {
         
-        Paper paper = paperRepository.findById(paperID).get();
+        Paper paper = null;
+        try {
+            paper = paperRepository.findById(paperID).get();
+        } catch (NoSuchElementException e) {
+            return "redirect:/error";
+        }
         paper.setApproved(true);
         paperRepository.save(paper);
 
@@ -72,9 +78,14 @@ public class EditorController {
     public String showReviewersPerPaper(@PathVariable(name = "paperID") int paperID,
                                         Model model) {
         
-        Paper paper = paperRepository.findById(paperID).get();
+        Paper paper = null;
+        try {
+            paper = paperRepository.findById(paperID).get();
+        } catch (NoSuchElementException e) {
+            model.addAttribute("message", "No paper with id: " + paperID + " is in the database.");
+            return "error";
+        }
         model.addAttribute("paper", paper);
-
 
         // Find the reviewers that are able to review the paper
         List<Integer> listApprovedReviewerIds = paperRepository.findReviewersAbleToReview(paperID);
@@ -89,13 +100,7 @@ public class EditorController {
         for (Integer reviewerId : listPendingReviewerIds) {
             listPendingReviewers.add(userRepository.findById(reviewerId).get());
         }
-        /*
-        List<Integer> listReviewerIds = paperRepository.findReviewersPerPaper(paperID);
-        List<User> listReviewers = new ArrayList<User>();
-        for (Integer reviewerId : listReviewerIds) {
-            listReviewers.add(userRepository.findById(reviewerId).get());
-        }
-*/
+
         model.addAttribute("listApprovedReviewers", listApprovedReviewers);
 
         model.addAttribute("listPendingReviewers", listPendingReviewers);
@@ -113,6 +118,12 @@ public class EditorController {
     public String addReviewerToPaper(@PathVariable(name = "userId") int userId,
                                      @PathVariable(name = "paperID") int paperID) {
         //asasa
+        try {
+            Paper paper = paperRepository.findById(paperID).get();
+            Reviewer reviewer = reviewerRepository.findById(userId).get();
+        } catch (NoSuchElementException e) {
+            return "redirect:/error";
+        }
         paperRepository.updateAbleToReview(1, paperID, userId);  
         return "redirect:/reviewersperpaper/" + paperID;
     }
@@ -127,6 +138,12 @@ public class EditorController {
     public String removeReviewerFromPaper(@PathVariable(name = "userId") int userId,
                                      @PathVariable(name = "paperID") int paperID) {
         //asasa
+        try {
+            Paper paper = paperRepository.findById(paperID).get();
+            Reviewer reviewer = reviewerRepository.findById(userId).get();
+        } catch (NoSuchElementException e) {
+            return "redirect:/error";
+        }
         paperRepository.updateAbleToReview(0, paperID, userId);  
         return "redirect:/reviewersperpaper/" + paperID;
     }
