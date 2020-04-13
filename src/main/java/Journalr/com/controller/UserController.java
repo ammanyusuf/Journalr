@@ -151,8 +151,14 @@ public class UserController {
      * @return This method will redirect to the admin page
     */
     @RequestMapping( path="/delete/{userId}")
-    public String deleteUser(@PathVariable(name = "userId") int userId){
-        userRepository.deleteById(userId);
+    public String deleteUser(@PathVariable(name = "userId") int userId, Model model){
+        try {
+            userRepository.deleteById(userId);
+        } catch (Exception e) {
+            model.addAttribute("message", "No user with id: " + userId + " exists in the database.");
+            return "error";
+        }
+        
         return "redirect:/admin";
     }
 }

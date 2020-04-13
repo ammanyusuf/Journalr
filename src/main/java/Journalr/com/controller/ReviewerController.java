@@ -15,6 +15,7 @@ import Journalr.com.repositories.ReviewerRepository;
 import java.util.*;
 //import java.util.Map;
 
+
 import Journalr.com.model.Paper;
 import Journalr.com.model.User;
 import Journalr.com.model.UserDetailsClass;
@@ -99,15 +100,28 @@ public class ReviewerController {
      * @return this method returns to the /reviewer/papers page
      */
     @RequestMapping("**/selectPaperToReview/{paperId}")
-    public String selectPaperToReview(@PathVariable int paperId) {
+    public String selectPaperToReview(@PathVariable int paperId, Model model) {
 
         // Find the id of the currently logged in suer
 		int id = returnIdOfCurrentlyLoggedInUser();
 
-		// Find the reviewer in the reviewer table by id
-        Reviewer reviewer = reviewerRepository.findById(id).get();
-        Paper paper = paperRepository.findById(paperId).get();
-
+        // Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+        
+        // Find the paper in the database as well
+        Paper paper;
+        try {
+            paper = paperRepository.findById(paperId).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No PAPER with id: " + paperId + " in system.");
+            return "error";
+        }
         // Assign the papers to the reviewers, and vice versa
         reviewer.getPapers().add(paper);
         paper.getReviewers().add(reviewer);
@@ -137,15 +151,28 @@ public class ReviewerController {
      * @return this method returns to the /reviewer/papers page
      */
     @RequestMapping("**/deselectPaperToReview/{paperId}")
-    public String deselectPaperToReview(@PathVariable int paperId) {
+    public String deselectPaperToReview(@PathVariable int paperId, Model model) {
 
         // Find the id of the currently logged in user
 		int id = returnIdOfCurrentlyLoggedInUser();
 
-		// Find the reviewer in the reviewer table by id as well as the paper
-        Reviewer reviewer = reviewerRepository.findById(id).get();
-        Paper paper = paperRepository.findById(paperId).get();
-
+		// Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+        
+        // Find the paper in the database as well
+        Paper paper;
+        try {
+            paper = paperRepository.findById(paperId).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No PAPER with id: " + paperId + " in system.");
+            return "error";
+        }
         // Assign the papers to the reviewers, and vice versa
         reviewer.getPapers().remove(paper);
         paper.getReviewers().remove(reviewer);
@@ -174,13 +201,19 @@ public class ReviewerController {
         // Get the id of the currently logged in user
 		int id = returnIdOfCurrentlyLoggedInUser();
 
-		// Find the reviewer in the reviewer table by id
-		Reviewer reviewer = reviewerRepository.findById(id).get();
-        
+        // Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
         //Find all the papers based on the reviewer's topic of interest
-        List<Paper> listPapers = paperRepository.findPapersByTopic(reviewer.getFavouriteTopic());
-
-        //List<Paper> listPapers = paperRepository.findAll();
+        List<Paper>  listPapers = null;
+        if (reviewer.getFavouriteTopic() != null) {
+            listPapers = paperRepository.findPapersByTopic(reviewer.getFavouriteTopic());
+        }
         model.addAttribute("listPapersByTopic", listPapers);
         
         // Get the user that is loggd in
@@ -210,14 +243,19 @@ public class ReviewerController {
 		model.addAttribute("firstName", firstName);
 
 		// Find the reviewer in the reviewer table by id
-        Reviewer reviewer = reviewerRepository.findById(id).get();
-        
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
         // Add a list of pending papers (papers that are waiting for editor approval) to the model
-        List<Paper> listMyPendingPapers = paperRepository.findPendingPapersOfReviewer(reviewer.getUserId());
+        List<Paper> listMyPendingPapers = paperRepository.findPendingPapersOfReviewer(id);
         model.addAttribute("listMyPendingPapers", listMyPendingPapers);
 
         // Add a list of approved papers (papers approved by the editor to reviewe) to the model
-        List<Paper> listMyApprovedPapers = paperRepository.findApprovedPapersOfReviewer(reviewer.getUserId());
+        List<Paper> listMyApprovedPapers = paperRepository.findApprovedPapersOfReviewer(id);
         model.addAttribute("listMyApprovedPapers", listMyApprovedPapers);
 
         return "mypapersReviewer";
@@ -239,6 +277,15 @@ public class ReviewerController {
         String firstName = user.getFirstName();
 		model.addAttribute("firstName", firstName);
         
+        // Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+
         // Add a list of potential to be accepted/rejected papers to the model
         List<Paper> listPotentialAcceptedPapers = paperRepository.findPotentialAcceptedPapers(id);
         model.addAttribute("listPotentialAcceptedPapers", listPotentialAcceptedPapers);
@@ -260,11 +307,27 @@ public class ReviewerController {
      * @return return to the paperAccept page
      */
     @RequestMapping(value="**/acceptPaper/{paperId}", method=RequestMethod.GET)
-    public String acceptPaper(@PathVariable int paperId) {
+    public String acceptPaper(@PathVariable int paperId, Model model) {
         
         // Find the id of the currently logged in user
         int id = returnIdOfCurrentlyLoggedInUser();
-
+        // Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+       } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+        
+        // Find the paper in the database as well
+        Paper paper;
+        try {
+            paper = paperRepository.findById(paperId).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No PAPER with id: " + paperId + " in system.");
+            return "error";
+        }
         // Updated the accept column in the paper repository
         paperRepository.updateAccept(1, paperId, id);
         
@@ -277,11 +340,28 @@ public class ReviewerController {
      * @return this method will return back to the accept paper page
      */
     @RequestMapping(value="**/rejectPaper/{paperId}", method=RequestMethod.GET)
-    public String rejectPaper(@PathVariable int paperId) {
+    public String rejectPaper(@PathVariable int paperId, Model model) {
         
         // Find the id of the currently logged in user
         int id = returnIdOfCurrentlyLoggedInUser();
-
+        // Check that the paper and reviewer are in the database
+        // Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+        
+        // Find the paper in the database as well
+        Paper paper;
+        try {
+            paper = paperRepository.findById(paperId).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No PAPER with id: " + paperId + " in system.");
+            return "error";
+        }
         // Updated the accept column in the paper repository
         paperRepository.updateReject(1, paperId, id);
         
