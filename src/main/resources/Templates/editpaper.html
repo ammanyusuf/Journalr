@@ -10,7 +10,7 @@
 				<div class="login-box">
 					<form action="#" th:action="@{/savePaperTitleAndTopic}" th:object="${paper}" method="post">
 				
-					<h3>Edit Paper Details</h3>
+					<h3>Paper Details</h3>
 						<div class="form-group">
 							<label for="paperID">Paper ID:</label>
 							<input type="text" id="paperID" th:field="*{paperId}" readonly="readonly"/>
@@ -35,18 +35,14 @@
 						</div>
 						
 					</form>
-					<button type="button" class="btn btn-outline-dark" onclick="goBack()">
-						<i class="fas fa-arrow-left"></i> Back
-					</button>
+					<div class="d-flex justify-content-end">
+						<button type="button"  class="btn btn-outline-dark" onclick="goBack()">
+							<i class="fas fa-arrow-left"></i> Back
+						</button>
+					</div>
 				</div>
-				
-				
-			</div>
-		
-			
-			
+			</div>	
 		</div>
-	
 	</body>
 	<footer>
 		<script>
