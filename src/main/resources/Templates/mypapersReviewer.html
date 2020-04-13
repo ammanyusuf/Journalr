@@ -14,6 +14,7 @@
             style="background-color: white;"
           >
             <!-- Table with all papers related to the Reviewer user -->
+
             <a>Approved To Review</a>
             <table class="table table-striped">
               <thead>
@@ -26,6 +27,7 @@
                   <th scope="col">File Name</th>
                   <th scope="col">Download Link</th>
                   <th scope="col">Comment</th>
+                  <th scope="col">View My Comments</th>
                 </tr>
               </thead>
               <tbody>
@@ -52,6 +54,9 @@
                       >add comment</a
                     >
                   </td>
+                  <td>
+                    <a th:href="@{'/viewMyCommentsReviewer/' + ${approvedPaperReviewer.paperId}}">View My Comments</a>
+                </td>
                 </tr>
               </tbody>
             </table>

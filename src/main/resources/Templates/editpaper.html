@@ -3,67 +3,56 @@
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
     <title>Author | Edit Paper</title>
   </head>
-  <body>
-    <nav th:replace="baseTemplate :: topNavWLogout"></nav>
-    <div class="container-fluid full-height blue-gradient">
-      <div class="row">
-        <div class="login-box">
-          <form
-            action="#"
-            th:action="@{/savePaperTitleAndTopic}"
-            th:object="${paper}"
-            method="post"
-          >
-            <h3>Paper Details</h3>
-            <div class="form-group">
-              <label for="paperID">Paper ID:</label>
-              <input
-                type="text"
-                id="paperID"
-                th:field="*{paperId}"
-                readonly="readonly"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="title">Title:</label>
-              <input id="title" type="text" th:field="*{title}" required />
-            </div>
-
-            <div class="form-group">
-              <label for="topic">Topic:</label>
-              <select id="topic" th:field="*{topic}">
-                <option value="fiction">Fiction</option>
-                <option value="cpsc">Computer Science</option>
-                <option value="math">Math</option>
-                <option value="non-fiction">Non-fiction</option>
-                <option value="Academics">Academics</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <button class="btn btn-primary" type="submit">Save</button>
-            </div>
-          </form>
-          <div class="d-flex justify-content-end">
-            <button
-              type="button"
-              class="btn btn-outline-dark"
-              onclick="goBack()"
-            >
-              <i class="fas fa-arrow-left"></i> Back
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>
-  <footer>
-    <script>
-      function goBack() {
-        window.history.back();
-      }
+	<body>
+		<nav th:replace="baseTemplate :: topNavWLogout"></nav>
+		<div class="container-fluid full-height blue-gradient">
+			<div class="row">
+				<div class="login-box">
+					<form action="#" th:action="@{/savePaperTitleAndTopic}" th:object="${paper}" method="post">
+				
+					<h3>Paper Details</h3>
+						<div class="form-group">
+							<label for="paperID">Paper ID:</label>
+							<input type="text" id="paperID" th:field="*{paperId}" readonly="readonly"/>
+						</div>	
+						
+                        <div class="form-group">
+							<label for="title">Title:</label>
+							<input class="form-control" id="title" type="text" th:field="*{title}" />
+						</div>
+                        
+                        <div class="form-group">
+							<label for="topic">Topic:</label>
+							<select class="form-control" id="topic" th:field="*{topic}">
+                                <option value="fiction">Fiction</option>
+								<option value="cpsc">Computer Science</option>
+								<option value="math">Math</option>
+								<option value="non-fiction">Non-fiction</option>
+								<option value="Academics">Academics</option>
+                            </select>
+						</div>
+                        
+						<div class="form-group">
+							<button class="btn btn-primary" type="submit">Save</button>
+							
+						</div>
+						
+					</form>
+					<div class="d-flex justify-content-end">
+						<button type="button"  class="btn btn-outline-dark" onclick="goBack()">
+							<i class="fas fa-arrow-left"></i> Back
+						</button>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</body>
+	<footer>
+		<script>
+		function goBack() {
+		  window.history.back();
+		}
     </script>
     <div th:insert="baseTemplate :: bootstrap-scripts"></div>
-  </footer>
+	</footer>
 </html>

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
-    <title>Editor</title>
+    <title>Editor | Home</title>
   </head>
 
-  <body>
-    <nav th:replace="baseTemplate :: topNav"></nav>
+  <body class="blue-gradient">
+    <nav th:replace="baseTemplate :: topNavWLogout"></nav>
 
     <div class="container-fluid">
       <div class="dashboard">
         <div class="dashboard-topbar">
-          <span class="dashboard-title">Editor Dashboard</span>
+          <span class="dashboard-title">Welcome, Editor <span th:text="${firstName}"></span></span>
         </div>
         <br />
         <table class="table table-bordered table-hover">
