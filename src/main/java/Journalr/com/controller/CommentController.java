@@ -3,6 +3,7 @@ package Journalr.com.controller;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,11 +66,19 @@ public class CommentController {
 		
 		//Put current user into reviewer object
 		int id = userDetails.getId();
-		Reviewer reviewer = reviewerRepository.findById(id).get();         // to be passed to the comment object
-		
+		Reviewer reviewer;
+		try {
+			reviewer = reviewerRepository.findById(id).get();         // to be passed to the comment object
+		} catch (NoSuchElementException e) {
+			return "redirect:/error";
+		}
 		//Find the paper in the database using given paperId
-		Paper paper = paperRepository.findById(paperId).get();
-		
+		Paper paper;
+		try {
+			paper = paperRepository.findById(paperId).get();
+		} catch (NoSuchElementException e) {
+			return "redirect:/error";
+		}
 		//Save comment
 	    commentObj.setComment(comment);
 	    commentObj.setReviewer(reviewer);

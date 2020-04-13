@@ -15,6 +15,7 @@ import Journalr.com.repositories.ReviewerRepository;
 import java.util.*;
 //import java.util.Map;
 
+
 import Journalr.com.model.Paper;
 import Journalr.com.model.User;
 import Journalr.com.model.UserDetailsClass;
@@ -39,25 +40,24 @@ public class ReviewerController {
 
 
     // Kevin's temporary reviewer route
+    /**
+     * This method is gets the current name of the reviewre that is logged in
+     * @param model The current mode we are working with
+     * @return This method displays the reviewer page
+     */
 	@RequestMapping(value="/reviewer", method=RequestMethod.GET)
 	public String reviewerHome(Model model) {
-		model.addAttribute("pageTitle", "Reviewer | Home");
-		
-		// Get the credentials of the currently logged in user
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
+        // Add the page title to the model
+        model.addAttribute("pageTitle", "Reviewer | Home");
+    
+        // Find the userName of the currently logged in user
+		int userId = returnIdOfCurrentlyLoggedInUser();
 
-		String userName;
-
-		// Get the instance of that user
-		if (principal instanceof UserDetailsClass) {
-			userName = ((UserDetailsClass)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
-		
 		// Find the user in the user table by their username
-		User user = userRepository.findByUserName(userName).get();
-		
+		User user = userRepository.findById(userId).get();
+        
+        // Set the first name in the page
 		String firstName = user.getFirstName();
 		model.addAttribute("firstName", firstName);
 		
@@ -73,28 +73,20 @@ public class ReviewerController {
      */
 	@RequestMapping(value="/reviewer/availablePapers", method=RequestMethod.GET)
 	public String reviewerPapers(Model model) {
-		model.addAttribute("pageTitle", "Reviewer | Available Papers");
         
-        // Get the credentials of the currently logged in user
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // Add the page title to the model
+        model.addAttribute("pageTitle", "Reviewer | Available Papers");
 
-		String userName;
+        // find the id of the currently logged in user
+		int id = returnIdOfCurrentlyLoggedInUser();
+        
+        User user = userRepository.findById(id).get();
 
-		// Get the instance of that user
-		if (principal instanceof UserDetailsClass) {
-			userName = ((UserDetailsClass)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
-
-		// Find the user in the user table by their username
-		User user = userRepository.findByUserName(userName).get();
-		int id = user.getUserId();
-		
+        // Get the first name of the user
 		String firstName = user.getFirstName();
 		model.addAttribute("firstName", firstName);
 
-        //List<Paper> listAllPapers = paperRepository.findAll();
+        // List all of the papers not selected by the reviewer
         List<Paper> listAllPapers = paperRepository.findPapersNotSelectedByReviewerId(id);
         model.addAttribute("listAllPapers", listAllPapers);
 
@@ -108,28 +100,28 @@ public class ReviewerController {
      * @return this method returns to the /reviewer/papers page
      */
     @RequestMapping("**/selectPaperToReview/{paperId}")
-    public String selectPaperToReview(@PathVariable int paperId) {
+    public String selectPaperToReview(@PathVariable int paperId, Model model) {
 
-        // Get the credentials of the currently logged in user
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // Find the id of the currently logged in suer
+		int id = returnIdOfCurrentlyLoggedInUser();
 
-		String userName;
-
-		// Get the instance of that user
-		if (principal instanceof UserDetailsClass) {
-			userName = ((UserDetailsClass)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
-
-		// Find the user in the user table by their username
-		User user = userRepository.findByUserName(userName).get();
-		int id = user.getUserId();
-
-		// Find the reviewer in the reviewer table by id
-        Reviewer reviewer = reviewerRepository.findById(id).get();
-        Paper paper = paperRepository.findById(paperId).get();
-
+        // Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+        
+        // Find the paper in the database as well
+        Paper paper;
+        try {
+            paper = paperRepository.findById(paperId).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No PAPER with id: " + paperId + " in system.");
+            return "error";
+        }
         // Assign the papers to the reviewers, and vice versa
         reviewer.getPapers().add(paper);
         paper.getReviewers().add(reviewer);
@@ -159,28 +151,28 @@ public class ReviewerController {
      * @return this method returns to the /reviewer/papers page
      */
     @RequestMapping("**/deselectPaperToReview/{paperId}")
-    public String deselectPaperToReview(@PathVariable int paperId) {
+    public String deselectPaperToReview(@PathVariable int paperId, Model model) {
 
-        // Get the credentials of the currently logged in user
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // Find the id of the currently logged in user
+		int id = returnIdOfCurrentlyLoggedInUser();
 
-		String userName;
-
-		// Get the instance of that user
-		if (principal instanceof UserDetailsClass) {
-			userName = ((UserDetailsClass)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
-
-		// Find the user in the user table by their username
-		User user = userRepository.findByUserName(userName).get();
-		int id = user.getUserId();
-
-		// Find the reviewer in the reviewer table by id as well as the paper
-        Reviewer reviewer = reviewerRepository.findById(id).get();
-        Paper paper = paperRepository.findById(paperId).get();
-
+		// Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+        
+        // Find the paper in the database as well
+        Paper paper;
+        try {
+            paper = paperRepository.findById(paperId).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No PAPER with id: " + paperId + " in system.");
+            return "error";
+        }
         // Assign the papers to the reviewers, and vice versa
         reviewer.getPapers().remove(paper);
         paper.getReviewers().remove(reviewer);
@@ -198,37 +190,36 @@ public class ReviewerController {
      *              of interest.
      * 
      * @param model The model is the current displaying template.
-     * @return
+     * @return this method returns to the page /reviewer/paperTopics
      */
     @RequestMapping("/reviewer/paperTopics")
     public String showAllPapersToReview(Model model) {
+        
+        // Add the page title to the model
         model.addAttribute("pageTitle", "Reviewer | Favorite Topic Papers");
         
-        // Get the credentials of the currently logged in user
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // Get the id of the currently logged in user
+		int id = returnIdOfCurrentlyLoggedInUser();
 
-		String userName;
-
-		// Get the instance of that user
-		if (principal instanceof UserDetailsClass) {
-			userName = ((UserDetailsClass)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
-
-		// Find the user in the user table by their username
-		User user = userRepository.findByUserName(userName).get();
-		int id = user.getUserId();
-
-		// Find the reviewer in the reviewer table by id
-		Reviewer reviewer = reviewerRepository.findById(id).get();
-        
+        // Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
         //Find all the papers based on the reviewer's topic of interest
-        List<Paper> listPapers = paperRepository.findPapersByTopic(reviewer.getFavouriteTopic());
-
-        //List<Paper> listPapers = paperRepository.findAll();
+        List<Paper>  listPapers = null;
+        if (reviewer.getFavouriteTopic() != null) {
+            listPapers = paperRepository.findPapersByTopic(reviewer.getFavouriteTopic());
+        }
         model.addAttribute("listPapersByTopic", listPapers);
         
+        // Get the user that is loggd in
+        User user = userRepository.findById(id).get();
+
+        // Add the first name of the user to the page
         String firstName = user.getFirstName();
 		model.addAttribute("firstName", firstName);
         
@@ -238,36 +229,33 @@ public class ReviewerController {
     @RequestMapping(value="/reviewer/mypapersReviewer", method=RequestMethod.GET)
     public String populateMyPapersReviewer(Model model) {
 
+        // Add the title to the model
         model.addAttribute("pageTitle", "Reviewer | My Papers");
 
-        // Get the credentials of the currently logged in user
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // Find the id of the currently logged in user
+        int id = returnIdOfCurrentlyLoggedInUser();
+        
+        // Get the currently logged in user
+        User user = userRepository.findById(id).get();
 
-		String userName;
-
-		// Get the instance of that user
-		if (principal instanceof UserDetailsClass) {
-			userName = ((UserDetailsClass)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
-
-		// Find the user in the user table by their username
-		User user = userRepository.findByUserName(userName).get();
-		int id = user.getUserId();
-		
+        // Add the name of the user to the page
 		String firstName = user.getFirstName();
 		model.addAttribute("firstName", firstName);
 
 		// Find the reviewer in the reviewer table by id
-        Reviewer reviewer = reviewerRepository.findById(id).get();
-        
-        List<Paper> listMyPendingPapers = paperRepository.findPendingPapersOfReviewer(reviewer.getUserId());
-
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+        // Add a list of pending papers (papers that are waiting for editor approval) to the model
+        List<Paper> listMyPendingPapers = paperRepository.findPendingPapersOfReviewer(id);
         model.addAttribute("listMyPendingPapers", listMyPendingPapers);
 
-        List<Paper> listMyApprovedPapers = paperRepository.findApprovedPapersOfReviewer(reviewer.getUserId());
-
+        // Add a list of approved papers (papers approved by the editor to reviewe) to the model
+        List<Paper> listMyApprovedPapers = paperRepository.findApprovedPapersOfReviewer(id);
         model.addAttribute("listMyApprovedPapers", listMyApprovedPapers);
 
         return "mypapersReviewer";
@@ -275,33 +263,38 @@ public class ReviewerController {
     
     @RequestMapping(value = "/reviewer/paperAccept")
     public String populatePaperAccepts(Model model) {
+        
+        // Add the page title to the model
         model.addAttribute("pageTitle", "Reviewer | Papers To Accept");
 
-        // Get the credentials of the currently logged in user
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // Retrieve the id of the currently logged in user
+        int id = returnIdOfCurrentlyLoggedInUser();
 
-		String userName;
-
-		// Get the instance of that user
-		if (principal instanceof UserDetailsClass) {
-			userName = ((UserDetailsClass)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
-
-		// Find the user in the user table by their username
-		User user = userRepository.findByUserName(userName).get();
-        int id = user.getUserId();
+        // Retrieve the currently logged in user
+        User user = userRepository.findById(id).get();
         
+        // Add the first name of the currently logged in user to the model
         String firstName = user.getFirstName();
 		model.addAttribute("firstName", firstName);
         
+        // Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+
+        // Add a list of potential to be accepted/rejected papers to the model
         List<Paper> listPotentialAcceptedPapers = paperRepository.findPotentialAcceptedPapers(id);
         model.addAttribute("listPotentialAcceptedPapers", listPotentialAcceptedPapers);
 
+        // Add a list of accepted papers by the reviewer to the model
         List<Paper> listAcceptedPapersByReviewer = paperRepository.findAcceptedPapersByReviewer(id);
         model.addAttribute("listAcceptedPapersByReviewer", listAcceptedPapersByReviewer);
 
+        // Add a list of rejected papers by the reviewer to the model
         List<Paper> listRejectedPapersByReviewer = paperRepository.findRejectedPapersByReviewer(id);
         model.addAttribute("listRejectedPapersByReviewer", listRejectedPapersByReviewer);
 
@@ -314,24 +307,28 @@ public class ReviewerController {
      * @return return to the paperAccept page
      */
     @RequestMapping(value="**/acceptPaper/{paperId}", method=RequestMethod.GET)
-    public String acceptPaper(@PathVariable int paperId) {
+    public String acceptPaper(@PathVariable int paperId, Model model) {
         
-        // Get the credentials of the currently logged in user
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		String userName;
-
-		// Get the instance of that user
-		if (principal instanceof UserDetailsClass) {
-			userName = ((UserDetailsClass)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
-
-		// Find the user in the user table by their username
-		User user = userRepository.findByUserName(userName).get();
-        int id = user.getUserId();
-
+        // Find the id of the currently logged in user
+        int id = returnIdOfCurrentlyLoggedInUser();
+        // Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+       } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+        
+        // Find the paper in the database as well
+        Paper paper;
+        try {
+            paper = paperRepository.findById(paperId).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No PAPER with id: " + paperId + " in system.");
+            return "error";
+        }
+        // Updated the accept column in the paper repository
         paperRepository.updateAccept(1, paperId, id);
         
         return "redirect:/reviewer/paperAccept";
@@ -343,8 +340,40 @@ public class ReviewerController {
      * @return this method will return back to the accept paper page
      */
     @RequestMapping(value="**/rejectPaper/{paperId}", method=RequestMethod.GET)
-    public String rejectPaper(@PathVariable int paperId) {
+    public String rejectPaper(@PathVariable int paperId, Model model) {
         
+        // Find the id of the currently logged in user
+        int id = returnIdOfCurrentlyLoggedInUser();
+        // Check that the paper and reviewer are in the database
+        // Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+        
+        // Find the paper in the database as well
+        Paper paper;
+        try {
+            paper = paperRepository.findById(paperId).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No PAPER with id: " + paperId + " in system.");
+            return "error";
+        }
+        // Updated the accept column in the paper repository
+        paperRepository.updateReject(1, paperId, id);
+        
+        return "redirect:/reviewer/paperAccept";
+    }
+
+    /**
+     * This method will retrieve the id of the currently logged
+     * in user
+     * @return The id of the currently logged in user
+     */
+    public int returnIdOfCurrentlyLoggedInUser() {
         // Get the credentials of the currently logged in user
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -355,15 +384,12 @@ public class ReviewerController {
 			userName = ((UserDetailsClass)principal).getUsername();
 		} else {
 			userName = principal.toString();
-		}
-
-		// Find the user in the user table by their username
-		User user = userRepository.findByUserName(userName).get();
-        int id = user.getUserId();
-
-        paperRepository.updateReject(1, paperId, id);
+        }
         
-        return "redirect:/reviewer/paperAccept";
+        // Find the user in the user table by their username
+        User user = userRepository.findByUserName(userName).get();
+        
+		return user.getUserId();
     }
     
 }
