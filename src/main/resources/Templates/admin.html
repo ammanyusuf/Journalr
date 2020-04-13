@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
-    <title>Admin</title>
+    <title>Admin | Home</title>
   </head>
-  <body>
-    <nav th:replace="baseTemplate :: topNav"></nav>
+  <body class="blue-gradient">
+    <nav th:replace="baseTemplate :: topNavWLogout"></nav>
 
     <div class="container-fluid">
       <div class="dashboard">

@@ -87,7 +87,7 @@
 					<h3>Add Reviewer</h3>
 						<div class="form-group">
 							<label for="rev1">Reviewer 1:</label>
-	                 		<input type="text" name="revName1" list="rev1" placeholder="None"/>
+	                 		<input class="form-control" type="text" name="revName1" list="rev1" placeholder="None"/>
 	                        <datalist id="rev1">
 	                            <option th:value="None" th:text="None"></option>
 	                            <option th:each="reviewer : ${listPotentialReviewers}"
@@ -99,7 +99,7 @@
                         
                         <div class="form-group">
 							<label for="rev2">Reviewer 2:</label>
-	                 		<input type="text" name="revName2" list="rev2" placeholder="None"/>
+	                 		<input class="form-control" type="text" name="revName2" list="rev2" placeholder="None"/>
 	                        <datalist id="rev2">
 	                            <option th:value="None" th:text="None"></option>
 	                            <option th:each="reviewer : ${listPotentialReviewers}"
@@ -111,7 +111,7 @@
 						
                         <div class="form-group">
 							<label for="rev3">Reviewer 3:</label>
-	                 		<input type="text" name="revName3" list="rev3" placeholder="None"/>
+	                 		<input class="form-control" type="text" name="revName3" list="rev3" placeholder="None"/>
 	                        <datalist id="rev3">
 	                            <option th:value="None" th:text="None"></option>
 	                            <option th:each="reviewer : ${listPotentialReviewers}"

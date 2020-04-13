@@ -1,6 +1,7 @@
 package Journalr.com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
@@ -12,8 +13,9 @@ import Journalr.com.repositories.ReviewerRepository;
 import Journalr.com.repositories.UserRepository;
 
 import Journalr.com.model.User;
+import Journalr.com.model.UserDetailsClass;
 
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.util.*;
 //import java.util.Map;
 
@@ -45,6 +47,18 @@ public class EditorController {
     public String showAllPapers(Model model) {
         List<Paper> allPapers = paperRepository.findAll();
         model.addAttribute("allPapers", allPapers);
+        try {
+        	int id = getCurrentlyLoggedInUser();
+            
+            User user = userRepository.findById(id).get();
+            
+            String firstName = user.getFirstName();
+            model.addAttribute("firstName", firstName);
+        }
+        catch(Exception e) {
+        	 model.addAttribute("message", "");
+             return "redirect:/error";
+        }
 
         return "editor";
     }
@@ -165,6 +179,29 @@ public class EditorController {
         }
         paperRepository.updateAbleToReview(0, paperID, userId);  
         return "redirect:/reviewersperpaper/" + paperID;
+    }
+    
+    /**
+     * This method will retireved the currently logged in user's id
+     * @return this method returns the currently logged in user's id
+     */
+    public int getCurrentlyLoggedInUser() {
+        // Get the credentials of the currently logged on user
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String userName;
+
+		// Get the isntance of that user
+		if (principal instanceof UserDetailsClass) {
+			userName = ((UserDetailsClass)principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+
+		// Find the user in the user table by their username
+        User user = userRepository.findByUserName(userName).get();
+        
+        return user.getUserId();
     }
 
 }

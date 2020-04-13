@@ -1,25 +1,40 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8" />
-<title>Set Deadline</title>
-</head>
-<body>
-    <div align="center">
-        <h1>Set Deadline</h1>
-        <br />
-      <form action="#" th:action="@{'/editDeadline/' + ${paperId}}" method="post"> 
-         <table>
-				<tr>			
-					<td>Date:</td>
-					<td><input type="date" name="date" /></td>  
-				</tr>
-				<tr>
-                    <td colspan="2"><button type="submit">Save</button> </td>
-				</tr>
-			</table>
-        </form>
-    </div>
-</body>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="baseTemplate :: header(title=~{::title/text()})">
+    <title>Editor | Set Deadline</title>
+  </head>
+	<body>
+		<nav th:replace="baseTemplate :: topNavWLogout"></nav>
+		<div class="container-fluid full-height blue-gradient">
+			<div class="row">
+				<div class="login-box">
+					<form action="#" th:action="@{'/editDeadline/' + ${paperId}}" method="post">
+				
+					<h3>Set Paper Deadline</h3>
+						<div class="form-group">
+							<label for="date">Date:</label>
+							<input class="form-control" id="date" type="date" name="date" />
+						</div>
+						
+						<div class="form-group">
+							<button class="btn btn-primary" type="submit">Save</button>
+						</div>
+						
+					</form>
+					<div class="d-flex justify-content-end">
+						<button type="button"  class="btn btn-outline-dark" onclick="goBack()">
+							<i class="fas fa-arrow-left"></i> Back
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<footer>
+		<script>
+		function goBack() {
+		  window.history.back();
+		}
+		</script>
+	</footer>
 </html>
