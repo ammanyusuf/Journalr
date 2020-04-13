@@ -10,10 +10,10 @@ import Journalr.com.model.Author;
 
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, Integer> {
-    /*
-    // If aPaper submission is true, return those papers that paper
-    // Submission was succesful aka accepted
-    public Iterable<Author> findByEnabledTrue(String aPaper);
-    */
+    /**
+     * This is the author repository
+     * It inherited methods from the JpaRepository for basic query
+     * retrieval in the database
+     */
 
 }

@@ -201,4 +201,43 @@ public class CommentController {
 		
 		return "viewComments";
 	}
+
+	@RequestMapping(path="**/viewMyCommentsReviewer/{paperId}", method = RequestMethod.GET)
+	public String viewCommentsMadeByReviewer(@PathVariable(name="paperId") int paperId, Model model) {
+		//Get the current user
+		UserDetailsClass userDetails = (UserDetailsClass) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		
+		//Put current user into reviewer object
+		int id = userDetails.getId();
+		Reviewer reviewer;
+		try {
+			reviewer = reviewerRepository.findById(id).get();         // to be passed to the comment object
+		} catch (NoSuchElementException e) {
+			model.addAttribute("message", "No reviwer found with id: " + id + " in the system.");
+			return "error";
+		}
+		//Find the paper in the database using given paperId
+		Paper paper;
+		try {
+			paper = paperRepository.findById(paperId).get();
+		} catch (NoSuchElementException e) {
+			model.addAttribute("message", "No paper found with id: " + paperId + " in the system.");
+			return "error";
+		}
+		model.addAttribute("paperTitle", paper.getTitle());
+
+		// Find the majore revision comments made by the reviewer for the given paper
+		List<Comment> listMajorRevCommentsByReviewer = commentRepository.findMajorRevCommentsPerPaperPerReviewer(paperId, id);
+		model.addAttribute("listMajorRevCommentsByReviewer", listMajorRevCommentsByReviewer);
+
+		//Find the minor revision comments made by the reviewer for the given paper
+		List<Comment> listMinorRevCommentsReviewer = commentRepository.findMinorRevCommentsPerPaperPerReviewer(paperId, id);
+		model.addAttribute("listMinorRevCommentsReviewer", listMinorRevCommentsReviewer);
+
+		// Find the general comments made by the reviewer for the given paper
+		List<Comment> listGeneralCommentsReviewer = commentRepository.findGeneralCommentsPerPaperPerReviewer(paperId, id);
+		model.addAttribute("listGeneralCommentsReviewer", listGeneralCommentsReviewer);
+
+		return "viewMyCommentsReviewer";
+	}
 }

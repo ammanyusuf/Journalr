@@ -3,24 +3,24 @@
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
     <title>Author | Home</title>
   </head>
-  <body class= "blue-gradient">
+  <body class="blue-gradient">
     <nav th:replace="baseTemplate :: topNavWLogout"></nav>
-    
+
     <div class="container-fluid full-height">
       <div class="full-height">
         <div class="dashboard">
           <div class="dashboard-topbar">
-          <div class="row">
-            <span class="dashboard-title">Welcome, Author <span th:text="${firstName}"></span></span>
-            <form action="/uploadForm">
-              <button class="btn btn-primary btn-lg float-right">
+            <span class="dashboard-title"
+              >Welcome, Author <span th:text="${firstName}"></span
+            ></span>
+            <form action="/uploadForm" class="float-right">
+              <button class="btn btn-primary btn-lg">
                 📃 New Paper
               </button>
             </form>
           </div>
-          </div>
           <br />
-          <div class="container-fluid" style="padding-top: 2%;">
+          <div style="padding-top: 2%;">
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
@@ -38,25 +38,33 @@
                   <td th:text="${paper.title}">Title</td>
                   <td th:text="${paper.topic}">Topic</td>
                   <td th:text="${paper.submissionDate}">Submission Date</td>
-                  <td th:text="${paper.submissionDeadline}">Submission Deadline</td>
+                  <td th:text="${paper.submissionDeadline}">
+                    Submission Deadline
+                  </td>
                   <td th:text="${paper.fileName}">File Name</td>
                   <td>
-                    <a th:href="@{'/downloadFile/' + ${paper.paperId}}">Download</a>
-                    <a th:href="@{'/reuploadForm/' + ${paper.paperId}}">Re-upload</a>
+                    <a th:href="@{'/downloadFile/' + ${paper.paperId}}"
+                      >Download</a
+                    >
+                    <a th:href="@{'/reuploadForm/' + ${paper.paperId}}"
+                      >Re-upload</a
+                    >
                   </td>
                   <td>
-                    <a  th:href="@{'/authorAddReviewer/' + ${paper.paperId}}">Add Reviewer</a>
+                    <a th:href="@{'/authorAddReviewer/' + ${paper.paperId}}"
+                      >Add Reviewer</a
+                    >
                   </td>
                 </tr>
               </tbody>
             </table>
             <!-- Table for approved papers -->
-            <b> <font size ="6"> Approved papers </font> </b>
-            <br>
-            <br>
+            <b> <font size="6"> Approved papers </font> </b>
+            <br />
+            <br />
             <body>
               <a>These are papers that have been approved by an editor</a>
-            </body> 
+            </body>
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
@@ -67,29 +75,36 @@
                   <th scope="col">Download</th>
                   <th scope="col">View Comments</th>
                 </tr>
-                </thead>
-                <tbody>
+              </thead>
+              <tbody>
                 <tr th:each="approvedPaper : ${approvedPapers}">
                   <td th:text="${approvedPaper.title}">Title</td>
                   <td th:text="${approvedPaper.fileName}">File Name</td>
                   <td th:text="${approvedPaper.fileType}">File Type</td>
                   <td th:text="${approvedPaper.topic}">Topic</td>
                   <td>
-                  <a th:href="@{'/downloadFile/' + ${approvedPaper.paperId}}">Download</a>
+                    <a th:href="@{'/downloadFile/' + ${approvedPaper.paperId}}"
+                      >Download</a
+                    >
                   </td>
                   <td>
-                    <a th:href="@{'/viewComments/' + ${approvedPaper.paperId}}">View Comments</a>
+                    <a th:href="@{'/viewComments/' + ${approvedPaper.paperId}}"
+                      >View Comments</a
+                    >
                   </td>
                 </tr>
-                </tbody>
+              </tbody>
             </table>
             <!-- Table for papers under review -->
-            <b> <font size ="6"> Under Review </font> </b>
-            <br>
-            <br>
+            <b> <font size="6"> Under Review </font> </b>
+            <br />
+            <br />
             <body>
               <a>These are papers that have been reviewed by a reviewer.</a>
-              <a>They have been given major revisions, minor revisions or both.</a>
+              <a
+                >They have been given major revisions, minor revisions or
+                both.</a
+              >
             </body>
             <table class="table table-bordered table-hover">
               <thead>
@@ -102,28 +117,32 @@
                   <th scope="col">Download</th>
                   <th scope="col">View Comments</th>
                 </tr>
-                </thead>
-                <tbody>
+              </thead>
+              <tbody>
                 <tr th:each="reviewedPaper : ${reviewedPapers}">
                   <td th:text="${reviewedPaper.title}">Title</td>
                   <td th:text="${reviewedPaper.fileName}">File Name</td>
                   <td th:text="${reviewedPaper.fileType}">File Type</td>
-                  <td th:text="${reviewedPaper.submissionDate}">Submission Date</td>
+                  <td th:text="${reviewedPaper.submissionDate}">
+                    Submission Date
+                  </td>
                   <td th:text="${reviewedPaper.topic}">Topic</td>
                   <td>
-                  <a th:href="@{'/downloadFile/' + ${reviewedPaper.paperId}}">Download</a>
+                    <a th:href="@{'/downloadFile/' + ${reviewedPaper.paperId}}"
+                      >Download</a
+                    >
                   </td>
                   <td>
-                    <a th:href="@{'/viewComments/' + ${reviewedPaper.paperId}}">View Comments</a>
+                    <a th:href="@{'/viewComments/' + ${reviewedPaper.paperId}}"
+                      >View Comments</a
+                    >
                   </td>
                 </tr>
-                </tbody>
-            </table> 	
+              </tbody>
+            </table>
           </div>
         </div>
-         
       </div>
-      
     </div>
   </body>
 

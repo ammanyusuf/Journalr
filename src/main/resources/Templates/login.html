@@ -8,42 +8,42 @@
     <nav th:replace="baseTemplate :: topNav"></nav>
 
     <div class="container-fluid blue-gradient full-height">
-    	<div class="row">
-    	  <form
-	        th:action="@{/login}"
-	        th:object="${loginForm}"
-	        method="POST"
-	        class="login-box"
-	      >
-	        <h3>Login</h3>
-	        <div class="form-group">
-	          <label for="username">Username</label>
-	          <input
-	            type="text"
-	            class="form-control"
-	            id="username"
-	            name="username"
-	            autofocus="autofocus"
-	            required
-	          />
-	        </div>
-	        <div class="form-group">
-	          <label for="password">Password</label>
-	          <input
-	            type="password"
-	            class="form-control"
-	            id="password"
-	            name="password"
-	            required
-	          />
-	        </div>
-	        <input
-	          type="submit"
-	          value="Log In"
-	          class="btn btn-primary btn-lg btn-block"
-	        />
-	      </form>
-    	</div>
+      <div class="row">
+        <form
+          th:action="@{/login}"
+          th:object="${loginForm}"
+          method="POST"
+          class="login-box"
+        >
+          <h3>Login</h3>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              name="username"
+              autofocus="autofocus"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              required
+            />
+          </div>
+          <input
+            type="submit"
+            value="Log In"
+            class="btn btn-primary btn-lg btn-block"
+          />
+        </form>
+      </div>
     </div>
   </body>
   <footer>

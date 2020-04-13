@@ -12,5 +12,9 @@ import Journalr.com.model.Editor;
 
 @Repository
 public interface EditorRepository extends JpaRepository<Editor, Integer> {
-
+    /**
+     * This is the editor repository
+     * It inherited methods from the JpaRepository for basic query
+     * retrieval in the database
+     */
 }
