@@ -112,18 +112,37 @@ public class EditorController {
      * This method approves a reviewer to a paper
      * @param userId The user/reviewer id that we want to assign to the paper
      * @param paperID The paper id that we want to assign the reviewer to
+     * @param model This is the current model we are working with
      * @return This method redirects back to the reviewerspapaer/paperid page
      */
     @RequestMapping(path="/addreviewer/{userId}/{paperID}")
     public String addReviewerToPaper(@PathVariable(name = "userId") int userId,
-                                     @PathVariable(name = "paperID") int paperID) {
+                                     @PathVariable(name = "paperID") int paperID,
+                                     Model model) {
         //asasa
+        Paper paper;
         try {
-            Paper paper = paperRepository.findById(paperID).get();
+            paper = paperRepository.findById(paperID).get();
             Reviewer reviewer = reviewerRepository.findById(userId).get();
         } catch (NoSuchElementException e) {
             return "redirect:/error";
         }
+
+        // Check if the number of approved reviewers is below three
+        Integer numberOfApprovedReviewer = paperRepository.findNumberOfApprovedReviewersPerPaper(paperID);
+        // Check if its not null --> if it is null, no reviewers have been added yet
+        if (!(numberOfApprovedReviewer == null)) {
+            int num = Integer.valueOf(numberOfApprovedReviewer);
+            if (num >= 3) {
+                // If the number of approved reviewers is greater than or
+                // equal to 3, then that paper has reached a maximum number of
+                // approved reviewers.  Throw an error message and let the
+                // editor now that the maximum numbers of reviewers has beeen reached
+                model.addAttribute("message", "Reached maximum number of approved reviewers for the paper: " + paper.getTitle() + " .  Please remove assigned reviewers if you wish to add more.");
+                return "error";
+            }
+        }
+
         paperRepository.updateAbleToReview(1, paperID, userId);  
         return "redirect:/reviewersperpaper/" + paperID;
     }

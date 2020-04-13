@@ -102,4 +102,9 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
     @Query(value = "SELECT DISTINCT * FROM paper as p1 WHERE p1.paper_ID IN (SELECT p2.paper_ID FROM paper as p2, review_paper as rp WHERE able_to_review = 1 and (rp.major_rev = 1 or rp.minor_rev = 1) and rp.paper_ID = p2.paper_ID and p2.author_ID = ?1)", 
         nativeQuery = true)
         List<Paper> findReviewedPapersPerAuthors(int author_id);
+
+
+    @Query(value = "SELECT count(reviewer_ID) FROM review_paper WHERE paper_ID=?1 and able_to_review=1 GROUP BY paper_ID",
+        nativeQuery = true)
+        Integer findNumberOfApprovedReviewersPerPaper(int paper_id);
 }
