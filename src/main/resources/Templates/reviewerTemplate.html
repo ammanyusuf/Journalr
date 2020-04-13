@@ -1,31 +1,72 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="baseTemplate :: header ($pageTitle)">
-    </head>
-    
-    <body>
-    	<nav th:replace="baseTemplate :: topNavWLogout">
-	     </nav>
-	     
-	     <div class="container-fluid full-height">
-	     	<div class="row full-height">
-	     		<div th:fragment="userNav" class="col-sm-3" id="userTabCol">
-	     			<div class="row-3 d-flex align-items-center" id="reviewerInfo">
-	     				<h4 >Welcome, <span th:text="${firstName}">Reviewer</span></h4>
-	     			</div>
-	     			<div class="row-6" id="reviewerNav" style="height: 100%;">
-	     				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-						  <a th:class="${pageTitle}=='Reviewer | Home' ? 'nav-link active' : 'nav-link'" id="home-tab" th:href="@{~/reviewer}" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-						  <a th:class="${pageTitle}=='Reviewer | Available Papers' ? 'nav-link active' : 'nav-link'" id="journals-tab"  th:href="@{~/reviewer/availablePapers}" role="tab" aria-controls="v-pills-journals" aria-selected="false">Available Papers</a>
-						  <a th:class="${pageTitle}=='Reviewer | My Papers' ? 'nav-link active' : 'nav-link'" id="my-papers-tab" th:href="@{~/reviewer/mypapersReviewer}" role="tab" aria-controls="v-pills-authors" aria-selected="false">My Papers</a>
-						  <a th:class="${pageTitle}=='Reviewer | Favorite Topic Papers' ? 'nav-link active' : 'nav-link'" id="v-pills-settings-tab" th:href="@{~/reviewer/paperTopics}" role="tab" aria-controls="v-pills-settings" aria-selected="false">Favorite Topic Papers</a>
-						  <a th:class="${pageTitle}=='Reviewer | Papers To Accept' ? 'nav-link active' : 'nav-link'" id="v-pills-settings-tab" th:href="@{~/reviewer/paperAccept}" role="tab" aria-controls="v-pills-settings" aria-selected="false">Papers To Accept</a>
-						</div>
-	     			</div>
-	     			
-	     		</div>
-	     	</div>
-	     </div>
-    </body>
+  <head th:replace="baseTemplate :: header ($pageTitle)"> </head>
 
+  <body>
+    <nav th:replace="baseTemplate :: topNavWLogout"></nav>
+
+    <div class="container-fluid full-height">
+      <div class="row full-height">
+        <div th:fragment="userNav" class="col-sm-3" id="userTabCol">
+          <div class="row-3 d-flex align-items-center" id="reviewerInfo">
+            <h4>Welcome, <span th:text="${firstName}">Reviewer</span></h4>
+          </div>
+          <div class="row-6" id="reviewerNav" style="height: 100%;">
+            <div
+              class="nav flex-column nav-pills"
+              id="v-pills-tab"
+              role="tablist"
+              aria-orientation="vertical"
+            >
+              <a
+                th:class="${pageTitle}=='Reviewer | Home' ? 'nav-link active' : 'nav-link'"
+                id="home-tab"
+                th:href="@{~/reviewer}"
+                role="tab"
+                aria-controls="v-pills-home"
+                aria-selected="true"
+                >Home</a
+              >
+              <a
+                th:class="${pageTitle}=='Reviewer | Available Papers' ? 'nav-link active' : 'nav-link'"
+                id="journals-tab"
+                th:href="@{~/reviewer/availablePapers}"
+                role="tab"
+                aria-controls="v-pills-journals"
+                aria-selected="false"
+                >Available Papers</a
+              >
+              <a
+                th:class="${pageTitle}=='Reviewer | My Papers' ? 'nav-link active' : 'nav-link'"
+                id="my-papers-tab"
+                th:href="@{~/reviewer/mypapersReviewer}"
+                role="tab"
+                aria-controls="v-pills-authors"
+                aria-selected="false"
+                >My Papers</a
+              >
+              <a
+                th:class="${pageTitle}=='Reviewer | Favorite Topic Papers' ? 'nav-link active' : 'nav-link'"
+                id="v-pills-settings-tab"
+                th:href="@{~/reviewer/paperTopics}"
+                role="tab"
+                aria-controls="v-pills-settings"
+                aria-selected="false"
+                >Favorite Topic Papers</a
+              >
+              <a
+                th:class="${pageTitle}=='Reviewer | Papers To Accept' ? 'nav-link active' : 'nav-link'"
+                id="v-pills-settings-tab"
+                th:href="@{~/reviewer/paperAccept}"
+                role="tab"
+                aria-controls="v-pills-settings"
+                aria-selected="false"
+                >Papers To Accept</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

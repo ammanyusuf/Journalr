@@ -48,14 +48,14 @@
       <div class="dashboard">
         <div class="dashboard-topbar">
           <span class="dashboard-title" th:text="${paper.title}">Paper</span>
-          <span class="dashboard-title">Reviewers</span> 
-            <form action="/editor">
+          <span class="dashboard-title">Reviewers</span>
+          <form action="/editor">
             <button class="btn btn-primary btn-lg float-right">
-                  Back
+              Back
             </button>
-            </form>
+          </form>
         </div>
-        <br/>
+        <br />
         <a>Approved</a>
         <table class="table table-bordered table-hover">
           <thead>
@@ -70,7 +70,10 @@
               <td th:text="${user.firstName}">Firt Name</td>
               <td th:text="${user.lastName}">Last Name</td>
               <td>
-                <a th:href="@{'/removereviewer/' + ${user.userId} + '/' + ${paper.paperId}}">Remove</a>
+                <a
+                  th:href="@{'/removereviewer/' + ${user.userId} + '/' + ${paper.paperId}}"
+                  >Remove</a
+                >
               </td>
             </tr>
           </tbody>
@@ -89,7 +92,10 @@
               <td th:text="${user.firstName}">Firt Name</td>
               <td th:text="${user.lastName}">Last Name</td>
               <td>
-                <a th:href="@{'/addreviewer/' + ${user.userId} + '/' + ${paper.paperId}}">Add</a>
+                <a
+                  th:href="@{'/addreviewer/' + ${user.userId} + '/' + ${paper.paperId}}"
+                  >Add</a
+                >
               </td>
             </tr>
           </tbody>

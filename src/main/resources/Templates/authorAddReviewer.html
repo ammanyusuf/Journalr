@@ -77,69 +77,86 @@
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
     <title>Author | Add Reviewer</title>
   </head>
-	<body>
-		<nav th:replace="baseTemplate :: topNavWLogout"></nav>
-		<div class="container-fluid full-height blue-gradient">
-			<div class="row">
-				<div class="login-box">
-					<form th:action="@{'/authorAddReviewer/' + ${paper1.paperId}}"  method="post">
-				
-					<h3>Add Reviewer</h3>
-						<div class="form-group">
-							<label for="rev1">Reviewer 1:</label>
-	                 		<input type="text" name="revName1" list="rev1" placeholder="None"/>
-	                        <datalist id="rev1">
-	                            <option th:value="None" th:text="None"></option>
-	                            <option th:each="reviewer : ${listPotentialReviewers}"
-										th:value="${reviewer.firstName} + ' ' + ${reviewer.lastName} + '  (ID:' + ${reviewer.userId} + ')'"
-	                                    th:text="${reviewer.firstName} + ' ' + ${reviewer.lastName} + '  (Email: ' +  ${reviewer.email} + ' | ' + 'Affiliation: ' + ${reviewer.affiliation} + ')'"
-	                                    ></option>
-							</datalist>
-						</div>
-                        
-                        <div class="form-group">
-							<label for="rev2">Reviewer 2:</label>
-	                 		<input type="text" name="revName2" list="rev2" placeholder="None"/>
-	                        <datalist id="rev2">
-	                            <option th:value="None" th:text="None"></option>
-	                            <option th:each="reviewer : ${listPotentialReviewers}"
-										th:value="${reviewer.firstName} + ' ' + ${reviewer.lastName} + '  (ID:' + ${reviewer.userId} + ')'"
-	                                    th:text="${reviewer.firstName} + ' ' + ${reviewer.lastName} + '  (Email: ' +  ${reviewer.email} + ' | ' + 'Affiliation: ' + ${reviewer.affiliation} + ')'"
-	                                    ></option>
-							</datalist>
-						</div>
-						
-                        <div class="form-group">
-							<label for="rev3">Reviewer 3:</label>
-	                 		<input type="text" name="revName3" list="rev3" placeholder="None"/>
-	                        <datalist id="rev3">
-	                            <option th:value="None" th:text="None"></option>
-	                            <option th:each="reviewer : ${listPotentialReviewers}"
-										th:value="${reviewer.firstName} + ' ' + ${reviewer.lastName} + '  (ID:' + ${reviewer.userId} + ')'"
-	                                    th:text="${reviewer.firstName} + ' ' + ${reviewer.lastName} + '  (Email: ' +  ${reviewer.email} + ' | ' + 'Affiliation: ' + ${reviewer.affiliation} + ')'"
-	                                    ></option>
-							</datalist>
-						</div>
-                        
-						<div class="form-group">
-							<button type="submit" class="btn btn-primary">Save</button>
-							
-						</div>
-						
-					</form>
-					<button type="button" class="btn btn-outline-dark" onclick="goBack()">
-						<i class="fas fa-arrow-left"></i> Back
-					</button>
-				</div>			
-			</div>			
-		</div>
-	
-	</body>
-	<footer>
-		<script>
-		function goBack() {
-		  window.history.back();
-		}
-		</script>
-	</footer>
+  <body>
+    <nav th:replace="baseTemplate :: topNavWLogout"></nav>
+    <div class="container-fluid full-height blue-gradient">
+      <div class="row">
+        <div class="login-box">
+          <form
+            th:action="@{'/authorAddReviewer/' + ${paper1.paperId}}"
+            method="post"
+          >
+            <h3>Add Reviewer</h3>
+            <div class="form-group">
+              <label for="rev1">Reviewer 1:</label>
+              <input
+                type="text"
+                name="revName1"
+                list="rev1"
+                placeholder="None"
+              />
+              <datalist id="rev1">
+                <option th:value="None" th:text="None"></option>
+                <option
+                  th:each="reviewer : ${listPotentialReviewers}"
+                  th:value="${reviewer.firstName} + ' ' + ${reviewer.lastName} + '  (ID:' + ${reviewer.userId} + ')'"
+                  th:text="${reviewer.firstName} + ' ' + ${reviewer.lastName} + '  (Email: ' +  ${reviewer.email} + ' | ' + 'Affiliation: ' + ${reviewer.affiliation} + ')'"
+                ></option>
+              </datalist>
+            </div>
+
+            <div class="form-group">
+              <label for="rev2">Reviewer 2:</label>
+              <input
+                type="text"
+                name="revName2"
+                list="rev2"
+                placeholder="None"
+              />
+              <datalist id="rev2">
+                <option th:value="None" th:text="None"></option>
+                <option
+                  th:each="reviewer : ${listPotentialReviewers}"
+                  th:value="${reviewer.firstName} + ' ' + ${reviewer.lastName} + '  (ID:' + ${reviewer.userId} + ')'"
+                  th:text="${reviewer.firstName} + ' ' + ${reviewer.lastName} + '  (Email: ' +  ${reviewer.email} + ' | ' + 'Affiliation: ' + ${reviewer.affiliation} + ')'"
+                ></option>
+              </datalist>
+            </div>
+
+            <div class="form-group">
+              <label for="rev3">Reviewer 3:</label>
+              <input
+                type="text"
+                name="revName3"
+                list="rev3"
+                placeholder="None"
+              />
+              <datalist id="rev3">
+                <option th:value="None" th:text="None"></option>
+                <option
+                  th:each="reviewer : ${listPotentialReviewers}"
+                  th:value="${reviewer.firstName} + ' ' + ${reviewer.lastName} + '  (ID:' + ${reviewer.userId} + ')'"
+                  th:text="${reviewer.firstName} + ' ' + ${reviewer.lastName} + '  (Email: ' +  ${reviewer.email} + ' | ' + 'Affiliation: ' + ${reviewer.affiliation} + ')'"
+                ></option>
+              </datalist>
+            </div>
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+          <button type="button" class="btn btn-outline-dark" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i> Back
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </footer>
 </html>
