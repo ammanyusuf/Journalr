@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
-    <title>Comments</title>
+    <title>My Comments</title>
   </head>
   <body class= "blue-gradient">
     <nav th:replace="baseTemplate :: topNavWLogout"></nav>
@@ -25,15 +25,13 @@
               <thead>
                 <tr>
                   <th scope="col">Comment</th>
-                  <th scope="col">By</th>
                   <th scope="col">Commented On</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="commentsMajorRev : ${listOfCommentsOfReviewerMajorRev}">
-                  <td th:text="${commentsMajorRev.comment}">Comment</td>
-                  <td th:text="${commentsMajorRev.reviewerName}">By</td>
-                  <td th:text="${commentsMajorRev.commentDate}">Commented On</td>
+                <tr th:each="commentsMajorRevReviewer : ${listMajorRevCommentsByReviewer}">
+                  <td th:text="${commentsMajorRevReviewer.comment}">Comment</td>
+                  <td th:text="${commentsMajorRevReviewer.commentDate}">Commented On</td>
                 </tr>
                 </tbody>
             </table>
@@ -46,15 +44,13 @@
               <thead>
                 <tr>
                   <th scope="col">Comment</th>
-                  <th scope="col">By</th>
                   <th scope="col">Commented On</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="commentsMinorRev : ${listOfCommentsOfReviewerMinorRev}">
-                  <td th:text="${commentsMinorRev.comment}">Comment</td>
-                  <td th:text="${commentsMinorRev.reviewerName}">By</td>
-                  <td th:text="${commentsMinorRev.commentDate}">Commented On</td>
+                <tr th:each="commentsMinorRevReviewer : ${listMinorRevCommentsReviewer}">
+                  <td th:text="${commentsMinorRevReviewer.comment}">Comment</td>
+                  <td th:text="${commentsMinorRevReviewer.commentDate}">Commented On</td>
                 </tr>
                 </tbody>
             </table> 
@@ -67,15 +63,13 @@
               <thead>
                 <tr>
                   <th scope="col">Comment</th>
-                  <th scope="col">By</th>
                   <th scope="col">Commented On</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="commentsGeneral : ${listOfCommentsOfReviewerGeneral}">
-                  <td th:text="${commentsGeneral.comment}">Comment</td>
-                  <td th:text="${commentsGeneral.reviewerName}">By</td>
-                  <td th:text="${commentsGeneral.commentDate}">Commented On</td>
+                <tr th:each="commentsGeneralReviewer : ${listGeneralCommentsReviewer}">
+                  <td th:text="${commentsGeneralReviewer.comment}">Comment</td>
+                  <td th:text="${commentsGeneralReviewer.commentDate}">Commented On</td>
                 </tr>
                 </tbody>
             </table>	

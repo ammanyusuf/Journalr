@@ -25,7 +25,8 @@
                     <th scope="col">Submission Deadline</th>
                     <th scope="col">File Name</th>         
                     <th scope="col">Download Link</th>
-                    <th scope="col">Comment</th>  
+                    <th scope="col">Comment</th> 
+                    <th scope="col">View My Comments</th>  
 						    </tr>
 						  </thead>
 						  <tbody>
@@ -42,6 +43,9 @@
                   <td>
                       <a th:href="@{'/addComment/' + ${approvedPaperReviewer.paperId}}">add comment</a>
                   </td>
+                  <td>
+                    <a th:href="@{'/viewMyCommentsReviewer/' + ${approvedPaperReviewer.paperId}}">View My Comments</a>
+                </td>
                 </tr>
 						  </tbody>
               </table>

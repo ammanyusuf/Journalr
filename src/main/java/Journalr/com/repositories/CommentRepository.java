@@ -30,4 +30,16 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
             nativeQuery = true)
     List<Comment> findGeneralCommentsPerPaper(int paperId);
 
+    @Query(value = "SELECt * FROM comment WHERE paper_ID=?1 AND reviewer_ID=?2 AND topic='major_rev'",
+             nativeQuery = true)
+    List<Comment> findMajorRevCommentsPerPaperPerReviewer(int paperId, int reviewerId);
+
+    @Query(value = "SELECt * FROM comment WHERE paper_ID=?1 AND reviewer_ID=?2 AND topic='minor_rev'",
+             nativeQuery = true)
+    List<Comment> findMinorRevCommentsPerPaperPerReviewer(int paperId, int reviewerId);
+
+    @Query(value = "SELECt * FROM comment WHERE paper_ID=?1 AND reviewer_ID=?2 AND topic='general'",
+             nativeQuery = true)
+    List<Comment> findGeneralCommentsPerPaperPerReviewer(int paperId, int reviewerId);
+
 }
