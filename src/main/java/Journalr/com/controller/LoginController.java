@@ -20,41 +20,10 @@ import	java.util.Collection;
 @Controller
 public class LoginController {
 
-	/*
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String getLoginForm() {
-		return "login";
-	}
-	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@ModelAttribute(name="loginForm") LoginForm loginForm, Model model) {
-		
-		String username = loginForm.getUsername();                     
-		String password = loginForm.getPassword();
-		
-		if ("admin".equals(username) && "adminPassword".equals(password)) {
-			return "home";                                              // this is where the validation is done
-		}
-		
-		model.addAttribute("invalidCredentials", true);
-		return "login";
-		
-	}*/
-
 	@RequestMapping(value="/signUp", method=RequestMethod.GET)
 	public String getSignUpForm() {
 		return "signUp";
 	}
-	/*
-	private UserRepository userRepository;
-	
-	@PostMapping(path="/signUp")
-	public @ResponseBody String signUp(@RequestParam User user) {
-		
-		userRepository.save(user);
-		return "login";
-	}
-  */
 
 	//this method redirects the newly authenticated user to the appropriate page based on their role (ex. admin goes to adminPage , author, etc...)
 	@RequestMapping("/home")
@@ -76,18 +45,4 @@ public class LoginController {
 	  // catch else
 	  return "redirect:/";
 	}
-/*
-	// Harry's temporary author route
-	@RequestMapping(value="/authorHarry", method=RequestMethod.GET)
-	public String getAuthorHarry() {
-		return "authorHarry";
-	}
-	
-	// Kevin's temporary reviewer route
-		@RequestMapping(value="/reviewer", method=RequestMethod.GET)
-		public String reviewerHome(Model model) {
-			model.addAttribute("pageTitle", "Reviewer");
-			return "reviewer";
-		}
-		*/
 }

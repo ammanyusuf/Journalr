@@ -6,9 +6,12 @@
 </head>
 
 <body>
-	<h1>Sorry, there was an error</h1>
-    <form action="/home">
-   		<button>Go Back Home</button>
+    <h1>Sorry, there was an error</h1>
+    <div th:if="${message}">
+		<h2 th:text="${message}"/>
+	</div>
+    <form action="/home" >
+   		<button>Go Back Home  </button>
     </form>
 </body>
 </html>
