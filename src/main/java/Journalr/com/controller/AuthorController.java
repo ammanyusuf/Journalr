@@ -85,12 +85,6 @@ public class AuthorController {
             List<Paper> approvedPapers = paperRepository.findApprovedPapersForAuthors(author.getUserId());
 
             model.addAttribute("approvedPapers", approvedPapers);
-
-            // Find all the author's papers that have been reviewed by a reviewer
-            List<Paper> reviewedPapers = paperRepository.findReviewedPapersPerAuthors(author.getUserId());
-
-            model.addAttribute("reviewedPapers", reviewedPapers);
-            
         } catch(Exception e) {
             
             model.addAttribute("message", "");
@@ -155,6 +149,7 @@ public class AuthorController {
         return "authorAddReviewer";
     }
 
+    // I commented this out and placed the new version below
     /**
      * This method will add the reviewers that the author selected to the paper passed
      * through
@@ -168,6 +163,7 @@ public class AuthorController {
      *                    add this reviewer
      * @return this method returns back to the author page
      */
+   /* 
     @RequestMapping(path="/authorAddReviewer/{paperId}", method = RequestMethod.POST)
     public String authorAddReviewer (@PathVariable("paperId") int paperId, Model model,
                                     @RequestParam("revId1") int reviewerId1,
@@ -240,7 +236,121 @@ public class AuthorController {
         return "redirect:/author";   
     
     }
+*/
+    
+    // NEW with search reviewer
+    /**
+     * This method will add the reviewers that the author selected to the paper passed
+     * through
+     * 
+     * Detals: RequestParam parameters will be Strings since the html input returns 
+     * 		   a string in the form "FirstName LastName (ID: userId)"
+     * 
+     * @param paperId the papers that we want to add the reviewer to
+     * @param model the current working model
+     * @param reviewerId1 the first reviewer that we want to add.  If it is -1 we should not
+     *                    add this reviewer
+     * @param reviewerId2 the second reviewer that we want to add.  If it is -1 we should not
+     *                    add this reviewer
+     * @param reviewerId3 the third reviewer that we want to add.  If it is -1 we should not
+     *                    add this reviewer
+     * @return this method returns back to the author page
+     */
+    
+    @RequestMapping(path="/authorAddReviewer/{paperId}", method = RequestMethod.POST)
+    public String authorAddReviewer (@PathVariable("paperId") int paperId, Model model,
+                                    @RequestParam("revName1") String reviewerId1,
+                                    @RequestParam("revName2") String reviewerId2,
+                                    @RequestParam("revName3") String reviewerId3) {
 
+        Paper paper = paperRepository.findById(paperId).get();
+        
+        if (reviewerId1 != "None") {
+            
+        	// Take the userId part of the returned value (firstName lastName (userId)) from html, then convert into int
+        	int revId1 = Integer.parseInt(reviewerId1.substring(reviewerId1.indexOf(":") + 1, reviewerId1.indexOf(")")));
+        	
+            Reviewer reviewer = reviewerRepository.findById(revId1).get();
+        
+            // Check if paper/reviewer is already stored in database (check for duplicates)
+            // Also helps if the author chooses the same reviewer twice, it will only add it once
+            // If not(already in review_paper)
+            if(!((paper.getReviewers()).contains(reviewer) && (reviewer.getPapers().contains(paper))))
+            {	
+	            // Assign the papers to the reviewers, and vice versa
+	            reviewer.getPapers().add(paper);
+	            paper.getReviewers().add(reviewer);
+	
+	            // Update database
+	            paperRepository.save(paper);
+	            reviewerRepository.save(reviewer);
+	
+	            //Update major,minor,accept,able to review attributes
+	            paperRepository.updateMajorRev(0, paperId, revId1);
+	            paperRepository.updateMinorRev(0, paperId, revId1);
+	            paperRepository.updateAccept(0, paperId, revId1);
+	            paperRepository.updateAbleToReview(0, paperId, revId1);
+	            paperRepository.updateReject(0, paperId, revId1);
+            }
+        }
+        
+        if (reviewerId2 != "None") {
+            
+        	// Take the userId part of the returned value (firstName lastName (userId)) from html, then convert into int
+        	int revId2 = Integer.parseInt(reviewerId1.substring(reviewerId1.indexOf(":") + 1, reviewerId1.indexOf(")")));
+        	
+            Reviewer reviewer = reviewerRepository.findById(revId2).get();
+        
+            // Check if reviewer/paper is not(already in review_paper)
+            if(!((paper.getReviewers()).contains(reviewer) && (reviewer.getPapers().contains(paper))))
+            {
+	            // Assign the papers to the reviewers, and vice versa
+	            reviewer.getPapers().add(paper);
+	            paper.getReviewers().add(reviewer);
+	
+	            // Update database
+	            paperRepository.save(paper);
+	            reviewerRepository.save(reviewer);
+	
+	            //Update major,minor,accept,able to review attributes
+	            paperRepository.updateMajorRev(0, paperId, revId2);
+	            paperRepository.updateMinorRev(0, paperId, revId2);
+	            paperRepository.updateAccept(0, paperId, revId2);
+	            paperRepository.updateAbleToReview(0, paperId, revId2);
+	            paperRepository.updateReject(0, paperId, revId2);
+            }
+        }
+        
+        if (reviewerId3 != "None") {
+            
+        	// Take the userId part of the returned value (firstName lastName (userId)) from html, then convert into int
+        	int revId3 = Integer.parseInt(reviewerId1.substring(reviewerId1.indexOf(":") + 1, reviewerId1.indexOf(")")));
+        	
+            Reviewer reviewer = reviewerRepository.findById(revId3).get();
+        
+            // Check if reviewer/paper is not(already in review_paper)
+            if(!((paper.getReviewers()).contains(reviewer) && (reviewer.getPapers().contains(paper))))
+            {
+	            // Assign the papers to the reviewers, and vice versa
+	            reviewer.getPapers().add(paper);
+	            paper.getReviewers().add(reviewer);
+	
+	            // Update database
+	            paperRepository.save(paper);
+	            reviewerRepository.save(reviewer);
+	
+	            //Update major,minor,accept,able to review attributes
+	            paperRepository.updateMajorRev(0, paperId, revId3);
+	            paperRepository.updateMinorRev(0, paperId, revId3);
+	            paperRepository.updateAccept(0, paperId, revId3);
+	            paperRepository.updateAbleToReview(0, paperId, revId3);
+	            paperRepository.updateReject(0, paperId, revId3);
+            }
+        }
+        
+        return "redirect:/author";   
+    }
+    
     /**
      * This method will retireved the currently logged in user's id
      * @return this method returns the currently logged in user's id
