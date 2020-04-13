@@ -3,44 +3,67 @@
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
     <title>Author | Re-Upload</title>
   </head>
-	<body>
-		<nav th:replace="baseTemplate :: topNavWLogout"></nav>
-		<div class="container-fluid full-height blue-gradient">
-			<div class="row">
-				<div class="login-box">
-					<form method="POST" enctype="multipart/form-data" th:object="${paper}" action="/reuploadForm">
-				
-					<h3>File to Re-Upload</h3>
-						<div class="form-group">
-							<label for="file">File:</label>
-							<input type="file" id="file" name="file" />
-						</div>
-							
-						<div class="form-group">
-							<label for="paperID">Paper ID:</label>
-							<input type="text" id="paperID" th:field="*{paperId}" readonly="readonly"/>
-						</div>	
-						
-						<div class="form-group">
-							<input id="" class="btn btn-primary" type="submit" value="Upload"/>
-							
-						</div>
-						
-					</form>
-					<div class="d-flex justify-content-end">
-						<button type="button"  class="btn btn-outline-dark" onclick="goBack()">
-							<i class="fas fa-arrow-left"></i> Back
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
-	<footer>
-		<script>
-		function goBack() {
-		  window.history.back();
-		}
-		</script>
-	</footer>
+  <body>
+    <nav th:replace="baseTemplate :: topNavWLogout"></nav>
+    <div class="container-fluid full-height blue-gradient">
+      <div class="row">
+        <div class="login-box">
+          <form
+            method="POST"
+            enctype="multipart/form-data"
+            th:object="${paper}"
+            action="/reuploadForm"
+          >
+            <h3>File to Re-Upload</h3>
+            <div class="form-group">
+              <label for="file">File:</label>
+              <input
+                type="file"
+                id="file"
+                name="file"
+                accept=".doc,.docx, .pdf"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="paperID">Paper ID:</label>
+              <input
+                type="text"
+                id="paperID"
+                th:field="*{paperId}"
+                readonly="readonly"
+              />
+            </div>
+
+            <div class="form-group">
+              <input
+                id=""
+                class="btn btn-primary"
+                type="submit"
+                value="Upload"
+              />
+            </div>
+          </form>
+          <div class="d-flex justify-content-end">
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              onclick="goBack()"
+            >
+              <i class="fas fa-arrow-left"></i> Back
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+    <div th:insert="baseTemplate :: bootstrap-scripts"></div>
+  </footer>
 </html>

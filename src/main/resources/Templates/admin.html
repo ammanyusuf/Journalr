@@ -4,14 +4,14 @@
     <title>Admin</title>
   </head>
   <body>
-    <nav th:replace="baseTemplate :: topNav"></nav>
+    <nav th:replace="baseTemplate :: topNavWLogout"></nav>
 
     <div class="container-fluid">
       <div class="dashboard">
         <div class="dashboard-topbar">
           <span class="dashboard-title">Admin Dashboard</span>
-          <form action="/newuser">
-            <button class="btn btn-primary btn-lg float-right">
+          <form action="/newuser" class="float-right">
+            <button class="btn btn-primary btn-lg">
               ✨New User
             </button>
           </form>
