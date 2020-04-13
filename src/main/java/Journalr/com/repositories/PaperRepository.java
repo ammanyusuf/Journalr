@@ -20,14 +20,14 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
          * retrieval in the database
          */
 
-        /* @Query(value = "SELECT * FROM paper WHERE paper.author_id = ?1", 
+        @Query(value = "SELECT * FROM paper WHERE paper.author_id = ?1", 
             nativeQuery = true)
     List<Paper> findPapersByAuthorId(int author_id);
     
     @Query(value = "SELECT * FROM paper WHERE paper.reviewer_id = ?1", 
             nativeQuery = true)
     List<Paper> findPapersByReviewerId(int reviewer_id);
-*/
+
     /**
      * This method will retrieve the list of reivewer ids that have selected the paper to review
      * It will list out all of the reviewer id that have selected a given paper with the passed
