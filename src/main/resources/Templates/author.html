@@ -47,9 +47,37 @@
 	              </td>
 	            </tr>
 	          </tbody>
-	        </table>
+          </table>
+          <!-- Table for approved papers -->
+          <b> <font size ="6"> Approved papers </font> </b>
+          <br>
+          <br>
+          <body>
+            <a>These are papers that have been approved by an editor</a>
+          </body> 
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">File Name</th>
+                <th scope="col">File Type</th>
+                <th scope="col">Topic</th>
+                <th scope="col">Download</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="approvedPaper : ${approvedPapers}">
+                <td th:text="${approvedPaper.title}">Title</td>
+                <td th:text="${approvedPaper.fileName}">File Name</td>
+                <td th:text="${approvedPaper.fileType}">File Type</td>
+                <td th:text="${approvedPaper.topic}">Topic</td>
+                <td>
+                <a th:href="@{'/downloadFile/' + ${approvedPaper.paperId}}">Download</a>
+                </td>
+              </tr>
+              </tbody>
+          </table>	
         </div>
-        
       </div>
     </div>
     <!-- Modal -->
