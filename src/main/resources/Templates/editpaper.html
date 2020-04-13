@@ -1,39 +1,54 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" />
-    <title>Edit Paper</title>
-</head>
-<body>
-    <div align="center">
-        <h1>Edit Paper</h1>
-        <br />
-        <form action="#" th:action="@{/savePaperTitleAndTopic}" th:object="${paper}" method="post">
- 
-            <table border="0" cellpadding="10">
-                <tr>
-                    <td>Paper Id:</td>
-                    <td><input type="text" th:field="*{paperId}" readonly="readonly"/></td>
-                </tr>
-                <tr>
-                    <td>Title:</td>
-                    <td><input type="text" th:field="*{title}" /></td>
-                </tr>
-                <tr>
-                    <td>Topic:</td>
-                    <td>
-                        <select th:field="*{topic}">
-                            <option value="fiction">Fiction</option>
-                            <option value="non-fiction">Non-fiction</option>
-                        </select>
-                    </td>
-                </tr>                    
-                <tr>
-                    <td colspan="2"><button type="submit">Save</button> </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-</body>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="baseTemplate :: header(title=~{::title/text()})">
+    <title>Author | Edit Paper</title>
+  </head>
+	<body>
+		<nav th:replace="baseTemplate :: topNavWLogout"></nav>
+		<div class="container-fluid full-height blue-gradient">
+			<div class="row">
+				<div class="login-box">
+					<form action="#" th:action="@{/savePaperTitleAndTopic}" th:object="${paper}" method="post">
+				
+					<h3>Paper Details</h3>
+						<div class="form-group">
+							<label for="paperID">Paper ID:</label>
+							<input type="text" id="paperID" th:field="*{paperId}" readonly="readonly"/>
+						</div>	
+						
+                        <div class="form-group">
+							<label for="title">Title:</label>
+							<input id="title" type="text" th:field="*{title}" />
+						</div>
+                        
+                        <div class="form-group">
+							<label for="topic">Topic:</label>
+							<select id="topic" th:field="*{topic}">
+                                <option value="fiction">Fiction</option>
+                                <option value="non-fiction">Non-fiction</option>
+                            </select>
+						</div>
+                        
+						<div class="form-group">
+							<button class="btn btn-primary" type="submit">Save</button>
+							
+						</div>
+						
+					</form>
+					<div class="d-flex justify-content-end">
+						<button type="button"  class="btn btn-outline-dark" onclick="goBack()">
+							<i class="fas fa-arrow-left"></i> Back
+						</button>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</body>
+	<footer>
+		<script>
+		function goBack() {
+		  window.history.back();
+		}
+		</script>
+	</footer>
 </html>

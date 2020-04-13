@@ -1,80 +1,90 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
-    <title>Author</title>
+    <title>Author | Home</title>
   </head>
-  <body>
-    <nav th:replace="baseTemplate :: topNav"></nav>
-
-    <div class="container-fluid">
-      <div class="dashboard">
-        <div class="dashboard-topbar">
-          <span class="dashboard-title">Welcome, Author <span th:text="${firstName}"></span></span>
-          <form action="/uploadForm">
-            <button class="btn btn-primary btn-lg float-right">
-              📃 New Paper
-            </button>
-          </form>
+  <body class= "blue-gradient">
+    <nav th:replace="baseTemplate :: topNavWLogout"></nav>
+    
+    <div class="container-fluid full-height">
+      <div class="full-height">
+        <div class="dashboard">
+          <div class="dashboard-topbar">
+          <div class="row">
+            <span class="dashboard-title">Welcome, Author <span th:text="${firstName}"></span></span>
+            <form action="/uploadForm">
+              <button class="btn btn-primary btn-lg float-right">
+                📃 New Paper
+              </button>
+            </form>
+          </div>
+          </div>
+          <br />
+          <div class="container-fluid" style="padding-top: 2%;">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Title</th>
+                  <th scope="col">Topic</th>
+                  <th scope="col">Submission Date</th>
+                  <th scope="col">Submission Deadline</th>
+                  <th scope="col">File Name</th>
+                  <th scope="col">Download</th>
+                  <th scope="col">Add Reviewer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="paper : ${listPapers}">
+                  <td th:text="${paper.title}">Title</td>
+                  <td th:text="${paper.topic}">Topic</td>
+                  <td th:text="${paper.submissionDate}">Submission Date</td>
+                  <td th:text="${paper.submissionDeadline}">Submission Deadline</td>
+                  <td th:text="${paper.fileName}">File Name</td>
+                  <td>
+                    <a th:href="@{'/downloadFile/' + ${paper.paperId}}">Download</a>
+                    <a th:href="@{'/reuploadForm/' + ${paper.paperId}}">Re-upload</a>
+                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">Reupload Test</button>
+                  </td>
+                  <td>
+                    <a  th:href="@{'/authorAddReviewer/' + ${paper.paperId}}">Add Reviewer</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- Table for approved papers -->
+            <b> <font size ="6"> Approved papers </font> </b>
+            <br>
+            <br>
+            <body>
+              <a>These are papers that have been approved by an editor</a>
+            </body> 
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Title</th>
+                  <th scope="col">File Name</th>
+                  <th scope="col">File Type</th>
+                  <th scope="col">Topic</th>
+                  <th scope="col">Download</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="approvedPaper : ${approvedPapers}">
+                  <td th:text="${approvedPaper.title}">Title</td>
+                  <td th:text="${approvedPaper.fileName}">File Name</td>
+                  <td th:text="${approvedPaper.fileType}">File Type</td>
+                  <td th:text="${approvedPaper.topic}">Topic</td>
+                  <td>
+                  <a th:href="@{'/downloadFile/' + ${approvedPaper.paperId}}">Download</a>
+                  </td>
+                </tr>
+                </tbody>
+            </table>	
+          </div>
         </div>
-        <br />
-        <div class="container-fluid" style="padding-top: 2%;">
-        	<table class="table table-bordered table-hover">
-	          <thead>
-	            <tr>
-	              <th scope="col">Title</th>
-	              <th scope="col">Topic</th>
-	              <th scope="col">Submission Date</th>
-	              <th scope="col">Submission Deadline</th>
-	              <th scope="col">File Name</th>
-	              <th scope="col">Download</th>
-	              <th scope="col">Add Reviewer</th>
-	            </tr>
-	          </thead>
-	          <tbody>
-	            <tr th:each="paper : ${listPapers}">
-	              <td th:text="${paper.title}">Title</td>
-	              <td th:text="${paper.topic}">Topic</td>
-	              <td th:text="${paper.submissionDate}">Submission Date</td>
-	              <td th:text="${paper.submissionDeadline}">Submission Deadline</td>
-	              <td th:text="${paper.fileName}">File Name</td>
-	              <td>
-	                <a th:href="@{'/downloadFile/' + ${paper.paperId}}">Download</a>
-	                <a th:href="@{'/reuploadForm/' + ${paper.paperId}}">Re-upload</a >
-	              </td>
-	              <td>
-	                <a  th:href="@{'/authorAddReviewer/' + ${paper.paperId}}">Add Reviewer</a>
-	              </td>
-	            </tr>
-	          </tbody>
-			</table>
-			<!-- Table for approved papers -->
-			<a>Approved papers</a>
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-					  <th scope="col">Title</th>
-					  <th scope="col">File Name</th>
-					  <th scope="col">File Type</th>
-					  <th scope="col">Data</th>
-					  <th scope="col">Topic</th>
-					  <th scope="col">Download</th>
-					</tr>
-				  </thead>
-				  <tbody>
-					<tr th:each="approvedPaper : ${approvedPapers}">
-					  <td th:text="${approvedPaper.title}">Title</td>
-					  <td th:text="${approvedPaper.fileName">File Name</td>
-					  <td th:text="${approvedPaper.fileType}">File Type</td>
-					  <td th:text="${approvedPaper.data}">Data</td>
-					  <td th:text="${approvedPaper.topic}">Topic</td>
-					  <td>
-						<a th:href="@{'/downloadFile/' + ${paper.paperId}}">Download</a>
-					  </td>
-					</tr>
-				  </tbody>
-			</table>	
-        </div>
+         
       </div>
+      
     </div>
   </body>
 

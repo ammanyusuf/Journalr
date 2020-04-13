@@ -93,7 +93,7 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
         List<Paper> findRejectedPapersByReviewer(int reviewer_id);
 
     // User case 15
-    @Query(value = "SELECT * FROM paper as p WHERE paper.approved = 1", 
+    @Query(value = "SELECT * FROM paper as p WHERE p.approved = 1 and p.author_id = ?1", 
         nativeQuery = true)
         List<Paper> findApprovedPapersForAuthors(int author_id);
 }

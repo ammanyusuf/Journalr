@@ -92,7 +92,6 @@ public class AuthorController {
 
             return "redirect:/error";
         }
-
         return "author";
     }
     

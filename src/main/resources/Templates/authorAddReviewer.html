@@ -1,59 +1,68 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8" />
-<title>Add Reviewer</title>
-</head>
-<body>
-    <div align="center">
-        <h1>Add Reviewer</h1>
-        <br />
-
-        <form th:action="@{'/authorAddReviewer/' + ${paper1.paperId}}"  method="post">
- 
-            <table border="0" cellpadding="10">
-                <tr>
-                    <td>Reviewer 1:</td>
-                    <td>
-                        <select name="revId1">
-                            <option th:value="-1" th:text="None"></option>
-                            <option th:each="potentialReviewer : ${listPotentialReviewers}"  
-                                    th:value="${potentialReviewer.userId}" 
-                                    name="revId1"
-                                    th:text="${potentialReviewer.firstName} + ${potentialReviewer.lastName}"></option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Reviewer 2:</td>
-                    <td>
-                        <select name="revId2">
-                            <option th:value="-1" th:text="None"></option>
-                            <option th:each="potentialReviewer : ${listPotentialReviewers}"  
-                                    th:value="${potentialReviewer.userId}" 
-                                    name="revId2"
-                                    th:text="${potentialReviewer.firstName} + ${potentialReviewer.lastName}"></option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Reviewer 3:</td>
-                    <td>
-                        <select name="revId3">
-                            <option th:value="-1" th:text="None"></option>
-                            <option th:each="potentialReviewer : ${listPotentialReviewers}"  
-                                    th:value="${potentialReviewer.userId}" 
-                                    name="revId3"
-                                    th:text="${potentialReviewer.firstName} + ${potentialReviewer.lastName}"></option>
-                        </select>
-                    </td>
-                </tr>           
-                <tr>
-                    <td colspan="2"><button type="submit">Save</button> </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-</body>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="baseTemplate :: header(title=~{::title/text()})">
+    <title>Author | Add Reviewer</title>
+  </head>
+	<body>
+		<nav th:replace="baseTemplate :: topNavWLogout"></nav>
+		<div class="container-fluid full-height blue-gradient">
+			<div class="row">
+				<div class="login-box">
+					<form th:action="@{'/authorAddReviewer/' + ${paper1.paperId}}"  method="post">
+				
+					<h3>Add Reviewer</h3>
+						<div class="form-group">
+							<label for="rev1">Reviewer 1:</label>
+							<select id="rev1" name="revId1">
+                                <option th:value="-1" th:text="None"></option>
+                                <option th:each="potentialReviewer : ${listPotentialReviewers}"  
+                                        th:value="${potentialReviewer.userId}" 
+                                        name="revId1"
+                                        th:text="${potentialReviewer.firstName} + ${potentialReviewer.lastName}"></option>
+                            </select>
+						</div>
+                        
+                        <div class="form-group">
+							<label for="rev2">Reviewer 2:</label>
+							<select id="rev2" name="revId2">
+                                <option th:value="-1" th:text="None"></option>
+                                <option th:each="potentialReviewer : ${listPotentialReviewers}"  
+                                        th:value="${potentialReviewer.userId}" 
+                                        name="revId2"
+                                        th:text="${potentialReviewer.firstName} + ${potentialReviewer.lastName}"></option>
+                            </select>
+						</div>
+						
+                        <div class="form-group">
+							<label for="rev3">Reviewer 3:</label>
+							<select id="rev3" name="revId3">
+                                <option th:value="-1" th:text="None"></option>
+                                <option th:each="potentialReviewer : ${listPotentialReviewers}"  
+                                        th:value="${potentialReviewer.userId}" 
+                                        name="revId3"
+                                        th:text="${potentialReviewer.firstName} + ${potentialReviewer.lastName}"></option>
+                            </select>
+						</div>
+                        
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Save</button>
+							
+						</div>
+						
+					</form>
+					<button type="button" class="btn btn-outline-dark" onclick="goBack()">
+						<i class="fas fa-arrow-left"></i> Back
+					</button>
+				</div>			
+			</div>			
+		</div>
+	
+	</body>
+	<footer>
+		<script>
+		function goBack() {
+		  window.history.back();
+		}
+		</script>
+	</footer>
 </html>
