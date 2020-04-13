@@ -1,5 +1,6 @@
 package Journalr.com.repositories;
 
+import org.hibernate.query.NativeQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.Modifying;
@@ -96,4 +97,9 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
     @Query(value = "SELECT * FROM paper as p WHERE p.approved = 1 and p.author_id = ?1", 
         nativeQuery = true)
         List<Paper> findApprovedPapersForAuthors(int author_id);
+
+    // User case 4: As an author, I should receive a notification when my work has been reviewed, so I can go find my reviewed file.
+    @Query(value = "SELECT DISTINCT p.title, p.file_name, p.file_type, p.submission_date, p.topic, p.paper_ID FROM paper as p, review_paper as rp WHERE able_to_review = 1 and (rp.major_rev = 1 or rp.minor_rev = 1) and rp.paper_ID = p.paper_ID and p.author_ID = ?1", 
+        nativeQuery = true)
+        List<Paper> findReviewedPapersPerAuthors(int author_id);
 }

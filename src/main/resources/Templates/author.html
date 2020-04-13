@@ -79,7 +79,39 @@
                   </td>
                 </tr>
                 </tbody>
-            </table>	
+            </table>
+            <!-- Table for papers under review -->
+            <b> <font size ="6"> Under Review </font> </b>
+            <br>
+            <br>
+            <body>
+              <a>These are papers that have been reviewed by a a reviewer.</a>
+              <a>They have been given major or minor revisions or both.</a>
+            </body>
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Title</th>
+                  <th scope="col">File Name</th>
+                  <th scope="col">File Type</th>
+                  <th scope="col">Submission Date</th>
+                  <th scope="col">Topic</th>
+                  <th scope="col">Download</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="reviewedPaper : ${reviewedPapers}">
+                  <td th:text="${reviewedPaper.title}">Title</td>
+                  <td th:text="${reviewedPaper.fileName}">File Name</td>
+                  <td th:text="${reviewedPaper.fileType}">File Type</td>
+                  <td th:text="${reviewedPaper.submissionDate}">Submission Date</td>
+                  <td th:text="${reviewedPaper.topic}">Topic</td>
+                  <td>
+                  <a th:href="@{'/downloadFile/' + ${reviewedPaper.paperId}}">Download</a>
+                  </td>
+                </tr>
+                </tbody>
+            </table> 	
           </div>
         </div>
          

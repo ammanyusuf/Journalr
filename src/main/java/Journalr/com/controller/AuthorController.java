@@ -85,6 +85,12 @@ public class AuthorController {
             List<Paper> approvedPapers = paperRepository.findApprovedPapersForAuthors(author.getUserId());
 
             model.addAttribute("approvedPapers", approvedPapers);
+
+            // Find all the author's papers that have been reviewed by a reviewer
+            List<Paper> reviewedPapers = paperRepository.findReviewedPapersPerAuthors(author.getUserId());
+
+            model.addAttribute("reviewedPapers", reviewedPapers);
+            
         } catch(Exception e) {
             
             model.addAttribute("message", "");
