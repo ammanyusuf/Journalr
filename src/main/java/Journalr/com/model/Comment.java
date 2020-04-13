@@ -41,6 +41,14 @@ public class Comment {
         this.paper = paper;
     }
 
+    public int getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
+
     public String getComment() {
         return comment;
     }

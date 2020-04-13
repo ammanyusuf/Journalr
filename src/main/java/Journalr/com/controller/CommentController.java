@@ -3,6 +3,8 @@ package Journalr.com.controller;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import Journalr.com.model.Comment;
+import Journalr.com.model.CommentOfReviewer;
 import Journalr.com.model.Paper;
 import Journalr.com.model.Reviewer;
 import Journalr.com.model.User;
@@ -29,6 +32,7 @@ import Journalr.com.model.UserDetailsClass;
 import Journalr.com.repositories.CommentRepository;
 import Journalr.com.repositories.PaperRepository;
 import Journalr.com.repositories.ReviewerRepository;
+import Journalr.com.repositories.UserRepository;
 
 @Controller
 public class CommentController {
@@ -40,7 +44,10 @@ public class CommentController {
     PaperRepository paperRepository;
     
     @Autowired
-    ReviewerRepository reviewerRepository;
+	ReviewerRepository reviewerRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	@RequestMapping(path="**/addComment/{paperId}")
     public String showCommentPage (Model model, @PathVariable(name = "paperId") int paperId) {
@@ -95,6 +102,96 @@ public class CommentController {
 		}
 	            
 	    return "redirect:/reviewer";
+	}
+
+	@RequestMapping(path="**/viewComments/{paperId}", method=RequestMethod.GET) 
+	public String viewComments (@PathVariable(name="paperId") int paperId, Model model){
+
+		Paper paper;
+		try {
+			paper = paperRepository.findById(paperId).get();
+		} catch (Exception e) {
+			model.addAttribute("message", "No paper with id: " + paperId + " was found in the system");
+			return "error";
+		}
+		model.addAttribute("paperTitle", paper.getTitle());
+
+		// Find all users with the role type of 'reviewer'
+		List<User> listOfReviewers = userRepository.findByRolesContaining("REVIEWER");
+
+		// Initialize an array fo commentsOfReviewer objects
+		List<CommentOfReviewer> listOfCommentsOfReviewerMajorRev = new ArrayList<>();
+		// Find all of the comments under a major revision for the given paper
+		List<Comment> listMajorRevComments = commentRepository.findMajorRevCommentsPerPaper(paperId);
+		// This will iterate through every comment in the list of retrieved comments
+		// and every reviewer in the list of users and will join the two.  This is done
+		// so the full name of the reviewer shows up with the comment and the comment date
+		for (Comment comment : listMajorRevComments) {
+			for (User reviewer : listOfReviewers) {
+				if (comment.getReviewer().getUserId() == reviewer.getUserId()) {
+					CommentOfReviewer commentOfReviewer = new CommentOfReviewer(comment,reviewer);
+					listOfCommentsOfReviewerMajorRev.add(commentOfReviewer);
+				}
+			}
+		}
+
+		model.addAttribute("listOfCommentsOfReviewerMajorRev", listOfCommentsOfReviewerMajorRev);
+
+		// Initialize an array fo commentsOfReviewer objects
+		List<CommentOfReviewer> listOfCommentsOfReviewerMinorRev = new ArrayList<>();
+		// Find all of the comments under a minor revision for the given paper
+		List<Comment> listMinorRevComments = commentRepository.findMinorRevCommentsPerPaper(paperId);
+		// This will iterate through every comment in the list of retrieved comments
+		// and every reviewer in the list of users and will join the two.  This is done
+		// so the full name of the reviewer shows up with the comment and the comment date
+		for (Comment comment : listMinorRevComments) {
+			for (User reviewer : listOfReviewers) {
+				if (comment.getReviewer().getUserId() == reviewer.getUserId()) {
+					CommentOfReviewer commentOfReviewer = new CommentOfReviewer(comment,reviewer);
+					listOfCommentsOfReviewerMinorRev.add(commentOfReviewer);
+				}
+			}
+		}
+
+		model.addAttribute("listOfCommentsOfReviewerMinorRev", listOfCommentsOfReviewerMinorRev);
+
+		// Initialize an array fo commentsOfReviewer objects
+		List<CommentOfReviewer> listOfCommentsOfReviewerGeneral = new ArrayList<>();
+		// Find all of the comments under a general revision for the given paper
+		List<Comment> listGeneralComments = commentRepository.findGeneralCommentsPerPaper(paperId);
+		// This will iterate through every comment in the list of retrieved comments
+		// and every reviewer in the list of users and will join the two.  This is done
+		// so the full name of the reviewer shows up with the comment and the comment date
+		for (Comment comment : listGeneralComments) {
+			for (User reviewer : listOfReviewers) {
+				if (comment.getReviewer().getUserId() == reviewer.getUserId()) {
+					CommentOfReviewer commentOfReviewer = new CommentOfReviewer(comment,reviewer);
+					listOfCommentsOfReviewerGeneral.add(commentOfReviewer);
+				}
+			}
+		}
+
+		model.addAttribute("listOfCommentsOfReviewerGeneral", listOfCommentsOfReviewerGeneral);
+
+		/*
+		List<Comment> listComments = commentRepository.findCommentsPerPaper(paperId);
+
+		// This will iterate through every comment in the list of retrieved comments
+		// and every reviewer in the list of users and will join the two.  This is done
+		// so the full name of the reviewer shows up with the comment and the comment date
+		for (Comment comment : listComments) {
+			for (User reviewer : listOfReviewers) {
+				if (comment.getReviewer().getUserId() == reviewer.getUserId()) {
+					CommentOfReviewer commentOfReviewer = new CommentOfReviewer(comment,reviewer);
+					listOfCommentsOfReviewer.add(commentOfReviewer);
+				}
+			}
+		}
+
+		model.addAttribute("listOfCommentsOfReviewer", listOfCommentsOfReviewer);
+		*/
+		return "viewComments";
+
 	}
 
 }
