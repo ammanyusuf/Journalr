@@ -131,6 +131,19 @@ public class EditorController {
         model.addAttribute("listOfReviewersUndecidedPaper", listOfReviewersUndecidedPaper);
 
         model.addAttribute("paperID", paperID);
+        
+        try {
+        	int id = getCurrentlyLoggedInUser();
+            
+            User user = userRepository.findById(id).get();
+            
+            String firstName = user.getFirstName();
+            model.addAttribute("firstName", firstName);
+        }
+        catch(Exception e) {
+        	 model.addAttribute("message", "");
+             return "redirect:/error";
+        }
 
         return "viewProgress";
     }

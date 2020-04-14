@@ -18,40 +18,57 @@
           </form>
         </div>
         <br />
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="reviewers1 : ${listOfReviewersAcceptedThePaper}">
-              <td th:text="${reviewers1.firstName} + ' ' + ${reviewers1.lastName}">Name</td>
-              <td th:text="${reviewers1.email}">Email</td>
-              <td th:text="'Reviewer has accepted the paper'">Status</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="reviewers2 : ${listOfReviewersRejectedThePaper}">
-                <td th:text="${reviewers2.firstName} + ' ' + ${reviewers2.lastName}">Name</td>
-                <td th:text="${reviewers2.email}">Email</td>
-                <td th:text="'Reviewer has rejected the paper'">Status</td>
-              </tr>
-            </tbody>
-          </table>
-
+        <p class="text-success">Reviewers' Accepts</p>
+        <div th:if="${#lists.isEmpty(listOfReviewersAcceptedThePaper)}">
+        	<div th:replace="baseTemplate :: emptyTable"></div><br>
+        </div>
+        <div th:unless="${#lists.isEmpty(listOfReviewersAcceptedThePaper)}">
+	        <table class="table table-bordered table-hover">
+	          <thead>
+	            <tr>
+	              <th scope="col">Name</th>
+	              <th scope="col">Email</th>
+	              <th scope="col">Status</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <tr th:each="reviewers1 : ${listOfReviewersAcceptedThePaper}">
+	              <td th:text="${reviewers1.firstName} + ' ' + ${reviewers1.lastName}">Name</td>
+	              <td th:text="${reviewers1.email}">Email</td>
+	              <td th:text="'Reviewer has accepted the paper'">Status</td>
+	            </tr>
+	          </tbody>
+	        </table>
+		</div>
+		
+		<p class="text-danger">Reviewers' Rejects</p>
+		<div th:if="${#lists.isEmpty(listOfReviewersRejectedThePaper)}">
+        	<div th:replace="baseTemplate :: emptyTable"></div><br>
+        </div>
+        <div th:unless="${#lists.isEmpty(listOfReviewersRejectedThePaper)}">
+	        <table class="table table-bordered table-hover">
+	            <thead>
+	              <tr>
+	                <th scope="col">Name</th>
+	                <th scope="col">Email</th>
+	                <th scope="col">Status</th>
+	              </tr>
+	            </thead>
+	            <tbody>
+	              <tr th:each="reviewers2 : ${listOfReviewersRejectedThePaper}">
+	                <td th:text="${reviewers2.firstName} + ' ' + ${reviewers2.lastName}">Name</td>
+	                <td th:text="${reviewers2.email}">Email</td>
+	                <td th:text="'Reviewer has rejected the paper'">Status</td>
+	              </tr>
+	            </tbody>
+	          </table>
+		  </div>
+		  
+		<p class="text-warning">Undecided</p>
+	    <div th:if="${#lists.isEmpty(listOfReviewersUndecidedPaper)}">
+        	<div th:replace="baseTemplate :: emptyTable"></div><br>
+        </div>
+        <div th:unless="${#lists.isEmpty(listOfReviewersUndecidedPaper)}">
           <table class="table table-bordered table-hover">
             <thead>
               <tr>
@@ -68,6 +85,7 @@
               </tr>
             </tbody>
           </table>
+      	</div>
       </div>
     </div>
   </body>
