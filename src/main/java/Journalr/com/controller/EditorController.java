@@ -69,14 +69,48 @@ public class EditorController {
      * @return this method will redirect back to the editor page
      */
     @RequestMapping(path="/addjournal/{paperID}")
-    public String addJournal(@PathVariable(name = "paperID") int paperID) {
-        
+    public String addJournal(@PathVariable(name = "paperID") int paperID, Model model) {
+        // Check if the paper is in the database
         Paper paper = null;
         try {
             paper = paperRepository.findById(paperID).get();
         } catch (NoSuchElementException e) {
-            return "redirect:/error";
+            model.addAttribute("message", "No paper with id: " + paperID + " is in the database.");
+            return "error";
         }
+
+        List<Integer> listOfReivewersPerpaper = paperRepository.findReviewersPerPaper(paperID);
+
+        for (Integer id : listOfReivewersPerpaper) {
+            if (id != null) {
+                // Check if the paper has been rejected
+                Boolean reject = paperRepository.retrieveRejectColumnForPaperReview(paperID, id);
+                if (reject == true) {
+                    User user = userRepository.findById(id).get();
+                    model.addAttribute("message", "Reviewer " + user.getFirstName() + " " + user.getLastName() + " has REJECTED the paper with title " + paper.getTitle() + ".  Cannot add it to the system.");
+                    return "error";
+                }
+                // Paper has not been rejected (reject=false).  Check if accept == false.  If it is
+                // Then a decision has not been made
+                Boolean accept = paperRepository.retrieveAcceptColumnForPaperReview(paperID, id);
+                if (accept == false) {
+                    User user = userRepository.findById(id).get();
+                    model.addAttribute("message", "Reviewer " + user.getFirstName() + " " + user.getLastName() + " still needs to decide on accept/reject for the paper with title " + paper.getTitle());
+                    return "error";
+                }
+
+                // We have reached here only if reject=false and accept=true for that paper-reviewer combo
+                // This means that the paper has been accepted for that one reviewer
+
+            } else {
+                model.addAttribute("message", "Need to add reviewers before adding the Journal to the system");
+                return "error";
+            }
+        }
+
+        // Only reached here if all of the reviewers have accepted the paper
+        // Now the editor can add the journal to the system
+
         paper.setApproved(true);
         paperRepository.save(paper);
 

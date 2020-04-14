@@ -36,7 +36,7 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
      *                 for. 
      * @return The list of reviewer ids that selected to that paper
      */
-    @Query(value = "SELECT reviewer_id FROM review_paper,paper WHERE review_paper.paper_id = ?1 AND review_paper.paper_id=paper.paperid",
+    @Query(value = "SELECT reviewer_id FROM review_paper,paper WHERE review_paper.paper_id = ?1 AND review_paper.paper_id=paper.paper_id",
             nativeQuery = true)
     List<Integer> findReviewersPerPaper(int paper_id);
 
@@ -224,4 +224,25 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
     @Query(value = "SELECT count(reviewer_ID) FROM review_paper WHERE paper_ID=?1 and able_to_review=1 GROUP BY paper_ID",
         nativeQuery = true)
         Integer findNumberOfApprovedReviewersPerPaper(int paper_id);
+
+
+    /**
+     * This method will retrieve the accept column for the paper and reviewer pair
+     * @param paperId The paper id of the paper we want to retrieve the column for
+     * @param reviewerId The reviewer id of the reviewer we want to retrieve the column for
+     * @return The value of the accept column of the paper and review pair
+     */
+    @Query(value = "SELECT accept FROM review_paper WHERE paper_ID=?1 and reviewer_ID=?2",
+        nativeQuery = true)
+        Boolean retrieveAcceptColumnForPaperReview(int paperId, int reviewerId);
+
+    /**
+     * This method will retrieve the reject column for the paper and reviewer pair
+     * @param paperId The paper id of the paper we want to retrieve the column for
+     * @param reviewerId The reviewer id of the reviewer we want to retrieve the column for
+     * @return The value of the reject column of the paper and review pair
+     */
+    @Query(value = "SELECT reject FROM review_paper WHERE paper_ID=?1 and reviewer_ID=?2",
+        nativeQuery = true)
+        Boolean retrieveRejectColumnForPaperReview(int paperId, int reviewerId);
 }
