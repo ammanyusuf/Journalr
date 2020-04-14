@@ -20,7 +20,7 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
          * retrieval in the database
          */
 
-        @Query(value = "SELECT * FROM paper WHERE paper.author_id = ?1", 
+    @Query(value = "SELECT * FROM paper WHERE paper.author_id = ?1", 
             nativeQuery = true)
     List<Paper> findPapersByAuthorId(int author_id);
     

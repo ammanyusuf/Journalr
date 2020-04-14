@@ -34,7 +34,8 @@ public class UserController {
 	private AuthorRepository authorRepository;
 
 	@Autowired
-	private UserRepository userRepository;
+    private UserRepository userRepository;
+    
     // The methods below are really for the admin
     /**
      * This method takes in the current displaying model as input.  It responds to the mapping 
@@ -120,8 +121,6 @@ public class UserController {
             editorRepository.save(editor);
 
         }
-
-        //userRepository.save(user);
 
         return "redirect:/admin";
     }
