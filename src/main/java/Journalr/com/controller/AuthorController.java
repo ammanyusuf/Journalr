@@ -148,7 +148,7 @@ public class AuthorController {
 
         Paper paper = paperRepository.findById(paperId).get();
         
-        if (reviewerId1 != "None") {
+        if (!reviewerId1.isEmpty()) {
             
         	// Take the userId part of the returned value (firstName lastName (userId)) from html, then convert into int
         	int revId1 = Integer.parseInt(reviewerId1.substring(reviewerId1.indexOf(":") + 1, reviewerId1.indexOf(")")));
@@ -177,7 +177,7 @@ public class AuthorController {
             }
         }
         
-        if (reviewerId2 != "None") {
+        if (!reviewerId2.isEmpty()) {
             
         	// Take the userId part of the returned value (firstName lastName (userId)) from html, then convert into int
         	int revId2 = Integer.parseInt(reviewerId2.substring(reviewerId2.indexOf(":") + 1, reviewerId2.indexOf(")")));
@@ -204,7 +204,7 @@ public class AuthorController {
             }
         }
         
-        if (reviewerId3 != "None") {
+        if (!(reviewerId3.isEmpty())) {
             
         	// Take the userId part of the returned value (firstName lastName (userId)) from html, then convert into int
         	int revId3 = Integer.parseInt(reviewerId3.substring(reviewerId3.indexOf(":") + 1, reviewerId3.indexOf(")")));
