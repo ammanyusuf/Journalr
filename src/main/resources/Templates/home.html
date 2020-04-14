@@ -4,19 +4,22 @@
     <title>Home</title>
   </head>
 
-  <body>
+  <body class="blue-gradient">
     <!-- Navigation Bar-->
     <nav th:replace="baseTemplate :: topNavWLogin"></nav>
 
-    <div class="container-fluid full-height blue-gradient" id="homeContainer">
+    <div class="container-fluid" id="homeContainer">
       <div
         class="row align-items-center justify-content-center"
         style="height: 80%;"
       >
-        <div class="row justify-content-center">
+        <div
+          class="row justify-content-center"
+          style="margin-top: 35px; margin-bottom: 50px;"
+        >
           <h1 class="display-3" style="color: white;"><kbd>Journalr</kbd></h1>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="margin-bottom: 50px;">
           <p style="width: 50%; color: white;">
             This is the Journalr Web Application. It's purpose is to create a
             platform to manage to the interaction between Authors, Editors and
