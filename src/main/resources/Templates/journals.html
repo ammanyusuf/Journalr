@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="baseTemplate :: header(title=~{::title/text()})">
+    <title>Journals</title>
+  </head>
+  <body class="blue-gradient">
+    <nav th:replace="baseTemplate :: topNavWLogout"></nav>
+
+<div class="container-fluid full-height">
+    <div class="full-height">
+      <div class="dashboard">
+        <div class="dashboard-topbar">
+          <span class="dashboard-title"
+            >Journals 
+          </span>
+        </div>
+        <br />
+        <div style="padding-top: 2%;">
+          <!-- Table for approved papers -->
+          <b> <font size="6"> Approved papers </font> </b>
+          <br />
+          <br />
+          <body>
+            <a>These are papers that have been approved by an editor</a>
+          </body>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Topic</th>
+                <th scope="col">Download</th>
+                <th scope="col">View Comments</th>
+                <th scope="col">Author</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="allApprovedPaper : ${allApprovedPapers}">
+                <td th:text="${allApprovedPaper.title}">Title</td>
+                <td th:text="${allApprovedPaper.topic}">Topic</td>
+                <td>
+                  <a th:href="@{'/downloadFile/' + ${allApprovedPaper.paperId}}"
+                    >Download</a
+                  >
+                </td>
+                <td>
+                  <a th:href="@{'/viewComments/' + ${allApprovedPaper.paperId}}"
+                    >View Comments</a
+                  >
+                </td>
+                <td th:text="${allApprovedPaper.author.firstName} + ' ' + ${allApprovedPaper.author.lastName}">Author</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<footer>
+  <div th:insert="baseTemplate :: bootstrap-scripts"></div>
+</footer>
+</html>

@@ -345,4 +345,15 @@ public class PaperController {
         return "redirect:/editor";
     }	      
 
+    @RequestMapping(value="/journals", method=RequestMethod.GET)
+    public String showAllJournals(Model model) {
+
+        List<Paper> listOfAllApprovedPapers = paperRepository.findALlApprovedPapers();
+
+        model.addAttribute("allApprovedPapers", listOfAllApprovedPapers);
+
+        return "journals";
+    }
+    
+
 }
