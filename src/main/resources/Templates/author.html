@@ -21,125 +21,133 @@
           </div>
           <br />
           <div style="padding-top: 2%;">
-            <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Title</th>
-                  <th scope="col">Topic</th>
-                  <th scope="col">Submission Date</th>
-                  <th scope="col">Submission Deadline</th>
-                  <th scope="col">File Name</th>
-                  <th scope="col">Download</th>
-                  <th scope="col">Add Reviewer</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="paper : ${listPapers}">
-                  <td th:text="${paper.title}">Title</td>
-                  <td th:text="${paper.topic}">Topic</td>
-                  <td th:text="${paper.submissionDate}">Submission Date</td>
-                  <td th:text="${paper.submissionDeadline}">
-                    Submission Deadline
-                  </td>
-                  <td th:text="${paper.fileName}">File Name</td>
-                  <td>
-                    <a th:href="@{'/downloadFile/' + ${paper.paperId}}"
-                      >Download</a
-                    >
-                    <a th:href="@{'/reuploadForm/' + ${paper.paperId}}"
-                      >Re-upload</a
-                    >
-                  </td>
-                  <td>
-                    <a th:href="@{'/authorAddReviewer/' + ${paper.paperId}}"
-                      >Add Reviewer</a
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          	<div th:if="${#lists.isEmpty(listPapers)}">
+            	<div th:replace="baseTemplate :: emptyTable"></div><br>
+            </div>
+            <div th:unless="${#lists.isEmpty(listPapers)}">
+	            <table class="table table-bordered table-hover">
+	              <thead>
+	                <tr>
+	                  <th scope="col">Title</th>
+	                  <th scope="col">Topic</th>
+	                  <th scope="col">Submission Date</th>
+	                  <th scope="col">Submission Deadline</th>
+	                  <th scope="col">File Name</th>
+	                  <th scope="col">Download</th>
+	                  <th scope="col">Add Reviewer</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr th:each="paper : ${listPapers}">
+	                  <td th:text="${paper.title}">Title</td>
+	                  <td th:text="${paper.topic}">Topic</td>
+	                  <td th:text="${paper.submissionDate}">Submission Date</td>
+	                  <td th:text="${paper.submissionDeadline}">
+	                    Submission Deadline
+	                  </td>
+	                  <td th:text="${paper.fileName}">File Name</td>
+	                  <td>
+	                    <a th:href="@{'/downloadFile/' + ${paper.paperId}}"
+	                      >Download</a
+	                    >
+	                    <a th:href="@{'/reuploadForm/' + ${paper.paperId}}"
+	                      >Re-upload</a
+	                    >
+	                  </td>
+	                  <td>
+	                    <a th:href="@{'/authorAddReviewer/' + ${paper.paperId}}"
+	                      >Add Reviewer</a
+	                    >
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
             <!-- Table for approved papers -->
             <b> <font size="6"> Approved papers </font> </b>
             <br />
             <br />
-            <body>
-              <a>These are papers that have been approved by an editor</a>
-            </body>
-            <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Title</th>
-                  <th scope="col">File Name</th>
-                  <th scope="col">File Type</th>
-                  <th scope="col">Topic</th>
-                  <th scope="col">Download</th>
-                  <th scope="col">View Comments</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="approvedPaper : ${approvedPapers}">
-                  <td th:text="${approvedPaper.title}">Title</td>
-                  <td th:text="${approvedPaper.fileName}">File Name</td>
-                  <td th:text="${approvedPaper.fileType}">File Type</td>
-                  <td th:text="${approvedPaper.topic}">Topic</td>
-                  <td>
-                    <a th:href="@{'/downloadFile/' + ${approvedPaper.paperId}}"
-                      >Download</a
-                    >
-                  </td>
-                  <td>
-                    <a th:href="@{'/viewComments/' + ${approvedPaper.paperId}}"
-                      >View Comments</a
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <p>These are papers that have been approved by an editor</p>
+            <div th:if="${#lists.isEmpty(approvedPapers)}">
+            	<div th:replace="baseTemplate :: emptyTable"></div><br>
+            </div>
+            <div th:unless="${#lists.isEmpty(approvedPapers)}">
+	            <table class="table table-bordered table-hover">
+	              <thead>
+	                <tr>
+	                  <th scope="col">Title</th>
+	                  <th scope="col">File Name</th>
+	                  <th scope="col">File Type</th>
+	                  <th scope="col">Topic</th>
+	                  <th scope="col">Download</th>
+	                  <th scope="col">View Comments</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr th:each="approvedPaper : ${approvedPapers}">
+	                  <td th:text="${approvedPaper.title}">Title</td>
+	                  <td th:text="${approvedPaper.fileName}">File Name</td>
+	                  <td th:text="${approvedPaper.fileType}">File Type</td>
+	                  <td th:text="${approvedPaper.topic}">Topic</td>
+	                  <td>
+	                    <a th:href="@{'/downloadFile/' + ${approvedPaper.paperId}}"
+	                      >Download</a
+	                    >
+	                  </td>
+	                  <td>
+	                    <a th:href="@{'/viewComments/' + ${approvedPaper.paperId}}"
+	                      >View Comments</a
+	                    >
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
             <!-- Table for papers under review -->
             <b> <font size="6"> Under Review </font> </b>
             <br />
             <br />
-            <body>
-              <a>These are papers that have been reviewed by a reviewer.</a>
-              <a
-                >They have been given major revisions, minor revisions or
-                both.</a
-              >
-            </body>
-            <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Title</th>
-                  <th scope="col">File Name</th>
-                  <th scope="col">File Type</th>
-                  <th scope="col">Submission Date</th>
-                  <th scope="col">Topic</th>
-                  <th scope="col">Download</th>
-                  <th scope="col">View Comments</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="reviewedPaper : ${reviewedPapers}">
-                  <td th:text="${reviewedPaper.title}">Title</td>
-                  <td th:text="${reviewedPaper.fileName}">File Name</td>
-                  <td th:text="${reviewedPaper.fileType}">File Type</td>
-                  <td th:text="${reviewedPaper.submissionDate}">
-                    Submission Date
-                  </td>
-                  <td th:text="${reviewedPaper.topic}">Topic</td>
-                  <td>
-                    <a th:href="@{'/downloadFile/' + ${reviewedPaper.paperId}}"
-                      >Download</a
-                    >
-                  </td>
-                  <td>
-                    <a th:href="@{'/viewComments/' + ${reviewedPaper.paperId}}"
-                      >View Comments</a
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <p>These are papers that have been reviewed by a reviewer. They have been given major revisions, minor revisions or
+              both.</p>
+            <div th:if="${#lists.isEmpty(reviewedPapers)}">
+            	<div th:replace="baseTemplate :: emptyTable"></div><br>
+            </div>
+            <div th:unless="${#lists.isEmpty(reviewedPapers)}">
+	            <table class="table table-bordered table-hover">
+	              <thead>
+	                <tr>
+	                  <th scope="col">Title</th>
+	                  <th scope="col">File Name</th>
+	                  <th scope="col">File Type</th>
+	                  <th scope="col">Submission Date</th>
+	                  <th scope="col">Topic</th>
+	                  <th scope="col">Download</th>
+	                  <th scope="col">View Comments</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr th:each="reviewedPaper : ${reviewedPapers}">
+	                  <td th:text="${reviewedPaper.title}">Title</td>
+	                  <td th:text="${reviewedPaper.fileName}">File Name</td>
+	                  <td th:text="${reviewedPaper.fileType}">File Type</td>
+	                  <td th:text="${reviewedPaper.submissionDate}">
+	                    Submission Date
+	                  </td>
+	                  <td th:text="${reviewedPaper.topic}">Topic</td>
+	                  <td>
+	                    <a th:href="@{'/downloadFile/' + ${reviewedPaper.paperId}}"
+	                      >Download</a
+	                    >
+	                  </td>
+	                  <td>
+	                    <a th:href="@{'/viewComments/' + ${reviewedPaper.paperId}}"
+	                      >View Comments</a
+	                    >
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	      	</div>
           </div>
         </div>
       </div>

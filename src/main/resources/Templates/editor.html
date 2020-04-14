@@ -13,40 +13,45 @@
           <span class="dashboard-title">Welcome, Editor <span th:text="${firstName}"></span></span>
         </div>
         <br />
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Submission Date</th>
-              <th scope="col">Submission Deadline</th>
-              <th scope="col">Download</th>
-              <th scope="col">Reviewers</th>
-              <th scope="col">View Progress</th>
-              <th scope="col">Edit Deadline</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="paper : ${allPapers}">
-              <td th:text="${paper.title}">Title</td>
-              <td th:text="${paper.submissionDate}">Submission Date</td>
-              <td th:text="${paper.submissionDeadline}">Submission Deadline</td>
-              <td>
-                <a th:href="@{'/downloadFile/' + ${paper.paperId}}">Download</a>
-              </td>
-              <td>
-                <a th:href="@{'/reviewersperpaper/' + ${paper.paperId}}"
-                  >Reviewers</a
-                >
-              </td>
-              <td>
-                <a th:href="@{'/viewProgress/' + ${paper.paperId}}">View Progress</a>
-              </td>
-              <td>
-                <a th:href="@{'/editDeadline/' + ${paper.paperId}}">Edit</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div th:if="${#lists.isEmpty(allPapers)}">
+        	<div th:replace="baseTemplate :: emptyTable"></div><br>
+        </div>
+        <div th:unless="${#lists.isEmpty(allPapers)}">
+	        <table class="table table-bordered table-hover">
+	          <thead>
+	            <tr>
+	              <th scope="col">Title</th>
+	              <th scope="col">Submission Date</th>
+	              <th scope="col">Submission Deadline</th>
+	              <th scope="col">Download</th>
+	              <th scope="col">Reviewers</th>
+	              <th scope="col">View Progress</th>
+	              <th scope="col">Edit Deadline</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <tr th:each="paper : ${allPapers}">
+	              <td th:text="${paper.title}">Title</td>
+	              <td th:text="${paper.submissionDate}">Submission Date</td>
+	              <td th:text="${paper.submissionDeadline}">Submission Deadline</td>
+	              <td>
+	                <a th:href="@{'/downloadFile/' + ${paper.paperId}}">Download</a>
+	              </td>
+	              <td>
+	                <a th:href="@{'/reviewersperpaper/' + ${paper.paperId}}"
+	                  >Reviewers</a
+	                >
+	              </td>
+	              <td>
+	                <a th:href="@{'/viewProgress/' + ${paper.paperId}}">View Progress</a>
+	              </td>
+	              <td>
+	                <a th:href="@{'/editDeadline/' + ${paper.paperId}}">Edit</a>
+	              </td>
+	            </tr>
+	          </tbody>
+	        </table>
+	  	</div>
       </div>
     </div>
   </body>
