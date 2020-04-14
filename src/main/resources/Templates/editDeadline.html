@@ -3,40 +3,50 @@
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
     <title>Editor | Set Deadline</title>
   </head>
-	<body>
-		<nav th:replace="baseTemplate :: topNavWLogout"></nav>
-		<div class="container-fluid full-height blue-gradient">
-			<div class="row">
-				<div class="login-box">
-					<form action="#" 
-						th:action="@{'/editDeadline/' + ${paperId}}" 
-						method="post">
-				
-					<h3>Set Paper Deadline</h3>
-						<div class="form-group">
-							<label for="date">Date:</label>
-							<input class="form-control" id="date" type="date" name="date" />
-						</div>
-						
-						<div class="form-group">
-							<button class="btn btn-primary" type="submit">Save</button>
-						</div>
-						
-					</form>
-					<div class="d-flex justify-content-end">
-						<button type="button"  class="btn btn-outline-dark" onclick="goBack()">
-							<i class="fas fa-arrow-left"></i> Back
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
-	<footer>
-		<script>
-		function goBack() {
-		  window.history.back();
-		}
-		</script>
-	</footer>
+  <body>
+    <nav th:replace="baseTemplate :: topNavWLogout"></nav>
+    <div class="container-fluid full-height blue-gradient">
+      <div class="row">
+        <div class="login-box">
+          <form
+            action="#"
+            th:action="@{'/editDeadline/' + ${paperId}}"
+            method="post"
+          >
+            <h3>Set Paper Deadline</h3>
+            <div class="form-group">
+              <label for="date">Date:</label>
+              <input
+                class="form-control"
+                id="date"
+                type="date"
+                name="date"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+          </form>
+          <div class="d-flex justify-content-end">
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              onclick="goBack()"
+            >
+              <i class="fas fa-arrow-left"></i> Back
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </footer>
 </html>
