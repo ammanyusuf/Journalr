@@ -13,40 +13,47 @@
             class="table-responsive reviewer-box"
             style="background-color: white;"
           >
+          	<h3>Available Papers</h3>
+          	<br>
             <!-- Table with all papers related to the Reviewer user -->
-            <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Title</th>
-                  <th scope="col">Topic</th>
-                  <th scope="col">Download Link</th>
-                  <th scope="col">View Comments</th>
-                  <th scope="col">Select Paper</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="allPapers : ${listAllPapers}">
-                  <td th:text="${allPapers.title}">Title</td>
-                  <td th:text="${allPapers.topic}">Topic</td>
-                  <td>
-                    <a th:href="@{downloadFile/{id}(id=${allPapers.paperId})}"
-                      >Download</a
-                    >
-                  </td>
-                  <td>
-                    <a th:href="@{'/viewComments/' + ${allPapers.paperId}}"
-                      >View Comments</a
-                    >
-                  </td>
-                  <td>
-                    <a
-                      th:href="@{'/selectPaperToReview/' + ${allPapers.paperId}}"
-                      >Select Paper</a
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div th:if="${#lists.isEmpty(listAllPapers)}">
+            	<div th:replace="baseTemplate :: emptyTable"></div><br>
+            </div>
+            <div th:unless="${#lists.isEmpty(listAllPapers)}">
+	            <table class="table table-bordered table-hover">
+	              <thead>
+	                <tr>
+	                  <th scope="col">Title</th>
+	                  <th scope="col">Topic</th>
+	                  <th scope="col">Download Link</th>
+	                  <th scope="col">View Comments</th>
+	                  <th scope="col">Select Paper</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr th:each="allPapers : ${listAllPapers}">
+	                  <td th:text="${allPapers.title}">Title</td>
+	                  <td th:text="${allPapers.topic}">Topic</td>
+	                  <td>
+	                    <a th:href="@{downloadFile/{id}(id=${allPapers.paperId})}"
+	                      >Download</a
+	                    >
+	                  </td>
+	                  <td>
+	                    <a th:href="@{'/viewComments/' + ${allPapers.paperId}}"
+	                      >View Comments</a
+	                    >
+	                  </td>
+	                  <td>
+	                    <a
+	                      th:href="@{'/selectPaperToReview/' + ${allPapers.paperId}}"
+	                      >Select Paper</a
+	                    >
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	      	</div>
           </div>
         </div>
       </div>

@@ -12,43 +12,50 @@
             class="reviewer-box table-responsive"
             style="background-color: white;"
           >
-            <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Title</th>
-                  <th scope="col">Topic</th>
-                  <th scope="col">Submission Date</th>
-                  <th scope="col">Submission Deadline</th>
-                  <th scope="col">File Name</th>
-                  <th scope="col">Download Link</th>
-                  <th scope="col">View Comments</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="paperByTopic : ${listPapersByTopic}">
-                  <td th:text="${paperByTopic.title}">Title</td>
-                  <td th:text="${paperByTopic.topic}">Topic</td>
-                  <td th:text="${paperByTopic.submissionDate}">
-                    Submission Date
-                  </td>
-                  <td th:text="${paperByTopic.submissionDeadline}">
-                    Submission Deadline
-                  </td>
-                  <td th:text="${paperByTopic.fileName}">File Name</td>
-                  <td>
-                    <a
-                      th:href="@{downloadFile/{id}(id=${paperByTopic.paperId})}"
-                      >Download</a
-                    >
-                  </td>
-                  <td>
-                    <a th:href="@{'/viewComments/' + ${paperByTopic.paperId}}"
-                      >View Comments</a
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          	<h3>Favorite Topic Papers</h3>
+          	<br>
+          	<div th:if="${#lists.isEmpty(listPapersByTopic)}">
+            	<div th:replace="baseTemplate :: emptyTable"></div><br>
+            </div>
+            <div th:unless="${#lists.isEmpty(listPapersByTopic)}">
+	            <table class="table table-bordered table-hover">
+	              <thead>
+	                <tr>
+	                  <th scope="col">Title</th>
+	                  <th scope="col">Topic</th>
+	                  <th scope="col">Submission Date</th>
+	                  <th scope="col">Submission Deadline</th>
+	                  <th scope="col">File Name</th>
+	                  <th scope="col">Download Link</th>
+	                  <th scope="col">View Comments</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr th:each="paperByTopic : ${listPapersByTopic}">
+	                  <td th:text="${paperByTopic.title}">Title</td>
+	                  <td th:text="${paperByTopic.topic}">Topic</td>
+	                  <td th:text="${paperByTopic.submissionDate}">
+	                    Submission Date
+	                  </td>
+	                  <td th:text="${paperByTopic.submissionDeadline}">
+	                    Submission Deadline
+	                  </td>
+	                  <td th:text="${paperByTopic.fileName}">File Name</td>
+	                  <td>
+	                    <a
+	                      th:href="@{downloadFile/{id}(id=${paperByTopic.paperId})}"
+	                      >Download</a
+	                    >
+	                  </td>
+	                  <td>
+	                    <a th:href="@{'/viewComments/' + ${paperByTopic.paperId}}"
+	                      >View Comments</a
+	                    >
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	      	</div>
           </div>
         </div>
       </div>
