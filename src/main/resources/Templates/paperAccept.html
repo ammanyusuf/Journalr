@@ -10,137 +10,159 @@
         <div th:replace="reviewerTemplate :: userNav"></div>
         <div class="col-sm-9 blue-gradient" id="scroller">
           <div
-            class="full-height table-responsive"
+            class="reviewer-box table-responsive"
             style="background-color: white;"
           >
             <!-- Table with all papers that are pending accept/reject from the reviewer -->
-            <label>Pending For Accept/Rejection</label>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <!-- Table headers -->
-                  <th scope="col">Title</th>
-                  <th scope="col">Topic</th>
-                  <th scope="col">Submission Date</th>
-                  <th scope="col">Submission Deadline</th>
-                  <th scope="col">File Name</th>
-                  <th scope="col">Download Link</th>
-                  <th scope="col">Accept</th>
-                  <th scope="col">Reject</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  th:each="potentialAcceptedPapers : ${listPotentialAcceptedPapers}"
-                >
-                  <td th:text="${potentialAcceptedPapers.title}">Title</td>
-                  <td th:text="${potentialAcceptedPapers.topic}">Topic</td>
-                  <td th:text="${potentialAcceptedPapers.submissionDate}">
-                    Submission Date
-                  </td>
-                  <td th:text="${potentialAcceptedPapers.submissionDeadline}">
-                    Submission Deadline
-                  </td>
-                  <td th:text="${potentialAcceptedPapers.fileName}">
-                    File Name
-                  </td>
-                  <td>
-                    <a
-                      th:href="@{downloadFile/{id}(id=${potentialAcceptedPapers.paperId})}"
-                      >Download</a
-                    >
-                  </td>
-                  <td>
-                    <a
-                      th:href="@{'/acceptPaper/' + ${potentialAcceptedPapers.paperId}}"
-                      >Accept</a
-                    >
-                  </td>
-                  <td>
-                    <a
-                      th:href="@{'/rejectPaper/' + ${potentialAcceptedPapers.paperId}}"
-                      >Reject</a
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <label class="text-warning">Pending For Accept/Rejection</label>
+            
+            <div th:if="${#lists.isEmpty(listPotentialAcceptedPapers)}">
+            	<div th:replace="baseTemplate :: emptyTable"></div><br>
+            </div>
+            
+            <div th:unless="${#lists.isEmpty(listPotentialAcceptedPapers)}">
+	            <table class="table table-striped">
+	              <thead>
+	                <tr>
+	                  <!-- Table headers -->
+	                  <th scope="col">Title</th>
+	                  <th scope="col">Topic</th>
+	                  <th scope="col">Submission Date</th>
+	                  <th scope="col">Submission Deadline</th>
+	                  <th scope="col">File Name</th>
+	                  <th scope="col">Download Link</th>
+	                  <th scope="col">Accept</th>
+	                  <th scope="col">Reject</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr
+	                  th:each="potentialAcceptedPapers : ${listPotentialAcceptedPapers}"
+	                >
+	                  <td th:text="${potentialAcceptedPapers.title}">Title</td>
+	                  <td th:text="${potentialAcceptedPapers.topic}">Topic</td>
+	                  <td th:text="${potentialAcceptedPapers.submissionDate}">
+	                    Submission Date
+	                  </td>
+	                  <td th:text="${potentialAcceptedPapers.submissionDeadline}">
+	                    Submission Deadline
+	                  </td>
+	                  <td th:text="${potentialAcceptedPapers.fileName}">
+	                    File Name
+	                  </td>
+	                  <td>
+	                    <a
+	                      th:href="@{downloadFile/{id}(id=${potentialAcceptedPapers.paperId})}"
+	                      >Download</a
+	                    >
+	                  </td>
+	                  <td>
+	                    <a
+	                      th:href="@{'/acceptPaper/' + ${potentialAcceptedPapers.paperId}}"
+	                      >Accept</a
+	                    >
+	                  </td>
+	                  <td>
+	                    <a
+	                      th:href="@{'/rejectPaper/' + ${potentialAcceptedPapers.paperId}}"
+	                      >Reject</a
+	                    >
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	        </div>
             <!-- Table with all papers that are accepted by the reviewer -->
-            <label>Papers Accepted By You</label>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <!-- Table headers -->
-                  <th scope="col">Title</th>
-                  <th scope="col">Topic</th>
-                  <th scope="col">Submission Date</th>
-                  <th scope="col">Submission Deadline</th>
-                  <th scope="col">File Name</th>
-                  <th scope="col">Download Link</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  th:each="acceptedPaperByReviewer : ${listAcceptedPapersByReviewer}"
-                >
-                  <td th:text="${acceptedPaperByReviewer.title}">Title</td>
-                  <td th:text="${acceptedPaperByReviewer.topic}">Topic</td>
-                  <td th:text="${acceptedPaperByReviewer.submissionDate}">
-                    Submission Date
-                  </td>
-                  <td th:text="${acceptedPaperByReviewer.submissionDeadline}">
-                    Submission Deadline
-                  </td>
-                  <td th:text="${acceptedPaperByReviewer.fileName}">
-                    File Name
-                  </td>
-                  <td>
-                    <a
-                      th:href="@{downloadFile/{id}(id=${acceptedPaperByReviewer.paperId})}"
-                      >Download</a
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <label class="text-success">Accepted Papers</label>
+            
+            <div th:if="${#lists.isEmpty(listAcceptedPapersByReviewer)}">
+            	<div th:replace="baseTemplate :: emptyTable"></div><br>
+            </div>
+            <div th:unless="${#lists.isEmpty(listAcceptedPapersByReviewer)}">
+	            <table class="table table-striped">
+	              <thead>
+	                <tr>
+	                  <!-- Table headers -->
+	                  <th scope="col">Title</th>
+	                  <th scope="col">Topic</th>
+	                  <th scope="col">Submission Date</th>
+	                  <th scope="col">Submission Deadline</th>
+	                  <th scope="col">File Name</th>
+	                  <th scope="col">Download Link</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr
+	                  th:each="acceptedPaperByReviewer : ${listAcceptedPapersByReviewer}"
+	                >
+	                  <td th:text="${acceptedPaperByReviewer.title}">Title</td>
+	                  <td th:text="${acceptedPaperByReviewer.topic}">Topic</td>
+	                  <td th:text="${acceptedPaperByReviewer.submissionDate}">
+	                    Submission Date
+	                  </td>
+	                  <td th:text="${acceptedPaperByReviewer.submissionDeadline}">
+	                    Submission Deadline
+	                  </td>
+	                  <td th:text="${acceptedPaperByReviewer.fileName}">
+	                    File Name
+	                  </td>
+	                  <td>
+	                    <a
+	                      th:href="@{downloadFile/{id}(id=${acceptedPaperByReviewer.paperId})}"
+	                      >Download</a
+	                    >
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	        </div>
             <!-- Table showing all papers that are rejected by the reviewer -->
-            <label>Papers Rejected By You</label>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <!-- Table headers -->
-                  <th scope="col">Title</th>
-                  <th scope="col">Topic</th>
-                  <th scope="col">Submission Date</th>
-                  <th scope="col">Submission Deadline</th>
-                  <th scope="col">File Name</th>
-                  <th scope="col">Download Link</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  th:each="rejectedPapersByReviewer : ${listRejectedPapersByReviewer}"
-                >
-                  <td th:text="${rejectedPapersByReviewer.title}">Title</td>
-                  <td th:text="${rejectedPapersByReviewer.topic}">Topic</td>
-                  <td th:text="${rejectedPapersByReviewer.submissionDate}">
-                    Submission Date
-                  </td>
-                  <td th:text="${rejectedPapersByReviewer.submissionDeadline}">
-                    Submission Deadline
-                  </td>
-                  <td th:text="${rejectedPapersByReviewer.fileName}">
-                    File Name
-                  </td>
-                  <td>
-                    <a
-                      th:href="@{downloadFile/{id}(id=${rejectedPapersByReviewer.paperId})}"
-                      >Download</a
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <label class="text-danger">Rejected Papers</label>
+            <!-- If the table is empty show this to the reviewer -->
+            <div th:if="${#lists.isEmpty(listRejectedPapersByReviewer)}">
+            	<div th:replace="baseTemplate :: emptyTable"></div><br>
+            </div>
+            
+            <!-- If the table is not empty, show the table -->
+            <div th:unless="${#lists.isEmpty(listRejectedPapersByReviewer)}">
+            	<table class="table table-striped">
+	              <thead>
+	                <tr>
+	                  <!-- Table headers -->
+	                  <th scope="col">Title</th>
+	                  <th scope="col">Topic</th>
+	                  <th scope="col">Submission Date</th>
+	                  <th scope="col">Submission Deadline</th>
+	                  <th scope="col">File Name</th>
+	                  <th scope="col">Download Link</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr
+	                  th:each="rejectedPapersByReviewer : ${listRejectedPapersByReviewer}"
+	                >
+	                  <td th:text="${rejectedPapersByReviewer.title}">Title</td>
+	                  <td th:text="${rejectedPapersByReviewer.topic}">Topic</td>
+	                  <td th:text="${rejectedPapersByReviewer.submissionDate}">
+	                    Submission Date
+	                  </td>
+	                  <td th:text="${rejectedPapersByReviewer.submissionDeadline}">
+	                    Submission Deadline
+	                  </td>
+	                  <td th:text="${rejectedPapersByReviewer.fileName}">
+	                    File Name
+	                  </td>
+	                  <td>
+	                    <a
+	                      th:href="@{downloadFile/{id}(id=${rejectedPapersByReviewer.paperId})}"
+	                      >Download</a
+	                    >
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+            </div>
+            
           </div>
         </div>
       </div>

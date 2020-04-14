@@ -12,38 +12,47 @@
         <div th:replace="reviewerTemplate :: userNav"></div>
 
         <div class="col-sm-9 blue-gradient" id="scroller">
-            <form
-            th:action="@{/reviewer}"
-            method="post"
-            >
-            <h3>Update Topic And Affiliation</h3>
-            <div class="form-group">
-              <label for="topic">Topic:</label>
-              <select th:field="${reviewerHomePage.favouriteTopic}" class="form-control" id="topic" name="topic">
-                <option th:value="None" th:text="None"></option>
-                <option th:value="fiction">Fiction</option>
-								<option th:value="cpsc">Computer Science</option>
-								<option th:value="math">Math</option>
-								<option th:value="non-fiction">Non-fiction</option>
-								<option th:value="Academics">Academics</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="affiliation">Affiliation</label>
-              <select th:field="${reviewerHomePage.affiliation}" class="form-control" id="affiliation" name="affiliation">
-                <option th:value="None" th:text="None"></option>
-                <option th:value="University_Of_Calgary">University Of Calgary</option>
-								<option th:value="University_Of_Edmonton">University Of Edmonton</option>
-								<option th:value="University_Of_Toronto">University Of Toronto</option>
-								<option th:value="University_Of_British_Columbia">University Of British Columbia</option>
-								<option th:value="University_Of_Waterloo">University Of Waterloo</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-          </form>
+        	<div class="reviewer-box">
+        		<form
+	            th:action="@{/reviewer}"
+	            method="post"
+	            >
+	            <h3>My Info</h3>
+	            <br>
+	            <div class="card" style="width:100%;">
+	            	<div class="card-body">
+	            		<p class="card-text">Here, you may update your Favorite Topic and University Affiliation.</p>
+	            	</div>
+	            </div>
+	            <br>
+	            <div class="form-group">
+	              <label for="topic">Topic:</label>
+	              <select th:field="${reviewerHomePage.favouriteTopic}" class="form-control" id="topic" name="topic">
+	                <option th:value="None" th:text="None"></option>
+	                <option th:value="fiction">Fiction</option>
+									<option th:value="cpsc">Computer Science</option>
+									<option th:value="math">Math</option>
+									<option th:value="non-fiction">Non-fiction</option>
+									<option th:value="Academics">Academics</option>
+	              </select>
+	            </div>
+	
+	            <div class="form-group">
+	              <label for="affiliation">Affiliation:</label>
+	              <select th:field="${reviewerHomePage.affiliation}" class="form-control" id="affiliation" name="affiliation">
+	                <option th:value="None" th:text="None"></option>
+	                <option th:value="University_Of_Calgary">University Of Calgary</option>
+									<option th:value="University_Of_Edmonton">University Of Edmonton</option>
+									<option th:value="University_Of_Toronto">University Of Toronto</option>
+									<option th:value="University_Of_British_Columbia">University Of British Columbia</option>
+									<option th:value="University_Of_Waterloo">University Of Waterloo</option>
+	              </select>
+	            </div>
+	            <div class="form-group">
+	              <button type="submit" class="btn btn-primary">Save</button>
+	            </div>
+	          </form>
+        	</div>       
         </div>
       </div>
     </div>

@@ -78,13 +78,13 @@ body {
 }
 
 #reviewerNav {
-  height: 90%;
+  height: 85%;
   background-color: #edeef0;
   overflow: hidden;
 }
 
 #reviewerInfo {
-  height: 10%;
+  height: 15%;
 }
 
 #scroller {
