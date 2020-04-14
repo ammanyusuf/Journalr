@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
-    <title>Home</title>
+    <title>Journalr | Home</title>
   </head>
 
   <body class="blue-gradient">
     <!-- Navigation Bar-->
     <nav th:replace="baseTemplate :: topNavWLogin"></nav>
 
-    <div class="container-fluid" id="homeContainer">
+    <div class="container full-height" id="homeContainer">
       <div
         class="row align-items-center justify-content-center"
         style="height: 80%;"
       >
-        <div
-          class="row justify-content-center"
-          style="margin-top: 35px; margin-bottom: 50px;"
-        >
+        <div class="row justify-content-center">
           <h1 class="display-3" style="color: white;"><kbd>Journalr</kbd></h1>
         </div>
         <div class="row justify-content-center" style="margin-bottom: 50px;">
