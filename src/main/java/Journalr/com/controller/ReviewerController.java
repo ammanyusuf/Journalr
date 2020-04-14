@@ -59,7 +59,7 @@ public class ReviewerController {
         try {
             reviewer = reviewerRepository.findById(id).get();
         } catch (Exception e) {
-            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try logging in as a REVIEWER");
             return "error";
         }
         model.addAttribute("updateReviewerTandA", reviewer);;
