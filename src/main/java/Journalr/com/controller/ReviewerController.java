@@ -49,19 +49,51 @@ public class ReviewerController {
 	public String reviewerHome(Model model) {
         
         // Add the page title to the model
-        model.addAttribute("pageTitle", "Reviewer | Home");
-    
-        // Find the userName of the currently logged in user
-		int userId = returnIdOfCurrentlyLoggedInUser();
-
-		// Find the user in the user table by their username
-		User user = userRepository.findById(userId).get();
+        model.addAttribute("pageTitle", "Reviewer | Home");    
+        
+        // Find the id of the currently logged in user
+        int id = returnIdOfCurrentlyLoggedInUser();
+        // Check that the paper and reviewer are in the database
+        // Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+        model.addAttribute("updateReviewerTandA", reviewer);;
         
         // Set the first name in the page
-		String firstName = user.getFirstName();
-		model.addAttribute("firstName", firstName);
-		
+		String firstName = reviewer.getFirstName();
+        model.addAttribute("firstName", firstName);
+
+        model.addAttribute("reviewerHomePage", reviewer);
+
 		return "reviewer";
+    }
+
+    @RequestMapping(value = "/reviewer", method=RequestMethod.POST)
+    public String updatedTopicAndAffiliation(@RequestParam String favouriteTopic,
+                                             @RequestParam String affiliation,
+                                             Model model) {
+        
+        // Find the id of the currently logged in user
+        int id = returnIdOfCurrentlyLoggedInUser();
+        // Check that the paper and reviewer are in the database
+        // Find the reviewer in the reviewer table by id
+        Reviewer reviewer;
+        try {
+            reviewer = reviewerRepository.findById(id).get();
+        } catch (Exception e) {
+            model.addAttribute("message", "No REVIEWER with id: " + id + ".  Try loging in as a REVIEWER");
+            return "error";
+        }
+        reviewer.setAffiliation(affiliation);
+        reviewer.setFavouriteTopic(favouriteTopic);                                
+        reviewerRepository.save(reviewer);
+
+        return "redirect:/reviewer";
     }
     
     // Kevin's temporary reviewer papers route
@@ -367,6 +399,7 @@ public class ReviewerController {
         
         return "redirect:/reviewer/paperAccept";
     }
+
 
     /**
      * This method will retrieve the id of the currently logged
