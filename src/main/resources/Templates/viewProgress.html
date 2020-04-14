@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="baseTemplate :: header(title=~{::title/text()})">
+    <title>Editor | View Progress</title>
+  </head>
+
+  <body class="blue-gradient">
+    <nav th:replace="baseTemplate :: topNavWLogout"></nav>
+
+    <div class="container-fluid">
+      <div class="dashboard">
+        <div class="dashboard-topbar">
+          <span class="dashboard-title">Welcome, Editor <span th:text="${firstName}"></span></span>
+          <form th:action="@{'/addjournal/' + ${paperID}}" class="float-right">
+            <button class="btn btn-primary btn-lg">
+              Add Paper To Journal
+            </button>
+          </form>
+        </div>
+        <br />
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="reviewers1 : ${listOfReviewersAcceptedThePaper}">
+              <td th:text="${reviewers1.firstName} + ' ' + ${reviewers1.lastName}">Name</td>
+              <td th:text="${reviewers1.email}">Email</td>
+              <td th:text="'Reviewer has accepted the paper'">Status</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="reviewers2 : ${listOfReviewersRejectedThePaper}">
+                <td th:text="${reviewers2.firstName} + ' ' + ${reviewers2.lastName}">Name</td>
+                <td th:text="${reviewers2.email}">Email</td>
+                <td th:text="'Reviewer has rejected the paper'">Status</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="reviewers3 : ${listOfReviewersUndecidedPaper}">
+                <td th:text="${reviewers3.firstName} + ' ' + ${reviewers3.lastName}">Name</td>
+                <td th:text="${reviewers3.email}">Email</td>
+                <td th:text="'Reviewer is still deciding'">Status</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </body>
+
+  <footer>
+    <div th:insert="baseTemplate :: bootstrap-scripts"></div>
+  </footer>
+</html>

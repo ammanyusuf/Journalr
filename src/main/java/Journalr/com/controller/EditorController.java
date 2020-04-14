@@ -117,6 +117,24 @@ public class EditorController {
         return "redirect:/editor";
     }
 
+    @RequestMapping(path = "/viewProgress/{paperID}")
+    public String showTheProgressOfThePaper(@PathVariable(name = "paperID") int paperID, Model model) {
+
+        // Find the reviewers who have accepted the paper and add it to the model
+        List<Reviewer> listOfReviewersAcceptedThePaper = reviewerRepository.findApprovedReviewersAcceptPaper(paperID);
+        model.addAttribute("listOfReviewersAcceptedThePaper", listOfReviewersAcceptedThePaper);
+        // Find the reviewers who have accepted the paper and add it to the model
+        List<Reviewer> listOfReviewersRejectedThePaper = reviewerRepository.findApprovedReviewersRejectPaper(paperID);
+        model.addAttribute("listOfReviewersRejectedThePaper", listOfReviewersRejectedThePaper);
+        // Find the reviewers who have accepted the paper and add it to the model
+        List<Reviewer> listOfReviewersUndecidedPaper = reviewerRepository.findApprovedReviewersUnDecided(paperID);
+        model.addAttribute("listOfReviewersUndecidedPaper", listOfReviewersUndecidedPaper);
+
+        model.addAttribute("paperID", paperID);
+
+        return "viewProgress";
+    }
+
     /**
      * This method shows the reviewers for the given paper
      * @param paperID the id of the paper we want to show the reviewers of

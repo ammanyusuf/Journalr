@@ -21,7 +21,7 @@
               <th scope="col">Submission Deadline</th>
               <th scope="col">Download</th>
               <th scope="col">Reviewers</th>
-              <th scope="col">Add</th>
+              <th scope="col">View Progress</th>
               <th scope="col">Edit Deadline</th>
             </tr>
           </thead>
@@ -39,7 +39,7 @@
                 >
               </td>
               <td>
-                <a th:href="@{'/addjournal/' + ${paper.paperId}}">Add</a>
+                <a th:href="@{'/viewProgress/' + ${paper.paperId}}">View Progress</a>
               </td>
               <td>
                 <a th:href="@{'/editDeadline/' + ${paper.paperId}}">Edit</a>
