@@ -26,7 +26,6 @@ import Journalr.com.model.Author;
 @Controller
 public class AuthorController {
 
-
     @Autowired
     AuthorRepository authorRepository;
 
@@ -38,22 +37,6 @@ public class AuthorController {
 
     @Autowired
     ReviewerRepository reviewerRepository;
-
-    // The methods below are really for the admin
-    /**
-     * This method takes in the current displaying model as input.  It responds to the mapping 
-     * /newuser on the admin page.  Upon clicking this, it would display a new view called adduser.
-     * @param model The model is the current displaying template.
-     * @return This method will redirect the /newuser mapping to the template page adduser
-     */
-    /*
-    @RequestMapping("/newuser")
-    public String showAddUserPage(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-         
-        return "adduser";
-    }*/
 
     /**
      * This method will display all the papers that the author currently has uploaded
@@ -101,27 +84,9 @@ public class AuthorController {
         return "author";
     }
     
-    // This method is useless
 
     /**
-     * this method will download the given paper with the corresponding paper ID
-     * @param paperId this is the paper id that we wish to download
-     * @return this method will redirect to the downloadpaper page
-     */
-     /*@RequestMapping(path="/download/{paperId}")
-    public ModelAndView showDownloadPaperPage (@PathVariable(name = "paperId") int paperId) {
-        ModelAndView modelAndView = new ModelAndView("downloadpaper");
-        Optional<Paper> optional= paperRepository.findById(paperId);
-        if (optional.isPresent()) {
-            return modelAndView.addObject("paper", optional.get());
-        } else {
-            return new ModelAndView("error");
-        }   
-    }*/
-
-
-    /**
-     * this method will populate the authorAddReviewer page iwth all the potential reviewers
+     * this method will populate the authorAddReviewer page with all the potential reviewers
      * that the author wishes to add to the paper
      * @param paperId The paper id of the paper we want to add reviewers to
      * @param model The current model that is being passed through
@@ -155,101 +120,13 @@ public class AuthorController {
         return "authorAddReviewer";
     }
 
-    // I commented this out and placed the new version below
-    /**
-     * This method will add the reviewers that the author selected to the paper passed
-     * through
-     * @param paperId the papers that we want to add the reviewer to
-     * @param model the current working model
-     * @param reviewerId1 the first reviewer that we want to add.  If it is -1 we should not
-     *                    add this reviewer
-     * @param reviewerId2 the second reviewer that we want to add.  If it is -1 we should not
-     *                    add this reviewer
-     * @param reviewerId3 the third reviewer that we want to add.  If it is -1 we should not
-     *                    add this reviewer
-     * @return this method returns back to the author page
-     */
-   /* 
-    @RequestMapping(path="/authorAddReviewer/{paperId}", method = RequestMethod.POST)
-    public String authorAddReviewer (@PathVariable("paperId") int paperId, Model model,
-                                    @RequestParam("revId1") int reviewerId1,
-                                    @RequestParam("revId2") int reviewerId2,
-                                    @RequestParam("revId3") int reviewerId3) {
-        //
-        //
-        // Find the paper in our database
-        Paper paper = paperRepository.findById(paperId).get();
-        // Check if the reviewer id is not equal to 1
-        if (reviewerId1 != -1) {
-            
-            Reviewer reviewer = reviewerRepository.findById(reviewerId1).get();
-
-            // Assign the papers to the reviewers, and vice versa
-            reviewer.getPapers().add(paper);
-            paper.getReviewers().add(reviewer);
-
-            // Update database
-            paperRepository.save(paper);
-            reviewerRepository.save(reviewer);
-
-            //Update major,minor,accept,able to review attributes
-            paperRepository.updateMajorRev(0, paperId, reviewerId1);
-            paperRepository.updateMinorRev(0, paperId, reviewerId1);
-            paperRepository.updateAccept(0, paperId, reviewerId1);
-            paperRepository.updateAbleToReview(0, paperId, reviewerId1);
-            paperRepository.updateReject(0, paperId, reviewerId1);
-        }
-        // Check if the reviewer id is not equal to 1
-        if (reviewerId2 != -1) {
-            Reviewer reviewer = reviewerRepository.findById(reviewerId2).get();
-
-            // Assign the papers to the reviewers, and vice versa
-            reviewer.getPapers().add(paper);
-            paper.getReviewers().add(reviewer);
-
-            // Update database
-            paperRepository.save(paper);
-            reviewerRepository.save(reviewer);
-
-            //Update major,minor,accept,able to review attributes
-            paperRepository.updateMajorRev(0, paperId, reviewerId2);
-            paperRepository.updateMinorRev(0, paperId, reviewerId2);
-            paperRepository.updateAccept(0, paperId, reviewerId2);
-            paperRepository.updateAbleToReview(0, paperId, reviewerId2);
-            paperRepository.updateReject(0, paperId, reviewerId2);
-        }
-        // Check if the reviewer id is not equal to 1
-        if (reviewerId3 != -1) {
-            Reviewer reviewer = reviewerRepository.findById(reviewerId3).get();
-
-            // Assign the papers to the reviewers, and vice versa
-            reviewer.getPapers().add(paper);
-            paper.getReviewers().add(reviewer);
-
-            // Update database
-            paperRepository.save(paper);
-            reviewerRepository.save(reviewer);
-
-            //Update major,minor,accept,able to review attributes
-            paperRepository.updateMajorRev(0, paperId, reviewerId3);
-            paperRepository.updateMinorRev(0, paperId, reviewerId3);
-            paperRepository.updateAccept(0, paperId, reviewerId3);
-            paperRepository.updateAbleToReview(0, paperId, reviewerId3);
-            paperRepository.updateReject(0, paperId, reviewerId3);
-            
-        }
-        
-        return "redirect:/author";   
-    
-    }
-*/
     
     // NEW with search reviewer
     /**
      * This method will add the reviewers that the author selected to the paper passed
      * through
      * 
-     * Detals: RequestParam parameters will be Strings since the html input returns 
+     * Details: RequestParam parameters will be Strings since the html input returns 
      * 		   a string in the form "FirstName LastName (ID: userId)"
      * 
      * @param paperId the papers that we want to add the reviewer to
@@ -358,7 +235,7 @@ public class AuthorController {
     }
     
     /**
-     * This method will retireved the currently logged in user's id
+     * This method will retrieve the currently logged in user's id
      * @return this method returns the currently logged in user's id
      */
     public int getCurrentlyLoggedInUser() {

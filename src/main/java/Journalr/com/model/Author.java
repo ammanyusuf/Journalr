@@ -1,12 +1,5 @@
 package Journalr.com.model;
 
-/*
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-*/
 import javax.persistence.*;
 import java.util.*;
 
@@ -29,18 +22,7 @@ public class Author extends User{
 	public Author(User user) {
 		super(user);
 	}	
-	/*
-	public void setPaper(ArrayList<Paper> aPaper) {
-	}
-
-	public void uploadFile () {
 	
-	}
-
-	public Boolean submitFile(ArrayList<Paper> aPaper) {
-		return true; 
-	}
-	*/
 	public Set<Paper> getPapers() {
         return papers;                  // Not an encapsulating method for now
     }

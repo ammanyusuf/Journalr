@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import	java.util.Collection;
-//import Journalr.com.model.LoginForm;
+
 
 @Controller
 public class LoginController {

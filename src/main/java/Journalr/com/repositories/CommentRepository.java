@@ -18,14 +18,14 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     /**
      * This method finds a unique comment by the comment id
-     * @param commentId the unqiue comment id that corresponds to the comment retrieved
+     * @param commentId the unique comment id that corresponds to the comment retrieved
      * @return A list of comments that have the unique comment id
      */
     List<Comment> findByCommentId(int commentId);
 
     /**
-     * This method retreives all of the comments about a given paper
-     * @param paperid The paper id of the paper that we want to retireve all of the comments for
+     * This method retrieves all of the comments about a given paper
+     * @param paperid The paper id of the paper that we want to retrieve all of the comments for
      * @return The list of comments that were written for the paper
      */
     @Query(value = "SELECT * FROM comment WHERE paper_ID=?1",
@@ -34,7 +34,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     /**
      * This method retrieves all of the comments written for a major revision for a given paper
-     * @param paperId The paper id of the paper that we want to retireve all major revision comments for
+     * @param paperId The paper id of the paper that we want to retrieve all major revision comments for
      * @return The list of major revision comments that were written for the paper
      */
     @Query(value = "SELECT * FROM comment WHERE paper_ID=?1 AND topic='major_rev'", 
@@ -43,7 +43,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     /**
      * This method retrieves all of the comments written for a minor revision for a given paper
-     * @param paperId The paper id of the paper that we want to retireve all minor revision comments for
+     * @param paperId The paper id of the paper that we want to retrieve all minor revision comments for
      * @return The list of minor revision comments that were written for the paper
      */
     @Query(value = "SELECT * FROM comment WHERE paper_ID=?1 AND topic='minor_rev'", 

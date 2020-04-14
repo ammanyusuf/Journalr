@@ -1,18 +1,8 @@
 package Journalr.com.model;
-/*
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import Journalr.com.model.*;*/
 
 import java.util.*;
 import javax.persistence.*;
 
-//@Inheritance
 @Entity
 @PrimaryKeyJoinColumn(name = "reviewer_ID")
 public class Reviewer extends User{
