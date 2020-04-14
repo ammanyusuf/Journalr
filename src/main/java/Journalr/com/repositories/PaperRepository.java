@@ -246,6 +246,10 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
         nativeQuery = true)
         Boolean retrieveRejectColumnForPaperReview(int paperId, int reviewerId);
 
+    /**
+     * This method will retreive all of the papers that have been approved
+     * @return a list of approved papers
+     */
     @Query(value = "SELECT * FROM paper WHERE approved=1",
         nativeQuery = true)
         List<Paper> findALlApprovedPapers();

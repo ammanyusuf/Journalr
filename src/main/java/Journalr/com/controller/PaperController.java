@@ -345,6 +345,11 @@ public class PaperController {
         return "redirect:/editor";
     }	      
 
+    /**
+     * This method will display all of the approved journals/papers in the system
+     * @param model The current working model
+     * @return A list of papers that have been approved
+     */
     @RequestMapping(value="/journals", method=RequestMethod.GET)
     public String showAllJournals(Model model) {
 
