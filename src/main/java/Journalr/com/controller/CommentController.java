@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import Journalr.com.model.Comment;
-import Journalr.com.model.CommentOfReviewer;
 import Journalr.com.model.Paper;
 import Journalr.com.model.Reviewer;
 import Journalr.com.model.User;
@@ -139,66 +138,15 @@ public class CommentController {
 		}
 		model.addAttribute("paperTitle", paper.getTitle());
 
-		// Find all users with the role type of 'reviewer'
-		List<User> listOfReviewers = userRepository.findByRolesContaining("REVIEWER");
-
-		// Initialize an array fo commentsOfReviewer objects
-		List<CommentOfReviewer> listOfCommentsOfReviewerMajorRev = new ArrayList<>();
-		// Find all of the comments under a major revision for the given paper
 		List<Comment> listMajorRevComments = commentRepository.findMajorRevCommentsPerPaper(paperId);
-		// This will iterate through every comment in the list of retrieved comments
-		// and every reviewer in the list of users and will join the two.  This is done
-		// so the full name of the reviewer shows up with the comment and the comment date
-		for (Comment comment : listMajorRevComments) {
-			for (User reviewer : listOfReviewers) {
-				if (comment.getReviewer().getUserId() == reviewer.getUserId()) {
-					CommentOfReviewer commentOfReviewer = new CommentOfReviewer(comment,reviewer);
-					listOfCommentsOfReviewerMajorRev.add(commentOfReviewer);
-				}
-			}
-		}
+		model.addAttribute("listOfCommentsOfReviewerMajorRev", listMajorRevComments);
 
-		// Add the list of comments of reviewer that are majore revisions to the page
-		model.addAttribute("listOfCommentsOfReviewerMajorRev", listOfCommentsOfReviewerMajorRev);
-
-		// Initialize an array fo commentsOfReviewer objects
-		List<CommentOfReviewer> listOfCommentsOfReviewerMinorRev = new ArrayList<>();
-		// Find all of the comments under a minor revision for the given paper
 		List<Comment> listMinorRevComments = commentRepository.findMinorRevCommentsPerPaper(paperId);
-		// This will iterate through every comment in the list of retrieved comments
-		// and every reviewer in the list of users and will join the two.  This is done
-		// so the full name of the reviewer shows up with the comment and the comment date
-		for (Comment comment : listMinorRevComments) {
-			for (User reviewer : listOfReviewers) {
-				if (comment.getReviewer().getUserId() == reviewer.getUserId()) {
-					CommentOfReviewer commentOfReviewer = new CommentOfReviewer(comment,reviewer);
-					listOfCommentsOfReviewerMinorRev.add(commentOfReviewer);
-				}
-			}
-		}
+		model.addAttribute("listOfCommentsOfReviewerMinorRev", listMinorRevComments);
 
-		// Add the list of comments of reviewrs that are minor revisions to the page
-		model.addAttribute("listOfCommentsOfReviewerMinorRev", listOfCommentsOfReviewerMinorRev);
-
-		// Initialize an array fo commentsOfReviewer objects
-		List<CommentOfReviewer> listOfCommentsOfReviewerGeneral = new ArrayList<>();
-		// Find all of the comments under a general revision for the given paper
 		List<Comment> listGeneralComments = commentRepository.findGeneralCommentsPerPaper(paperId);
-		// This will iterate through every comment in the list of retrieved comments
-		// and every reviewer in the list of users and will join the two.  This is done
-		// so the full name of the reviewer shows up with the comment and the comment date
-		for (Comment comment : listGeneralComments) {
-			for (User reviewer : listOfReviewers) {
-				if (comment.getReviewer().getUserId() == reviewer.getUserId()) {
-					CommentOfReviewer commentOfReviewer = new CommentOfReviewer(comment,reviewer);
-					listOfCommentsOfReviewerGeneral.add(commentOfReviewer);
-				}
-			}
-		}
+		model.addAttribute("listOfCommentsOfReviewerGeneral", listGeneralComments);
 
-		// Add the list of comments of reviewers that are general comments to the page
-		model.addAttribute("listOfCommentsOfReviewerGeneral", listOfCommentsOfReviewerGeneral);
-		
 		return "viewComments";
 	}
 

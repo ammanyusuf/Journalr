@@ -35,7 +35,7 @@
                   th:each="commentsMajorRev : ${listOfCommentsOfReviewerMajorRev}"
                 >
                   <td th:text="${commentsMajorRev.comment}">Comment</td>
-                  <td th:text="${commentsMajorRev.reviewerName}">By</td>
+                  <td th:text="${commentsMajorRev.reviewer.firstName} + ' ' + ${commentsMajorRev.reviewer.lastName}">By</td>
                   <td th:text="${commentsMajorRev.commentDate}">
                     Commented On
                   </td>
@@ -60,7 +60,7 @@
                   th:each="commentsMinorRev : ${listOfCommentsOfReviewerMinorRev}"
                 >
                   <td th:text="${commentsMinorRev.comment}">Comment</td>
-                  <td th:text="${commentsMinorRev.reviewerName}">By</td>
+                  <td th:text="${commentsMinorRev.reviewer.firstName} + ' ' + ${commentsMinorRev.reviewer.lastName}">By</td>
                   <td th:text="${commentsMinorRev.commentDate}">
                     Commented On
                   </td>
@@ -85,7 +85,7 @@
                   th:each="commentsGeneral : ${listOfCommentsOfReviewerGeneral}"
                 >
                   <td th:text="${commentsGeneral.comment}">Comment</td>
-                  <td th:text="${commentsGeneral.reviewerName}">By</td>
+                  <td th:text="${commentsGeneral.reviewer.firstName} + ' ' + ${commentsGeneral.reviewer.lastName}">By</td>
                   <td th:text="${commentsGeneral.commentDate}">Commented On</td>
                 </tr>
               </tbody>
