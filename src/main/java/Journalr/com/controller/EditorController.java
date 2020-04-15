@@ -15,9 +15,7 @@ import Journalr.com.repositories.UserRepository;
 import Journalr.com.model.User;
 import Journalr.com.model.UserDetailsClass;
 
-//import java.io.FileNotFoundException;
 import java.util.*;
-//import java.util.Map;
 
 import Journalr.com.model.Paper;
 import Journalr.com.model.Reviewer;
@@ -117,6 +115,13 @@ public class EditorController {
         return "redirect:/editor";
     }
 
+    /**
+     * This method will allow the edtior to view the progress of a given paper.  The progress
+     * includes all of the reviewers currently reviewing it and its accept/reject status
+     * @param paperID The paper id of the paper we want to view the progress of
+     * @param model The current working model
+     * @return The page viewProgress with a list of reviewers approval progress
+     */
     @RequestMapping(path = "/viewProgress/{paperID}")
     public String showTheProgressOfThePaper(@PathVariable(name = "paperID") int paperID, Model model) {
 

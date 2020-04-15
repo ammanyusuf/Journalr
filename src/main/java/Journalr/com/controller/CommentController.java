@@ -138,18 +138,28 @@ public class CommentController {
 		}
 		model.addAttribute("paperTitle", paper.getTitle());
 
+		// Add a list of major reivew comments to the page
 		List<Comment> listMajorRevComments = commentRepository.findMajorRevCommentsPerPaper(paperId);
 		model.addAttribute("listOfCommentsOfReviewerMajorRev", listMajorRevComments);
 
+		// Add a list of minor review comments to the page
 		List<Comment> listMinorRevComments = commentRepository.findMinorRevCommentsPerPaper(paperId);
 		model.addAttribute("listOfCommentsOfReviewerMinorRev", listMinorRevComments);
 
+		// Add a list of general comments to the page
 		List<Comment> listGeneralComments = commentRepository.findGeneralCommentsPerPaper(paperId);
 		model.addAttribute("listOfCommentsOfReviewerGeneral", listGeneralComments);
 
 		return "viewComments";
 	}
 
+	/**
+	 * This method will display all of the comments written by a reviewer for 
+	 * a given paper
+	 * @param paperId The paper id of the paper we want to display the comments of
+	 * @param model The current working model
+	 * @return The viewMyCommentsReviewer page with populated comments written by the reviewer
+	 */
 	@RequestMapping(path="**/viewMyCommentsReviewer/{paperId}", method = RequestMethod.GET)
 	public String viewCommentsMadeByReviewer(@PathVariable(name="paperId") int paperId, Model model) {
 		//Get the current user

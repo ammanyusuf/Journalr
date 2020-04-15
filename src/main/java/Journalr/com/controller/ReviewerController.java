@@ -13,8 +13,6 @@ import Journalr.com.repositories.UserRepository;
 import Journalr.com.repositories.ReviewerRepository;
 
 import java.util.*;
-//import java.util.Map;
-
 
 import Journalr.com.model.Paper;
 import Journalr.com.model.User;
@@ -24,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-//@RestController
 @Controller
 public class ReviewerController {
 
@@ -258,6 +254,11 @@ public class ReviewerController {
         return "paperTopics";
     }
 
+    /**
+     * This method will retrieve the papers that the reviewer is currently reviewing
+     * @param model The current working model
+     * @return The page mypapersReiviewer with the papers the reviewer is reviewing
+     */
     @RequestMapping(value="/reviewer/mypapersReviewer", method=RequestMethod.GET)
     public String populateMyPapersReviewer(Model model) {
 
@@ -293,6 +294,12 @@ public class ReviewerController {
         return "mypapersReviewer";
     }
     
+    /**
+     * This method will display the page where the reviewer can accept or reject papers
+     * @param model The current working model
+     * @return The page paperAccept with a list of papers ready to accept/reject as well as
+     *         already accepted or rejected papers
+     */
     @RequestMapping(value = "/reviewer/paperAccept")
     public String populatePaperAccepts(Model model) {
         

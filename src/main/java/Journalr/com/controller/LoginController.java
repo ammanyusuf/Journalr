@@ -25,7 +25,12 @@ public class LoginController {
 		return "signUp";
 	}
 
-	//this method redirects the newly authenticated user to the appropriate page based on their role (ex. admin goes to adminPage , author, etc...)
+	//
+	/**
+	 * this method redirects the newly authenticated user to the appropriate 
+	 * page based on their role (ex. admin goes to adminPage , author, etc...)
+	 * @return the appropirate home page of the user
+	 */
 	@RequestMapping("/home")
 	public String processLogin() {
 	  Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>)

@@ -269,6 +269,7 @@ public class PaperController {
 	@RequestMapping(path="/savePaperTitleAndTopic", method = RequestMethod.POST)
 	public String savePaper (@ModelAttribute Paper paper) {
 
+        // Check if the paper exists in the database
         Paper aPaper;
         try {
             aPaper = paperRepository.findById(paper.getPaperId()).get();
@@ -276,6 +277,7 @@ public class PaperController {
             return "redirect:/error";
         }
         
+        // Set the title and topic of the paper
 		aPaper.setTitle(paper.getTitle());
 		aPaper.setTopic(paper.getTopic());
 		paperRepository.save(aPaper);
@@ -312,7 +314,8 @@ public class PaperController {
      */
     @RequestMapping(path="/editDeadline/{paperId}")
     public String showEditDeadlinePage (Model model, @PathVariable(name = "paperId") int paperId) {
-    		
+        
+        // Add the current paper id to the page
     	model.addAttribute("paperId", paperId);
 		
     	return "editDeadline";
@@ -332,12 +335,14 @@ public class PaperController {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");          // html takes dates as strings
         Date deadline = format.parse(date);                                    // so convert the Date to a String
         
+        // Check if the paper exists
         Paper paper = null;
         try {
             paper = paperRepository.findById(paperId).get(); 
         } catch (NoSuchElementException e) {
             return "redirect:/error";
         }
+        // Set the submission deadline of the paper
         paper.setSubmissionDeadline(deadline);
         
         paperRepository.save(paper);
@@ -360,5 +365,4 @@ public class PaperController {
         return "journals";
     }
     
-
 }

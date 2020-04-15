@@ -13,14 +13,12 @@ import Journalr.com.repositories.ReviewerRepository;
 import Journalr.com.repositories.UserRepository;
 
 import java.util.*;
-//import java.util.Map;
 
 import Journalr.com.model.Author;
 import Journalr.com.model.Editor;
 import Journalr.com.model.Reviewer;
 import Journalr.com.model.User;
 
-//@RestController
 @Controller
 public class UserController {
 

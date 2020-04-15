@@ -22,8 +22,6 @@ public class LoginService {
 
 		return false;
 
-		//return userid.equalsIgnoreCase("user1")
-		//		&& password.equalsIgnoreCase("useronepassword");
 	}
 
 }

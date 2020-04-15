@@ -14,7 +14,6 @@ import Journalr.com.repositories.ReviewerRepository;
 import Journalr.com.repositories.UserRepository;
 
 import java.util.*;
-//import java.util.Map;
 
 import Journalr.com.model.Paper;
 import Journalr.com.model.Reviewer;
@@ -22,7 +21,6 @@ import Journalr.com.model.User;
 import Journalr.com.model.UserDetailsClass;
 import Journalr.com.model.Author;
 
-//@RestController
 @Controller
 public class AuthorController {
 
