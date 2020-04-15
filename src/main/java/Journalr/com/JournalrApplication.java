@@ -13,6 +13,9 @@ import Journalr.com.repositories.UserRepository;
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
 public class JournalrApplication {
 
+  /**
+   * This is the main method
+   */
   public static void main(String[] args) {
     SpringApplication.run(JournalrApplication.class, args);
   }
