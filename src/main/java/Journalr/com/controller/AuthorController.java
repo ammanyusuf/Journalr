@@ -67,6 +67,11 @@ public class AuthorController {
 
             model.addAttribute("approvedPapers", approvedPapers);
 
+            // Find all the papers that have been rejected for that author
+            List<Paper> rejectedPapers = paperRepository.findRejectedPapersForAuthors(author.getUserId());
+
+            model.addAttribute("rejectedPapers", rejectedPapers);
+
             // Find all the author's papers that are under review
             List<Paper> reviewedPapers = paperRepository.findReviewedPapersPerAuthors(author.getUserId());
 

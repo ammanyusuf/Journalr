@@ -102,7 +102,47 @@
 	                </tr>
 	              </tbody>
 	            </table>
-	          </div>
+			  </div>
+			<!-- Table for rejected papers -->  
+			<b> <font size="6"> Rejected papers </font> </b>
+            <br />
+            <br />
+            <p>These are papers that have been rejected by an editor</p>
+            <div th:if="${#lists.isEmpty(rejectedPapers)}">
+            	<div th:replace="baseTemplate :: emptyTable"></div><br>
+            </div>
+            <div th:unless="${#lists.isEmpty(rejectedPapers)}">
+	            <table class="table table-bordered table-hover">
+	              <thead>
+	                <tr>
+	                  <th scope="col">Title</th>
+	                  <th scope="col">File Name</th>
+	                  <th scope="col">File Type</th>
+	                  <th scope="col">Topic</th>
+	                  <th scope="col">Download</th>
+	                  <th scope="col">View Comments</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr th:each="rejectedPaper : ${rejectedPapers}">
+	                  <td th:text="${rejectedPaper.title}">Title</td>
+	                  <td th:text="${rejectedPaper.fileName}">File Name</td>
+	                  <td th:text="${rejectedPaper.fileType}">File Type</td>
+	                  <td th:text="${rejectedPaper.topic}">Topic</td>
+	                  <td>
+	                    <a th:href="@{'/downloadFile/' + ${rejectedPaper.paperId}}"
+	                      >Download</a
+	                    >
+	                  </td>
+	                  <td>
+	                    <a th:href="@{'/viewComments/' + ${rejectedPaper.paperId}}"
+	                      >View Comments</a
+	                    >
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+			  </div>
             <!-- Table for papers under review -->
             <b> <font size="6"> Under Review </font> </b>
             <br />

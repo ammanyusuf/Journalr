@@ -198,12 +198,23 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
     /**
      * This method retrieves the papers that have been approved into the system by the editor.
      * These papers are unique to the author that is passed through
+     * @param author_id The author id of the author that we want to find rejected papers of
+     * @return The list of papers written by the author that have been rejected into the system
+     */
+    @Query(value = "SELECT * FROM paper as p WHERE p.approved = 0 and p.author_id = ?1", 
+        nativeQuery = true)
+        List<Paper> findRejectedPapersForAuthors(int author_id);
+
+    /**
+     * This method retrieves the papers that have been rejected into the system by the editor.
+     * These papers are unique to the author that is passed through
      * @param author_id The author id of the author that we want to find approved papers of
      * @return The list of papers written by the author that have been approved into the system
      */
     @Query(value = "SELECT * FROM paper as p WHERE p.approved = 1 and p.author_id = ?1", 
         nativeQuery = true)
         List<Paper> findApprovedPapersForAuthors(int author_id);
+    
 
     // User case 4: As an author, I should receive a notification when my work has been reviewed, so I can go find my reviewed file.
     /**
@@ -247,7 +258,7 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
         Boolean retrieveRejectColumnForPaperReview(int paperId, int reviewerId);
 
     /**
-     * This method will retreive all of the papers that have been approved
+     * This method will retrieve all of the papers that have been approved
      * @return a list of approved papers
      */
     @Query(value = "SELECT * FROM paper WHERE approved=1",
