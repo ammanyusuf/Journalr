@@ -201,7 +201,7 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
      * @param author_id The author id of the author that we want to find rejected papers of
      * @return The list of papers written by the author that have been rejected into the system
      */
-    @Query(value = "SELECT * FROM paper as p WHERE p.approved = 0 and p.author_id = ?1", 
+    @Query(value = "SELECT * FROM paper as p WHERE p.approved = 0 and p.author_id = ?1 and p.paper_ID IN (select rp.paper_ID from review_paper as rp where rp.reject=1)", 
         nativeQuery = true)
         List<Paper> findRejectedPapersForAuthors(int author_id);
 
