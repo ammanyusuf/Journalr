@@ -18,6 +18,11 @@ public class UserDetailService implements UserDetailsService {
 	@Autowired
 	UserRepository userRepository;
 	
+	/**
+	 * This method finds the user details by a given user name
+	 * @param userName the userName we wish to find the userdetail of
+	 * @return the userdetail object that corresponds to the given user name
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		

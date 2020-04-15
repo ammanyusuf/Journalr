@@ -18,6 +18,11 @@ public class PaperStorageService {
     @Autowired
     private PaperRepository paperRepository;
 
+    /**
+     * This method stores the file into the database
+     * @param file The file we want to add into the database
+     * @return The new paper that was created
+     */
     public Paper storeFile(MultipartFile file) { // returns saved file
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -37,6 +42,11 @@ public class PaperStorageService {
         }
     }
 
+    /**
+     * This method gets the paper with a given paper id
+     * @param paperId The paper id of
+     * @return The paper
+     */
     public Paper getFile(String paperId) {
         return paperRepository.findById(Integer.parseInt(paperId))
                 .orElseThrow(() -> new MyFileNotFoundException("Paper not found with id " + paperId));
