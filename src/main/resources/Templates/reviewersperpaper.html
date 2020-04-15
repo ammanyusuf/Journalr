@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
   <head th:replace="baseTemplate :: header(title=~{::title/text()})">
-    <title>Paper</title>
+    <title>Reviewers | Reviewers Per Paper</title>
   </head>
 
   <body class="blue-gradient">
@@ -25,50 +25,62 @@
           </div>
         </div>
         <br />
-        <a>Approved</a>
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th scope="col">First Name</th>
-              <th scope="col">Last Name</th>
-              <th scope="col">Remove</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="user : ${listApprovedReviewers}">
-              <td th:text="${user.firstName}">Firt Name</td>
-              <td th:text="${user.lastName}">Last Name</td>
-              <td>
-                <a
-                  th:href="@{'/removereviewer/' + ${user.userId} + '/' + ${paper.paperId}}"
-                  >Remove</a
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <a>Pending</a>
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th scope="col">First Name</th>
-              <th scope="col">Last Name</th>
-              <th scope="col">Add</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="user : ${listPendingReviewers}">
-              <td th:text="${user.firstName}">Firt Name</td>
-              <td th:text="${user.lastName}">Last Name</td>
-              <td>
-                <a
-                  th:href="@{'/addreviewer/' + ${user.userId} + '/' + ${paper.paperId}}"
-                  >Add</a
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <p class="text-success">Approved</p>
+        <div th:if="${#lists.isEmpty(listApprovedReviewers)}">
+        	<div th:replace="baseTemplate :: emptyTable"></div><br>
+        </div>
+        
+        <div th:unless="${#lists.isEmpty(listApprovedReviewers)}">
+	        <table class="table table-bordered table-hover">
+	          <thead>
+	            <tr>
+	              <th scope="col">First Name</th>
+	              <th scope="col">Last Name</th>
+	              <th scope="col">Remove</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <tr th:each="user : ${listApprovedReviewers}">
+	              <td th:text="${user.firstName}">Firt Name</td>
+	              <td th:text="${user.lastName}">Last Name</td>
+	              <td>
+	                <a
+	                  th:href="@{'/removereviewer/' + ${user.userId} + '/' + ${paper.paperId}}"
+	                  >Remove</a
+	                >
+	              </td>
+	            </tr>
+	          </tbody>
+	        </table>
+	    </div>
+        <p class="text-warning">Pending</p>
+        <div th:if="${#lists.isEmpty(listPendingReviewers)}">
+        	<div th:replace="baseTemplate :: emptyTable"></div><br>
+        </div>
+        
+        <div th:unless="${#lists.isEmpty(listPendingReviewers)}">
+	        <table class="table table-bordered table-hover">
+	          <thead>
+	            <tr>
+	              <th scope="col">First Name</th>
+	              <th scope="col">Last Name</th>
+	              <th scope="col">Add</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <tr th:each="user : ${listPendingReviewers}">
+	              <td th:text="${user.firstName}">Firt Name</td>
+	              <td th:text="${user.lastName}">Last Name</td>
+	              <td>
+	                <a
+	                  th:href="@{'/addreviewer/' + ${user.userId} + '/' + ${paper.paperId}}"
+	                  >Add</a
+	                >
+	              </td>
+	            </tr>
+	          </tbody>
+	        </table>
+	     </div>
       </div>
     </div>
 
