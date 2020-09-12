@@ -4,7 +4,7 @@ This is the Journalr Web Application.  It's purpose is to create a platform to m
 
 ## Tools / Languages used
 * Database Management System: MySQL
-* Languages: Java, HTML, CSS
+* Languages: Java, HTML, CSS, Javascript
 * Frameworks: Spring 
 * Journalr Web uses an MVC architecture pattern. 
 
